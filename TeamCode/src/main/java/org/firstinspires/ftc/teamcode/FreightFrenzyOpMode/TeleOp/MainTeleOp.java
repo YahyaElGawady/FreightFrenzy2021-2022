@@ -35,16 +35,15 @@ public class MainTeleOp extends LinearOpMode {
         telemetry.addLine("done with init");
         waitForStart();
         while (opModeIsActive()){
-            //drivetrain
+            /*      drivetrain      */
             double forward = -gamepad1.left_stick_y;
-            double right = gamepad1.left_stick_x;
             double turn = gamepad1.right_stick_x;
-            Base.drivetrain.drive(forward, right, turn, slowMode);
-            Base.neck.moveHuggerInTeleop(gamepad1.a);
-//            if(gamepad1.right_trigger < .1)
-//                Base.neck.movingNeck(gamepad1.left_trigger);
-//            if(gamepad1.left_trigger < .1)
-//                Base.neck.movingNeck(-gamepad1.right_trigger);
+            Base.drivetrain.drive(forward, turn, slowMode);
+            /*      intake      */
+
+            /*      outtake     */
+
+
         }
     }
 }

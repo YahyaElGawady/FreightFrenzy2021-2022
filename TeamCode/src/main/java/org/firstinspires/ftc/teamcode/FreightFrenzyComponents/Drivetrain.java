@@ -41,10 +41,10 @@ public class Drivetrain extends RobotComponent {
 
      void initMotors() {
 
-               frontLeft = base().getMapper().mapMotor("frontLeft");
+               frontLeft = base().getMapper().mapMotor("frontLeft", DcMotorSimple.Direction.REVERSE);
                motors[0] = frontLeft;
 
-               backLeft = base().getMapper().mapMotor("backLeft");
+               backLeft = base().getMapper().mapMotor("backLeft", DcMotorSimple.Direction.REVERSE);
                motors[1] = backLeft;
 
                frontRight = base().getMapper().mapMotor("frontRight", DcMotorSimple.Direction.REVERSE);
@@ -58,16 +58,15 @@ public class Drivetrain extends RobotComponent {
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
      }
-    public void drive(double forward, double right, double turn, boolean slowMode) {
+    public void drive(double forward, double turn, boolean slowMode) {
 
         forward = getProcessedInput(forward);
-        right = getProcessedInput(right);
         turn = getProcessedInput(turn);
 
-        double leftFrontPower = forward + right + turn;
-        double leftBackPower = forward - right + turn;
-        double rightFrontPower = forward - right - turn;
-        double rightBackPower = forward + right - turn;
+        double leftFrontPower = forward + turn;
+        double leftBackPower = forward + turn;
+        double rightFrontPower = forward - turn;
+        double rightBackPower = forward - turn;
         double[] powers = {leftFrontPower, leftBackPower, rightFrontPower, rightBackPower};
 
         boolean needToScale = false;

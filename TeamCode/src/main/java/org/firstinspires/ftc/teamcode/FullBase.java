@@ -27,7 +27,6 @@ public class FullBase extends RobotBase {
         drivetrain = new Drivetrain(this);
         telemetry.addLine("drive inited");
         components[0] = drivetrain;
-        //hi
     }
 
     /**
