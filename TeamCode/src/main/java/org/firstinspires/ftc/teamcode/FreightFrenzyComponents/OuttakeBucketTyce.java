@@ -10,10 +10,10 @@ public class OuttakeBucketTyce extends RobotComponent {
     public Servo dumper;
     public DcMotor slider;
 
-    public final int BOTTOM = 0, MIDDLE = 1, TOP = 2;
-    public final int spmap[] = {}; // TODO: add encoder values
-
-    class InvalidSlidePosition extends RuntimeException{}
+    public static final byte BOTTOM = 0, MIDDLE = 1, TOP = 2; // pos for slider enumeration values
+    public static final int spmap[] = {0, 0, 0}; // TODO: add encoder value
+    public static final int dump_pos = 0; // TODO: add position for dumping
+    public static final int neutral_pos = 0; // TODO: add position for not dumping
 
     public OuttakeBucketTyce(RobotBase base) {
         super(base);
@@ -26,11 +26,21 @@ public class OuttakeBucketTyce extends RobotComponent {
     }
 
     // Slides to BOTTOM, MIDDLE, or TOP.
-    public void slideTo(int spos){
-        slideEncoders(spmap[spos]);
+    public void slideTo(byte spos){
+        slider.setTargetPosition(spmap[spos]);
     }
-    void slideEncoders(int encoders){
-        slider.setTargetPosition(encoders);
+
+    public boolean dump(int millisecs){
+        dumper.setPosition(dump_pos);
+        try {
+            Thread.sleep(millisecs);
+        } catch (InterruptedException e) {
+            return false;
+        }
+        finally {
+            dumper.setPosition(neutral_pos);
+        }
+        return true;
     }
 
     @Override
