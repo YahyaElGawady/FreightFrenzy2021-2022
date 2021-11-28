@@ -13,12 +13,13 @@ public class DuckeySpinner extends RobotComponent {
         super(base);
         spinner = base.getMapper().mapServo("duckeySpinner");
     }
+
     public void spin(boolean button){
         if(button){
             spinner.setPosition((spinner.getPosition() + moveCount) % 1);
         }
     }
-    public void spinFor(int millis){
 
-    }
+    @Override
+    public void stop() {}
 }
