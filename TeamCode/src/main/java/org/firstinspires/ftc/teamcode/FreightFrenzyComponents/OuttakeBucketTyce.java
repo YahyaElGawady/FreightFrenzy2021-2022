@@ -10,10 +10,14 @@ public class OuttakeBucketTyce extends RobotComponent {
     public Servo dumper;
     public DcMotor slider;
 
-    public static final byte BOTTOM = 0, MIDDLE = 1, TOP = 2; // pos for slider enumeration values
-    public static final int spmap[] = {0, 0, 0}; // TODO: add encoder value
-    public static final int dump_pos = 0; // TODO: add position for dumping
-    public static final int neutral_pos = 0; // TODO: add position for not dumping
+//    public boolean sliderButtonIsHeld = false;
+    public boolean dumperButtonIsHeld = false;
+    public double dumperPosition =  NEUTRAL;
+    public int sliderPosition = DOWN;
+
+    public static final int DOWN = 0, BOTTOM = 1, MIDDLE = 2, TOP = 3;  // TODO: add encoder values
+    public static final double DUMPED = 0; // TODO: add position for dumping
+    public static final double NEUTRAL = 0; // TODO: add position for not dumping
 
     public OuttakeBucketTyce(RobotBase base) {
         super(base);
@@ -25,27 +29,62 @@ public class OuttakeBucketTyce extends RobotComponent {
 //        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    // Slides to BOTTOM, MIDDLE, or TOP.
-    public void slideTo(byte spos){
-        slider.setTargetPosition(spmap[spos]);
+    // Finds next position in O(1)
+    public int nextPosition(){
+        switch(sliderPosition){
+            case DOWN: sliderPosition = BOTTOM; break;
+            case BOTTOM: sliderPosition = MIDDLE; break;
+            case MIDDLE: sliderPosition = TOP; break;
+        }
+        return sliderPosition;
+    }
+    // Finds prev position in O(1)
+    public int prevPosition(){
+        switch(sliderPosition){
+            case BOTTOM: sliderPosition = DOWN; break;
+            case MIDDLE: sliderPosition = BOTTOM; break;
+            case TOP: sliderPosition = MIDDLE; break;
+        }
+        return sliderPosition;
     }
 
-    public boolean dump(int millisecs){
-        dumper.setPosition(dump_pos);
-        try {
-            Thread.sleep(millisecs);
-        } catch (InterruptedException e) {
-            return false;
+    // Slides to DOWN, BOTTOM, MIDDLE, or TOP based on up or down
+    public void slideInTeleop(boolean up, boolean down){
+        if(up) {
+            slider.setTargetPosition(nextPosition());
         }
-        finally {
-            dumper.setPosition(neutral_pos);
+        else if(down){
+            slider.setTargetPosition(prevPosition());
         }
-        return true;
     }
+    public void slide(int encoders){
+        slider.setTargetPosition(sliderPosition = encoders);
+    }
+//    public boolean slideInTeleop(boolean button, int spos){
+//        if(button && !sliderButtonIsHeld){
+//            slide(spos);
+//        }
+//        sliderButtonIsHeld = button;
+//    }
 
+//    public void dump(boolean dump){
+//        if (dump && dumperPosition == NEUTRAL) {
+//            dumper.setPosition(dumperPosition = DUMPED);
+//        } else if (!dump && dumperPosition == DUMPED) {
+//            dumper.setPosition(dumperPosition = NEUTRAL);
+//        }
+//    }
+
+    // Toggles dumper position
+    public void dump(boolean button){
+        if(!dumperButtonIsHeld && button) {
+            dumper.setPosition(dumperPosition = (dumperPosition == NEUTRAL ? DUMPED : NEUTRAL));
+        }
+        dumperButtonIsHeld = button;
+    }
     @Override
     public void stop() {
         slider.setPower(0);
-        dumper.setPosition(0); // TODO: fill with accurate number
+        dumper.setPosition(dumperPosition = NEUTRAL);
     }
 };
