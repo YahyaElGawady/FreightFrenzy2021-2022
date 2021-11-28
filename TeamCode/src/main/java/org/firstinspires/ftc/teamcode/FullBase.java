@@ -10,9 +10,10 @@ import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.*;
 
 public class FullBase extends RobotBase {
     public Drivetrain drivetrain;
-    public Neck neck;
+    public Sucker sucker;
+    public OuttakeBucket outtakeBucket;
 
-    private RobotComponent[] components = new RobotComponent[2];
+    private RobotComponent[] components = new RobotComponent[4];
 
     public double rpm = 0;
 
@@ -27,6 +28,16 @@ public class FullBase extends RobotBase {
         drivetrain = new Drivetrain(this);
         telemetry.addLine("drive inited");
         components[0] = drivetrain;
+
+        telemetry.addLine("Sucker about to init");
+        sucker = new Sucker(this);
+        telemetry.addLine("sucker inited");
+        components[1] = sucker;
+
+        telemetry.addLine("Outtake about to init");
+        outtakeBucket = new OuttakeBucket(this);
+        telemetry.addLine("outtake inited");
+        components[2] = outtakeBucket;
     }
 
     /**
