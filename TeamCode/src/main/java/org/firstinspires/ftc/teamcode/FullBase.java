@@ -12,8 +12,7 @@ public class FullBase extends RobotBase {
     public Drivetrain drivetrain;
     public Sucker sucker;
     public OuttakeBucket outtakeBucket;
-
-    private RobotComponent[] components = new RobotComponent[4];
+    private RobotComponent[] components = new RobotComponent[3];
 
     public double rpm = 0;
 
@@ -49,7 +48,7 @@ public class FullBase extends RobotBase {
     }
     @Override
     public void stop() {
-        for( int i = 0; i<=1; i++){
+        for( int i = 0; i<components.length; ++i){
             components[i].stop();
         }
     }
