@@ -103,7 +103,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcontroller.internal.RobotBase;
 import org.firstinspires.ftc.robotcontroller.internal.RobotComponent;
 
-public class OuttakeBucketTyce extends RobotComponent {
+public class OuttakeBucket extends RobotComponent {
     public Servo dumper;
     public DcMotor slider;
 
@@ -116,7 +116,7 @@ public class OuttakeBucketTyce extends RobotComponent {
     public static final double DUMPED = 0; // TODO: add position for dumping
     public static final double NEUTRAL = 0; // TODO: add position for not dumping
 
-    public OuttakeBucketTyce(RobotBase base) {
+    public OuttakeBucket(RobotBase base) {
         super(base);
         initServosAndMotors();
     }
