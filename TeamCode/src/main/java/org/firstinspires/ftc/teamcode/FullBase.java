@@ -36,7 +36,7 @@ public class FullBase extends RobotBase {
         components[1] = sucker;
 
         telemetry.addLine("Outtake about to init");
-        outtakeBucket = new OuttakeBucketTyce(this);
+        outtakeBucket = new OuttakeBucket(this);
         telemetry.addLine("outtake inited");
         components[2] = outtakeBucket;
 

@@ -111,10 +111,12 @@ public class OuttakeBucket extends RobotComponent {
     public boolean dumperButtonIsHeld = false;
     public double dumperPosition =  NEUTRAL;
     public int sliderPosition = DOWN;
+    public int sliderTop = TOP;
 
     public static final int DOWN = 0, BOTTOM = 1, MIDDLE = 2, TOP = 3;  // TODO: add encoder values
     public static final double DUMPED = 0; // TODO: add position for dumping
     public static final double NEUTRAL = 0; // TODO: add position for not dumping
+    public static final double POWER = 0;   // TODO: add slider Power
 
     public OuttakeBucket(RobotBase base) {
         super(base);
@@ -123,39 +125,43 @@ public class OuttakeBucket extends RobotComponent {
     void initServosAndMotors() {
         dumper = base.getMapper().mapServo("dumper");
         slider = base.getMapper().mapMotor("slider");
-//        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    // Finds next position in O(1)
-    public int nextPosition(){
-        switch(sliderPosition){
-            case DOWN: sliderPosition = BOTTOM; break;
-            case BOTTOM: sliderPosition = MIDDLE; break;
-            case MIDDLE: sliderPosition = TOP; break;
+    public int nextTop(){
+        switch(sliderTop){
+            case DOWN: return BOTTOM;
+            case BOTTOM: return MIDDLE;
         }
-        return sliderPosition;
+        return TOP;
     }
-    // Finds prev position in O(1)
-    public int prevPosition(){
-        switch(sliderPosition){
-            case BOTTOM: sliderPosition = DOWN; break;
-            case MIDDLE: sliderPosition = BOTTOM; break;
-            case TOP: sliderPosition = MIDDLE; break;
+    public int prevTop(){
+        switch(sliderTop){
+            case TOP: return MIDDLE;
         }
-        return sliderPosition;
+        return BOTTOM;
     }
-
     // Slides to DOWN, BOTTOM, MIDDLE, or TOP based on up or down
-    public void slideInTeleop(boolean up, boolean down){
-        if(up) {
-            slider.setTargetPosition(nextPosition());
+    public void slideInTeleop(boolean button){
+        if(button) {
+            switch(sliderPosition){
+                case DOWN: slide(sliderTop); break;
+                default: slide(DOWN);
+            }
+        }
+    }
+    public void changeTopInTeleOp(boolean up, boolean down){
+        if(up){
+            sliderTop = nextTop();
         }
         else if(down){
-            slider.setTargetPosition(prevPosition());
+            sliderTop = prevTop();
         }
     }
     public void slide(int encoders){
         slider.setTargetPosition(sliderPosition = encoders);
+        slider.setPower(POWER);
     }
 //    public boolean slideInTeleop(boolean button, int spos){
 //        if(button && !sliderButtonIsHeld){
