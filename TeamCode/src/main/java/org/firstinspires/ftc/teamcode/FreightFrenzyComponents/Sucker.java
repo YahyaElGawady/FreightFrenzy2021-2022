@@ -56,6 +56,7 @@ public class Sucker extends RobotComponent {
             buttonIsHeld = false;
         }
     }
+    public void stopSucker(){ sucker.setPower(0); }
     public void suck (double speed){
         sucker.setPower(speed);
     }
@@ -71,7 +72,7 @@ public class Sucker extends RobotComponent {
 
     @Override
     public void stop() {
-
+        stopSucker();
     }
 
 }

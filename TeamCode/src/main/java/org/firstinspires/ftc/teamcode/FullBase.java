@@ -12,7 +12,9 @@ public class FullBase extends RobotBase {
     public Drivetrain drivetrain;
     public Sucker sucker;
     public OuttakeBucket outtakeBucket;
-    private RobotComponent[] components = new RobotComponent[3];
+    public DuckeySpinner duckeySpinner;
+
+    private RobotComponent[] components = new RobotComponent[4];
 
     public double rpm = 0;
 
@@ -34,9 +36,14 @@ public class FullBase extends RobotBase {
         components[1] = sucker;
 
         telemetry.addLine("Outtake about to init");
-        outtakeBucket = new OuttakeBucket(this);
+        outtakeBucket = new OuttakeBucketTyce(this);
         telemetry.addLine("outtake inited");
         components[2] = outtakeBucket;
+
+        telemetry.addLine("DuckeySpinner about to init");
+        duckeySpinner = new DuckeySpinner(this);
+        telemetry.addLine("DuckeySpinner inited");
+        components[3] = duckeySpinner;
     }
 
     /**
