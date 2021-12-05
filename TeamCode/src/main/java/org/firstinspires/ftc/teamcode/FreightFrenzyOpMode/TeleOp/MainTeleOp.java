@@ -39,16 +39,15 @@ public class MainTeleOp extends LinearOpMode {
             double forward = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             Base.drivetrain.drive(forward, turn, slowMode);
-//            Base.sucker.moveArmInTeleop(gamepad1.a);
-//            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
-//            if(gamepad1.right_trigger < .1)
-//                Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
-
- 
             /*      intake      */
-
+            Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
+            if(gamepad1.right_trigger < .1)
+                Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
-
+            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
+            /*   ducky spinner  */
+           // Base..spin(gamepad2.y);
 
         }
     }
