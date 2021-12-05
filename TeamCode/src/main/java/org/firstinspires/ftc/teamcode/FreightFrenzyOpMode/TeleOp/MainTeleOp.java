@@ -47,7 +47,7 @@ public class MainTeleOp extends LinearOpMode {
             /*      outtake     */
             Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
             /*   ducky spinner  */
-            Base.duckeySpinner.spin(gamepad2.y);
+           // Base..spin(gamepad2.y);
 
         }
     }
