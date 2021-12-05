@@ -29,15 +29,15 @@ public class FullBase extends RobotBase {
         telemetry.addLine("drive inited");
         components[0] = drivetrain;
 
-        telemetry.addLine("Sucker about to init");
-        sucker = new Sucker(this);
-        telemetry.addLine("sucker inited");
-        components[1] = sucker;
-
-        telemetry.addLine("Outtake about to init");
-        outtakeBucket = new OuttakeBucket(this);
-        telemetry.addLine("outtake inited");
-        components[2] = outtakeBucket;
+//        telemetry.addLine("Sucker about to init");
+//        sucker = new Sucker(this);
+//        telemetry.addLine("sucker inited");
+//        components[1] = sucker;
+//
+//        telemetry.addLine("Outtake about to init");
+//        outtakeBucket = new OuttakeBucket(this);
+//        telemetry.addLine("outtake inited");
+//        components[2] = outtakeBucket;
     }
 
     /**
