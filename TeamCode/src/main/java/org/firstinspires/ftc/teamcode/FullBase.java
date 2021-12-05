@@ -12,7 +12,6 @@ public class FullBase extends RobotBase {
     public Drivetrain drivetrain;
     public Sucker sucker;
     public OuttakeBucket outtakeBucket;
-    public DuckeySpinner duckeySpinner;
 
     private RobotComponent[] components = new RobotComponent[4];
 
@@ -30,20 +29,15 @@ public class FullBase extends RobotBase {
         telemetry.addLine("drive inited");
         components[0] = drivetrain;
 
-        telemetry.addLine("Sucker about to init");
-        sucker = new Sucker(this);
-        telemetry.addLine("sucker inited");
-        components[1] = sucker;
-
-        telemetry.addLine("Outtake about to init");
-        outtakeBucket = new OuttakeBucket(this);
-        telemetry.addLine("outtake inited");
-        components[2] = outtakeBucket;
-
-        telemetry.addLine("DuckeySpinner about to init");
-        duckeySpinner = new DuckeySpinner(this);
-        telemetry.addLine("DuckeySpinner inited");
-        components[3] = duckeySpinner;
+//        telemetry.addLine("Sucker about to init");
+//        sucker = new Sucker(this);
+//        telemetry.addLine("sucker inited");
+//        components[1] = sucker;
+//
+//        telemetry.addLine("Outtake about to init");
+//        outtakeBucket = new OuttakeBucket(this);
+//        telemetry.addLine("outtake inited");
+//        components[2] = outtakeBucket;
     }
 
     /**
@@ -55,7 +49,7 @@ public class FullBase extends RobotBase {
     }
     @Override
     public void stop() {
-        for( int i = 0; i<components.length; ++i){
+        for( int i = 0; i<=1; i++){
             components[i].stop();
         }
     }
