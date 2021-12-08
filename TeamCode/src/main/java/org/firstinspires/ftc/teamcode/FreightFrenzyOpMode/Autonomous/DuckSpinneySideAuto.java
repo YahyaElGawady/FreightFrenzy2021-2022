@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.FullBase;
 public class DuckSpinneySideAuto extends LinearOpMode {
     FullBase base;
 
-
+    public final double inchesToDuckySpinner = 20;
     @Override
     public void runOpMode(){
         base = new FullBase(telemetry, this, hardwareMap, false);
@@ -22,8 +22,21 @@ public class DuckSpinneySideAuto extends LinearOpMode {
         telemetry.addLine("done with init");
         waitForStart();
         base.duckDetector.takePicture();
+        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45);
         base.outtakeBucket.slide(
                 FullBase.duckLocationToSliderPosition(base.duckDetector.mostDuckyArea()));
-        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45);
+
+        base.outtakeBucket.dump(true);
+        try{ Thread.sleep(500); } catch (Exception e) {}
+        base.outtakeBucket.dump(true);
+
+        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-135);
+        base.drivetrain.moveInches(
+                Drivetrain.DRIVE_SPEED, inchesToDuckySpinner,
+                inchesToDuckySpinner, inchesToDuckySpinner, inchesToDuckySpinner);
+
+        base.duckeySpinner.spin(true);
+        try{ Thread.sleep(3000); } catch (Exception e) {}
+        base.duckeySpinner.spin(false);
     }
 }
