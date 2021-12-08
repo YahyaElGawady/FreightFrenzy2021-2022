@@ -44,7 +44,7 @@ public class DuckDetector {
         }
 
         public int getYellow(){
-            return green+blue;
+            return red + green - blue;
         }
     }
     DuckDetector(OpMode om){
