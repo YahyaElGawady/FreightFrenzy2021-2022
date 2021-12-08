@@ -67,6 +67,16 @@ public class FullBase extends RobotBase {
 
         while(this.opMode.time < (timeInMs/1000));
     }
+    public static int duckLocationToSliderPosition(DuckDetector.DuckLocation loc){
+        switch(loc) {
+            case LEFT:
+                return OuttakeBucket.BOTTOM;
+            case MIDDLE:
+                return OuttakeBucket.MIDDLE;
+            default:
+                return OuttakeBucket.TOP;
+        }
+    }
     @Override
     public void stop() {
         for( int i = 0; i < components.length; ++i){
