@@ -19,7 +19,7 @@ public class FullBase extends RobotBase {
 
     public double rpm = 0;
 
-    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging,) {
+    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
 
     }

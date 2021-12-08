@@ -47,7 +47,7 @@ public class DuckDetector {
             return green+blue;
         }
     }
-    DuckDetector(OpMode om){
+    public DuckDetector(OpMode om){
         op = om;
 
         // Gets id. NB: id might not be accurate. Change if necessary

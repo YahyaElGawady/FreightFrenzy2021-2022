@@ -33,7 +33,9 @@ public class Drivetrain extends RobotComponent {
             / (WHEEL_DIAMETER_INCHES * 3.14159265358979323846264);
     public static final double DRIVE_SPEED = 0.65;     // Nominal speed for better accuracy.
     public static final double TURN_SPEED = 0.5;     // Nominal half speed for better accuracy.
-
+    static final double HEADING_THRESHOLD = 1;      // As tight as we can make it with an integer gyro
+    static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
+    static final double P_DRIVE_COEFF = 0.07;
     public Drivetrain(RobotBase BASE) {
         super(BASE);
         initMotors();
@@ -121,16 +123,168 @@ public class Drivetrain extends RobotComponent {
 
             // Stop all motion;
 
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
+            setPowers(0);
 
             // Turn off RUN_TO_POSITION
-            frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            setModes(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+    }
+    public double getError ( double targetAngle){
+
+        double robotError;
+
+        // calculate error in -179 to +180 range  (
+        robotError = targetAngle - gyroSensor.getHeading();
+        while (robotError > 180) robotError -= 360;
+        while (robotError <= -180) robotError += 360;
+        return robotError;
+    }
+    public double getSteer ( double error, double PCoeff){
+        return Range.clip(error * PCoeff, -DRIVE_SPEED, 1);
+    }
+    public void gyroTurn ( double speed, double angle){
+
+        // keep looping while we are still active, and not on heading.
+        while (base().getOpMode().opModeIsActive() && !onHeading(speed, angle, P_TURN_COEFF)) {
+            // Update telemetry & Allow time for other processes to run.
+            base().getTelemetry().update();
+        }
+    }
+    boolean onHeading ( double speed, double angle, double PCoeff){
+        double error;
+        double steer;
+        boolean onTarget = false;
+        double leftSpeed;
+        double rightSpeed;
+
+        // determine turn power based on +/- error
+        error = getError(angle);
+
+        if (Math.abs(error) <= HEADING_THRESHOLD) {
+            steer = 0.0;
+            leftSpeed = 0.0;
+            rightSpeed = 0.0;
+            onTarget = true;
+        } else {
+            steer = getSteer(error, PCoeff);
+            rightSpeed = speed * steer;
+            leftSpeed = -rightSpeed;
+        }
+
+        // Send desired speeds to motors.
+        frontLeft.setPower(leftSpeed);
+        backLeft.setPower(leftSpeed);
+        backRight.setPower(rightSpeed);
+        frontRight.setPower(rightSpeed);
+
+        // Display it for the driver.
+        base().getTelemetry().addData("Target", "%5.2f", angle);
+        base().getTelemetry().addData("Err/St", "%5.2f/%5.2f", error, steer);
+        base().getTelemetry().addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
+
+        return onTarget;
+    }
+    public void gyroDrive ( double speed,
+                            double frontLeftInches, double frontRightInches, double backLeftInches,
+                            double backRightInches,
+                            double angle, double timeoutS){
+
+        int newFrontLeftTarget;
+        int newFrontRightTarget;
+        int newBackLeftTarget;
+        int newBackRightTarget;
+
+        double HalfMaxOne;
+        double HalfMaxTwo;
+
+        double max;
+
+        double error;
+        double steer;
+        double frontLeftSpeed;
+        double frontRightSpeed;
+        double backLeftSpeed;
+        double backRightSpeed;
+
+        double ErrorAmount;
+        boolean goodEnough = false;
+
+        // Ensure that the opmode is still active
+        if (base().getOpMode().opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newFrontLeftTarget = frontLeft.getCurrentPosition() + (int) (frontLeftInches * COUNTS_PER_INCH);
+            newFrontRightTarget = frontRight.getCurrentPosition() + (int) (frontRightInches * COUNTS_PER_INCH);
+            newBackLeftTarget = backLeft.getCurrentPosition() + (int) (backLeftInches * COUNTS_PER_INCH);
+            newBackRightTarget = backRight.getCurrentPosition() + (int) (backRightInches * COUNTS_PER_INCH);
+
+
+            // Set Target and Turn On RUN_TO_POSITION
+            frontLeft.setTargetPosition(newFrontLeftTarget);
+            frontRight.setTargetPosition(newFrontRightTarget);
+            backLeft.setTargetPosition(newBackLeftTarget);
+            backRight.setTargetPosition(newBackRightTarget);
+
+            setModes(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // start motion.
+            speed = Range.clip(Math.abs(speed), 0.0, 1.0);
+            setPowers(Math.abs(speed));
+            // keep looping while we are still active, and BOTH motors are running.
+            while (base.getOpMode().opModeIsActive() &&
+                    ((frontLeft.isBusy() && frontRight.isBusy()) && (backLeft.isBusy() && backRight.isBusy())) && !goodEnough) {
+
+
+                // adjust relative speed based on heading error.
+                error = getError(angle);
+                steer = getSteer(error, P_DRIVE_COEFF);
+
+                // if driving in reverse, the motor correction also needs to be reversed
+                if (frontLeftInches < 0 && frontRightInches < 0 && backLeftInches < 0 && backRightInches < 0)
+                    steer *= -1.0;
+
+                frontLeftSpeed = speed - steer;
+                backLeftSpeed = speed - steer;
+                backRightSpeed = speed + steer;
+                frontRightSpeed = speed + steer;
+
+                // Normalize speeds if either one exceeds +/- 1.0;
+                HalfMaxOne = Math.max(Math.abs(frontLeftSpeed), Math.abs(backLeftSpeed));
+                HalfMaxTwo = Math.max(Math.abs(frontRightSpeed), Math.abs(backRightSpeed));
+                max = Math.max(Math.abs(HalfMaxOne), Math.abs(HalfMaxTwo));
+                if (max > 1.0) {
+                    frontLeftSpeed /= max;
+                    frontRightSpeed /= max;
+                    backLeftSpeed /= max;
+                    backRightSpeed /= max;
+                }
+
+                frontLeft.setPower(frontLeftSpeed);
+                frontRight.setPower(frontRightSpeed);
+                backLeft.setPower(backLeftSpeed);
+                backRight.setPower(backRightSpeed);
+
+                // Display drive status for the driver.
+                base().getTelemetry().addData("Err/St", "%5.1f/%5.1f", error, steer);
+                base().getTelemetry().addData("Target", "%7d:%7d", newBackLeftTarget, newBackRightTarget, newFrontLeftTarget, newFrontRightTarget);
+                base().getTelemetry().addData("Actual", "%7d:%7d", backLeft.getCurrentPosition(), backRight.getCurrentPosition(), frontLeft.getCurrentPosition(), frontRight.getCurrentPosition());
+                base().getTelemetry().addData("Speed", "%5.2f:%5.2f", backLeftSpeed, backRightSpeed, frontLeftSpeed, frontRightSpeed);
+                base().getTelemetry().update();
+
+                ErrorAmount = ((Math.abs(((newBackLeftTarget) - (backLeft.getCurrentPosition())))
+                        + (Math.abs(((newFrontLeftTarget) - (frontLeft.getCurrentPosition()))))
+                        + (Math.abs((newBackRightTarget) - (backRight.getCurrentPosition())))
+                        + (Math.abs(((newFrontRightTarget) - (frontRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
+                if (ErrorAmount < amountError) {
+                    goodEnough = true;
+                }
+            }
+
+            // Stop all motion;
+            setPowers(0);
+
+            // Turn off RUN_TO_POSITION
+            setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
     public void drive(double forward, double turn, boolean slowMode) {
