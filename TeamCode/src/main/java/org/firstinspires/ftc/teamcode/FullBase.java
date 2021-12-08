@@ -13,13 +13,15 @@ public class FullBase extends RobotBase {
     public Sucker sucker;
     public OuttakeBucket outtakeBucket;
     public DuckeySpinner duckeySpinner;
+    public DuckDetector duckDetector;
 
     private RobotComponent[] components = new RobotComponent[4];
 
     public double rpm = 0;
 
-    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
+    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging,) {
         super(telemetry, opMode, hardwaremap,debugging);
+
     }
 
     @Override
@@ -52,6 +54,10 @@ public class FullBase extends RobotBase {
 //        outtakeBucket = new OuttakeBucket(this);
 //        telemetry.addLine("outtake inited");
 //        components[2] = outtakeBucket;
+        //initialize DuckDetector
+        telemetry.addLine("DuckDetector about to init");
+        duckDetector = new DuckDetector(opMode);
+        telemetry.addLine("DuckDetector inited");
     }
 
     /**
