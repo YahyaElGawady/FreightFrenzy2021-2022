@@ -19,6 +19,7 @@ public class FullBase extends RobotBase {
 
     public double rpm = 0;
 
+    public static final double inchesToDuckySpinner = 20;
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
 
@@ -63,6 +64,28 @@ public class FullBase extends RobotBase {
     /**
      * @param timeInMs
      * */
+    public void duckeySpinnerSideAuto(int red){
+        duckDetector.takePicture();
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45*red);
+        outtakeBucket.slide(
+                FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea()));
+
+        outtakeBucket.dump(true);
+        try{ Thread.sleep(500); } catch (Exception e) {}
+        outtakeBucket.dump(true);
+
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,45*red);
+        drivetrain.moveInches(
+                Drivetrain.DRIVE_SPEED*red, inchesToDuckySpinner,
+                inchesToDuckySpinner, inchesToDuckySpinner, inchesToDuckySpinner);
+
+        duckeySpinner.spin(true);
+        try{ Thread.sleep(3000); } catch (Exception e) {}
+        duckeySpinner.spin(false);
+    }
+    public void warehouseSideAuto(int red){
+
+    }
     public void wait(double timeInMs){
 
         while(this.opMode.time < (timeInMs/1000));

@@ -3,25 +3,21 @@ package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.Drivetrain;
-import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.DuckDetector;
-import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.OuttakeBucket;
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="DuckSpinneyAuto")
-@Deprecated
-public class DuckSpinneySideAuto extends LinearOpMode {
+@Autonomous(name="RedRight")
+public class RedRightAuto extends LinearOpMode {
     FullBase base;
 
-    public final double inchesToDuckySpinner = 20;
     @Override
     public void runOpMode(){
-//        base = new FullBase(telemetry, this, hardwareMap, false);
-//        telemetry.addData("Status", "Initialized");
-//        telemetry.update();
-//        base.init();
-//        telemetry.addLine("done with init");
-//        waitForStart();
+        base = new FullBase(telemetry, this, hardwareMap, false);
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+        base.init();
+        telemetry.addLine("done with init");
+        waitForStart();
+        base.duckeySpinnerSideAuto(1);
 //        base.duckDetector.takePicture();
 //        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45);
 //        base.outtakeBucket.slide(
