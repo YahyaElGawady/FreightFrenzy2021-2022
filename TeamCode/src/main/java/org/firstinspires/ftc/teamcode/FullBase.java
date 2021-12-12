@@ -19,7 +19,8 @@ public class FullBase extends RobotBase {
 
     public double rpm = 0;
     public static final double inchesToWobble = 18.5;
-    public static final double inchesToDuckySpinner = 33;
+    public static final double unsafeInchesToDuckySpinner = 33;
+    public static final double safeInchesToDuckySpinner   = 18;
     public static final double inchesToDuckyParking = 26;
 
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
@@ -82,13 +83,29 @@ public class FullBase extends RobotBase {
         try{ Thread.sleep(500); } catch (Exception e) {}
         outtakeBucket.dump(true);
     }
+    public void safeDuckeySpinnerSideAuto(int red){
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-90*red);
+        drivetrain.moveInches(
+                Drivetrain.DRIVE_SPEED, safeInchesToDuckySpinner,
+                safeInchesToDuckySpinner, safeInchesToDuckySpinner,
+                safeInchesToDuckySpinner);
+
+        duckeySpinner.spin(true);
+        try{ Thread.sleep(3000); } catch (Exception e) {}
+        duckeySpinner.spin(false);
+
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 90*red);
+        drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                inchesToDuckyParking, inchesToDuckyParking,
+                inchesToDuckyParking, inchesToDuckyParking);
+    }
     public void duckeySpinnerSideAuto(int red){
         dumpFromDuckPos(red);
 
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-155*red);
         drivetrain.moveInches(
-                Drivetrain.DRIVE_SPEED, inchesToDuckySpinner,
-                inchesToDuckySpinner, inchesToDuckySpinner, inchesToDuckySpinner);
+                Drivetrain.DRIVE_SPEED, unsafeInchesToDuckySpinner,
+                unsafeInchesToDuckySpinner, unsafeInchesToDuckySpinner, unsafeInchesToDuckySpinner);
 
         duckeySpinner.spin(true);
         try{ Thread.sleep(3000); } catch (Exception e) {}
