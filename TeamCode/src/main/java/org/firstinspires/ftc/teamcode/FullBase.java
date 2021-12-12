@@ -100,7 +100,9 @@ public class FullBase extends RobotBase {
                 inchesToDuckyParking, inchesToDuckyParking);
     }
     public void warehouseSideAuto(int red){
-
+        drivetrain.moveInches(Drivetrain.DRIVE_SPEED, 5, 5, 5, 5);
+        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, 90 * red);
+        drivetrain.moveInches(Drivetrain.DRIVE_SPEED, 10, 10, 10, 10);
     }
     public void wait(double timeInMs){
 
