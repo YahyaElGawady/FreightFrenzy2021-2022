@@ -17,7 +17,7 @@ public class RedRightAuto extends LinearOpMode {
         base.init();
         telemetry.addLine("done with init");
         waitForStart();
-        base.duckeySpinnerSideAuto(1);
+        base.warehouseSideAuto(1);
 //        base.duckDetector.takePicture();
 //        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45);
 //        base.outtakeBucket.slide(

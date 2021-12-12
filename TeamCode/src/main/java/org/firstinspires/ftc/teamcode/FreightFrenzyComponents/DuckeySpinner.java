@@ -9,8 +9,8 @@ public class DuckeySpinner extends RobotComponent {
     public CRServo spinner;
     public boolean isButtonHeld = false;
 
-    public static final double moveCount = 0; // TODO: fill with accurate number
-    public static final double SPINPOWER = 0; // TODO: fill with proper power
+//    public static final double moveCount = 0; // TODO: fill with accurate number
+    public static final double SPINPOWER = 1; // TODO: fill with proper power
 
     public DuckeySpinner(RobotBase base){
         super(base);

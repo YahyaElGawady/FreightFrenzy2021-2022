@@ -64,16 +64,16 @@ public class FullBase extends RobotBase {
     }
 
     /**
-     * @param timeInMs
+     * @param
      * */
-    public void duckeySpinnerSideAuto(int red){
+    public void dumpFromDuckPos(int redDucky){
         duckDetector.takePicture();
         int spos = FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea());
         if(spos == -1){
             outtakeBucket.slide(OuttakeBucket.TOP);
         }
         else outtakeBucket.slide(spos);
-        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45*red);
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45*redDucky);
         drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
                 inchesToWobble, inchesToWobble,
                 inchesToWobble, inchesToWobble);
@@ -81,6 +81,9 @@ public class FullBase extends RobotBase {
         outtakeBucket.dump(true);
         try{ Thread.sleep(500); } catch (Exception e) {}
         outtakeBucket.dump(true);
+    }
+    public void duckeySpinnerSideAuto(int red){
+        dumpFromDuckPos(red);
 
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-155*red);
         drivetrain.moveInches(

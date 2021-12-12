@@ -21,7 +21,7 @@ public class Drivetrain extends RobotComponent {
     public DcMotor[] motors = new DcMotor[4];
 
     public ModernRoboticsI2cGyro gyroSensor;
-    public ModernRoboticsI2cRangeSensor frontRange = null;
+//    public ModernRoboticsI2cRangeSensor frontRange = null;
 
     public final double STRAIGHT = 0;
 
