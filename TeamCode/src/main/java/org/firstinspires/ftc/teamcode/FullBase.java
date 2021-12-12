@@ -18,8 +18,10 @@ public class FullBase extends RobotBase {
     private RobotComponent[] components = new RobotComponent[4];
 
     public double rpm = 0;
+    public static final double inchesToWobble = 18.5;
+    public static final double inchesToDuckySpinner = 33;
+    public static final double inchesToDuckyParking = 26;
 
-    public static final double inchesToDuckySpinner = 20;
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
 
@@ -66,22 +68,33 @@ public class FullBase extends RobotBase {
      * */
     public void duckeySpinnerSideAuto(int red){
         duckDetector.takePicture();
+        int spos = FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea());
+        if(spos == -1){
+            outtakeBucket.slide(OuttakeBucket.TOP);
+        }
+        else outtakeBucket.slide(spos);
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45*red);
-        outtakeBucket.slide(
-                FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea()));
+        drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                inchesToWobble, inchesToWobble,
+                inchesToWobble, inchesToWobble);
 
         outtakeBucket.dump(true);
         try{ Thread.sleep(500); } catch (Exception e) {}
         outtakeBucket.dump(true);
 
-        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,45*red);
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-155*red);
         drivetrain.moveInches(
-                Drivetrain.DRIVE_SPEED*red, inchesToDuckySpinner,
+                Drivetrain.DRIVE_SPEED, inchesToDuckySpinner,
                 inchesToDuckySpinner, inchesToDuckySpinner, inchesToDuckySpinner);
 
         duckeySpinner.spin(true);
         try{ Thread.sleep(3000); } catch (Exception e) {}
         duckeySpinner.spin(false);
+
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 100*red);
+        drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                inchesToDuckyParking, inchesToDuckyParking,
+                inchesToDuckyParking, inchesToDuckyParking);
     }
     public void warehouseSideAuto(int red){
 
@@ -93,9 +106,9 @@ public class FullBase extends RobotBase {
     public static int duckLocationToSliderPosition(DuckDetector.DuckLocation loc){
         switch(loc) {
             case LEFT:
-                return OuttakeBucket.BOTTOM;
+                return -1;
             case MIDDLE:
-                return OuttakeBucket.MIDDLE;
+                return OuttakeBucket.BOTTOM;
             default:
                 return OuttakeBucket.TOP;
         }
