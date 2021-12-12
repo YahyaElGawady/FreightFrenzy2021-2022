@@ -22,22 +22,22 @@ public class DuckDetector {
     }
     //TODO: fill with accurate coordinates for possible duck positions
     public final static Coord LEFT_POS =
-            new Coord(new Point(), new Point());
+            new Coord(new Point(0,0), new Point(0,0));
     public final static Coord MIDDLE_POS =
-            new Coord(new Point(), new Point());
+            new Coord(new Point(0,0), new Point(0,0));
     public final static Coord RIGHT_POS =
-            new Coord(new Point(), new Point());
+            new Coord(new Point(0,0), new Point(0,0));
 
 //    public final static int ROWS = 0; // noTODO: fill with accurate number of rows
 //    public final static int COLS = 0; // noTODO: fill with accurate number of columns
 //    public final static int TYPE = 0; // noTODO: fill with type
-    public final static RGB DUCKCOLOR = new RGB(0,0,0);
+    public final static RGB DUCKCOLOR = new RGB(255,255,0);
 
     public enum DuckLocation{ LEFT, MIDDLE, RIGHT}
 
     static public class RGB{
         public int red, blue, green;
-        RGB(int red, int blue, int green){
+        RGB(int red, int green, int blue){
             this.red = red;
             this.blue = blue;
             this.green = green;
