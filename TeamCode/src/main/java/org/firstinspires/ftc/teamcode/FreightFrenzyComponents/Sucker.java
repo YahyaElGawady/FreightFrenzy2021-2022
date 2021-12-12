@@ -22,7 +22,6 @@ public class Sucker extends RobotComponent {
     public enum Position {INTAKE_POSITION, OUTTAKE_POSITION };
 
     public void setArmPosition ( Position targetPositon, double speed) {
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         switch (targetPositon){
             case INTAKE_POSITION:
                 arm.setTargetPosition(100);
@@ -30,6 +29,7 @@ public class Sucker extends RobotComponent {
             case OUTTAKE_POSITION:
                 arm.setTargetPosition(-100);
         }
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);
     }
 

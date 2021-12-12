@@ -125,7 +125,7 @@ public class OuttakeBucket extends RobotComponent {
     void initServosAndMotors() {
         dumper = base.getMapper().mapServo("dumper");
         slider = base.getMapper().mapMotor("slider");
-        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
@@ -168,6 +168,7 @@ public class OuttakeBucket extends RobotComponent {
 //    }
     public void slide(int encoders){
         slider.setTargetPosition(sliderPosition = encoders);
+        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slider.setPower(POWER);
     }
 //    public boolean slideInTeleop(boolean button, int spos){
