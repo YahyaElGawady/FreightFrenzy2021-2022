@@ -113,9 +113,9 @@ public class OuttakeBucket extends RobotComponent {
     public int sliderPosition = BOTTOM;//DOWN;
 //    public int sliderTop = TOP;
 
-    public static final int BOTTOM = 0, TOP = (int)(384.5*1.3);  // TODO: add encoder values
-    public static final double DUMPED = 1; // TODO: add position for dumping
-    public static final double NEUTRAL = 0; // TODO: add position for not dumping
+    public static final int BOTTOM = 0, TOP = (int)(30);  // TODO: add encoder values
+    public static final double DUMPED = 0; // TODO: add position for dumping
+    public static final double NEUTRAL = 0.65; // TODO: add position for not dumping
     public static final double POWER = 1;   // TODO: add slider Power
 
     public OuttakeBucket(RobotBase base) {
@@ -143,7 +143,7 @@ public class OuttakeBucket extends RobotComponent {
 //        return BOTTOM;
 //    }
     // Slides to DOWN, BOTTOM, MIDDLE, or TOP based on up or down
-    public void slideInTeleop(boolean button){
+    public int slideInTeleop(boolean button){
 //        if(button) {
 //            switch(sliderPosition){
 //                case DOWN: slide(sliderTop); break;
@@ -157,6 +157,7 @@ public class OuttakeBucket extends RobotComponent {
             }
         }
         sliderButtonIsHeld = button;
+        return sliderPosition;
     }
 //    public void changeTopInTeleOp(boolean up, boolean down){
 //        if(up){

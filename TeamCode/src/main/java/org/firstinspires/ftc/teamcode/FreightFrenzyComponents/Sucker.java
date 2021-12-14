@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.FreightFrenzyComponents;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcontroller.internal.RobotComponent;
@@ -24,20 +25,20 @@ public class Sucker extends RobotComponent {
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
             case INTAKE_POSITION:
-                arm.setTargetPosition(100);
+                arm.setTargetPosition(-30);
                 break;
             case OUTTAKE_POSITION:
-                arm.setTargetPosition(-100);
+                arm.setTargetPosition(-5);
         }
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);
     }
 
     void  initMotors() {
-        sucker = base.getMapper().mapMotor("sucker");
+        sucker = base.getMapper().mapMotor("sucker", DcMotorSimple.Direction.FORWARD);
         arm = base.getMapper().mapMotor("arm");
-        sucker.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sucker.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sucker.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void moveArmInTeleop(boolean button){
@@ -63,10 +64,11 @@ public class Sucker extends RobotComponent {
     public void moveSuckerInTeleop(double speed){
         //.362
         if(Math.abs(speed) >= .1) {
+
             this.suck(speed);
         }
         else {
-            this.suck(0);
+            this.stopSucker();
         }
     }
 
