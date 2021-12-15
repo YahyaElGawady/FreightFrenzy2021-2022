@@ -57,7 +57,7 @@ public class MainTeleOp extends LinearOpMode {
            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
-            Base.duckeySpinner.spin(gamepad2.left_stick_y);
+            Base.duckeySpinner.spin(gamepad2.y);
 
         }
     }
