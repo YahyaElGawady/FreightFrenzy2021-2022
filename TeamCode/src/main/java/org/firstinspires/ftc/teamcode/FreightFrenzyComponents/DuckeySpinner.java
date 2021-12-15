@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcontroller.internal.RobotComponent;
 
 public class DuckeySpinner extends RobotComponent {
     public CRServo spinner;
-    public boolean isButtonHeld = false;
+//    public boolean isButtonHeld = false;
 
 //    public static final double moveCount = 0; // TODO: fill with accurate number
     public static final double SPINPOWER = 1; // TODO: fill with proper power
@@ -17,15 +17,18 @@ public class DuckeySpinner extends RobotComponent {
         spinner = base.getMapper().mapCRServo("duckeySpinner");
     }
 
-    public void spin(boolean button){
-        if(button && !isButtonHeld){
-            isButtonHeld = true;
-            spinner.setPower(SPINPOWER);
+    public void spin(double power){//boolean button){
+        if(power != spinner.getPower()){
+            spinner.setPower(power);
         }
-        else if(!button){
-            isButtonHeld = false;
-            spinner.setPower(0);
-        }
+//        if(button && !isButtonHeld){
+//            isButtonHeld = true;
+//            spinner.setPower(SPINPOWER);
+//        }
+//        else if(!button){
+//            isButtonHeld = false;
+//            spinner.setPower(0);
+//        }
     }
 
     @Override
