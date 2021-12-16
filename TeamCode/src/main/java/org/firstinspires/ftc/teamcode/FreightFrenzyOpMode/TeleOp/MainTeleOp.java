@@ -41,7 +41,6 @@ public class MainTeleOp extends LinearOpMode {
             Base.drivetrain.drive(forward, turn, slowMode);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
-
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 Trigger: ",gamepad2.right_trigger);
@@ -52,13 +51,17 @@ public class MainTeleOp extends LinearOpMode {
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
-            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
+           Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
+           Base.getTelemetry().addLine("Update 2; ");
            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
-            Base.duckeySpinner.spin(gamepad2.y);
-
+//            Base.duckeySpinner.spin(gamepad2.y);
+//            Base.duckeySpinner.spinner.setPower(gamepad2.right_trigger);
+            Base.duckeySpinner.spin(
+                    gamepad2.right_bumper,
+                    gamepad2.left_bumper);
         }
     }
 }

@@ -90,9 +90,9 @@ public class FullBase extends RobotBase {
                 safeInchesToDuckySpinner, safeInchesToDuckySpinner,
                 safeInchesToDuckySpinner);
 
-        duckeySpinner.spin(true);
+        duckeySpinner.spin(true, true);   //TODO: change left
         try{ Thread.sleep(3000); } catch (Exception e) {}
-        duckeySpinner.spin(false);
+        duckeySpinner.spin(false, false);  //TODO: change left
 
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 90*red);
         drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
@@ -107,9 +107,9 @@ public class FullBase extends RobotBase {
                 Drivetrain.DRIVE_SPEED, unsafeInchesToDuckySpinner,
                 unsafeInchesToDuckySpinner, unsafeInchesToDuckySpinner, unsafeInchesToDuckySpinner);
 
-        duckeySpinner.spin(true);
+        duckeySpinner.spin(true,true); //TODO: change left
         try{ Thread.sleep(3000); } catch (Exception e) {}
-        duckeySpinner.spin(false);
+        duckeySpinner.spin(false, false); //TODO: change left
 
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 100*red);
         drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
