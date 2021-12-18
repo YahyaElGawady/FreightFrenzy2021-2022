@@ -114,8 +114,13 @@ public class OuttakeBucket extends RobotComponent {
 //    public int sliderTop = TOP;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static final int BOTTOM = 0, TOP = (int)(30);  // TODO: add encoder values
     public static final double DUMPED = 0.65; // TODO: add position for dumping
+=======
+    public static final int BOTTOM = 0, TOP = (int)(384.5*1.3);  // TODO: add encoder values
+    public static final double DUMPED = 1; // TODO: add position for dumping
+>>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
 =======
     public static final int BOTTOM = 0, TOP = (int)(384.5*1.3);  // TODO: add encoder values
     public static final double DUMPED = 1; // TODO: add position for dumping

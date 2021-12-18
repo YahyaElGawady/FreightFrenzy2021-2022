@@ -42,6 +42,7 @@ public class MainTeleOp extends LinearOpMode {
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
 <<<<<<< HEAD
+<<<<<<< HEAD
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 Trigger: ",gamepad2.right_trigger);
@@ -50,15 +51,22 @@ public class MainTeleOp extends LinearOpMode {
             Base.getTelemetry().addData("Gamepad 2 y: ",gamepad2.y);
 =======
 >>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
+=======
+>>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
 <<<<<<< HEAD
+<<<<<<< HEAD
            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
            Base.getTelemetry().addLine("Update 2; ");
            Base.getTelemetry().update();
+=======
+            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
+            Base.outtakeBucket.slideInTeleop(gamepad2.a);
+>>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
 =======
             Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
             Base.outtakeBucket.slideInTeleop(gamepad2.a);
