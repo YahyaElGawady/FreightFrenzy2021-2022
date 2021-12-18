@@ -13,7 +13,7 @@ public class Sucker extends RobotComponent {
     public DcMotor arm;
 
     boolean buttonIsHeld  = false;
-    boolean positionIn = true;
+    boolean positionIn = false;
 
     public Sucker(RobotBase BASE) {
         super(BASE);
@@ -25,10 +25,10 @@ public class Sucker extends RobotComponent {
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
             case INTAKE_POSITION:
-                arm.setTargetPosition(-30);
+                arm.setTargetPosition(775);
                 break;
             case OUTTAKE_POSITION:
-                arm.setTargetPosition(-5);
+                arm.setTargetPosition(0);
         }
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);
@@ -46,10 +46,10 @@ public class Sucker extends RobotComponent {
         if(button && !buttonIsHeld){
             buttonIsHeld = true;
             if(!positionIn){
-                setArmPosition(Position.INTAKE_POSITION,.5);
+                setArmPosition(Position.INTAKE_POSITION,.2);
             }
             else {
-                setArmPosition(Position.OUTTAKE_POSITION,.5);
+                setArmPosition(Position.OUTTAKE_POSITION,.6);
             }
             positionIn = !positionIn;
         }

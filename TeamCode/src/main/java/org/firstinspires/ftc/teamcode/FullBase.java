@@ -20,8 +20,9 @@ public class FullBase extends RobotBase {
     public double rpm = 0;
     public static final double inchesToWobble = 18.5;
     public static final double unsafeInchesToDuckySpinner = 33;
-    public static final double safeInchesToDuckySpinner   = 18;
-    public static final double inchesToDuckyParking = 26;
+    public static final double safeInchesToDuckySpinner   = -8;
+    public static final double inchesToDuckyParking = 14;
+    public static final double inchesToDuckyParking2 = 3;
 
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
@@ -32,22 +33,30 @@ public class FullBase extends RobotBase {
     public void init() {
         //create drivetrain
         telemetry.addLine("Drivetrain about to init");
+        telemetry.update();
         drivetrain = new Drivetrain(this);
         telemetry.addLine("drive inited");
+        telemetry.update();
         components[0] = drivetrain;
         telemetry.addLine("Sucker about to init");
+        telemetry.update();
         sucker = new Sucker(this);
         telemetry.addLine("sucker inited");
+        telemetry.update();
         components[1] = sucker;
 
         telemetry.addLine("Outtake about to init");
+        telemetry.update();
         outtakeBucket = new OuttakeBucket(this);
         telemetry.addLine("outtake inited");
+        telemetry.update();
         components[2] = outtakeBucket;
 
         telemetry.addLine("DuckeySpinner about to init");
+        telemetry.update();
         duckeySpinner = new DuckeySpinner(this);
         telemetry.addLine("DuckeySpinner inited");
+        telemetry.update();
         components[3] = duckeySpinner;
 //        telemetry.addLine("Sucker about to init");
 //        sucker = new Sucker(this);
@@ -60,8 +69,13 @@ public class FullBase extends RobotBase {
 //        components[2] = outtakeBucket;
         //initialize DuckDetector
         telemetry.addLine("DuckDetector about to init");
+        telemetry.update();
         duckDetector = new DuckDetector(opMode);
         telemetry.addLine("DuckDetector inited");
+        telemetry.update();
+
+        outtakeBucket.dump(true);
+
     }
 
     /**
@@ -84,20 +98,36 @@ public class FullBase extends RobotBase {
         outtakeBucket.dump(true);
     }
     public void safeDuckeySpinnerSideAuto(int red){
-        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,-90*red);
-        drivetrain.moveInches(
+        drivetrain.gyroDrive(
                 Drivetrain.DRIVE_SPEED, safeInchesToDuckySpinner,
                 safeInchesToDuckySpinner, safeInchesToDuckySpinner,
-                safeInchesToDuckySpinner);
+                safeInchesToDuckySpinner, 0, 0);
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,( (red == 1) ? 60 : 20));
+//        drivetrain.moveInches(
+//                Drivetrain.DRIVE_SPEED, safeInchesToDuckySpinner,
+//                safeInchesToDuckySpinner, safeInchesToDuckySpinner,
+//                safeInchesToDuckySpinner);
 
-        duckeySpinner.spin(true);
+        duckeySpinner.spinner.setPower(-1 * red);
         try{ Thread.sleep(3000); } catch (Exception e) {}
         duckeySpinner.spin(false);
 
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 90*red);
-        drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
-                inchesToDuckyParking, inchesToDuckyParking,
-                inchesToDuckyParking, inchesToDuckyParking);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1,
+                 inchesToDuckyParking + ((red == 1) ? 0 : 0), inchesToDuckyParking + ((red == 1) ? 0 : 0),
+                inchesToDuckyParking + ((red == 1) ? 0 : 0), inchesToDuckyParking + ((red == 1) ? 0 : 0), 110 * red, 0);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                inchesToDuckyParking2, inchesToDuckyParking2,
+                inchesToDuckyParking2, inchesToDuckyParking2, 80 * red, 0);
+        drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 90*red);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                1.25, 1.25,
+                1.25, 1.25, 90 * red, 0);
+
+        if(red == -1)
+            drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                    -4, -4,
+                    -4, -4, 90 * red, 0);
     }
     public void duckeySpinnerSideAuto(int red){
         dumpFromDuckPos(red);
@@ -117,9 +147,14 @@ public class FullBase extends RobotBase {
                 inchesToDuckyParking, inchesToDuckyParking);
     }
     public void warehouseSideAuto(int red){
-        drivetrain.moveInches(Drivetrain.DRIVE_SPEED, 5, 5, 5, 5);
-        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, 90 * red);
-        drivetrain.moveInches(Drivetrain.DRIVE_SPEED, 10, 10, 10, 10);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 11, 11, 11, 11 , 0 , 0);
+        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, -90 * red);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 30, 30, 30, 30, -90 * red, 0);
+    }
+    public void warehouseSideAutoBlue(){
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 11, 11, 11, 11, 0 , 0);
+        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, 80 );
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 30, 30, 30, 30, 90, 0);
     }
     public void wait(double timeInMs){
 

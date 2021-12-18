@@ -32,7 +32,8 @@ public class MainTeleOp extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         Base.getTelemetry().update();
         Base.init();
-        Base.getTelemetry().addLine("done with init");
+        Base.getTelemetry().addLine("Initialization Complete");
+        Base.getTelemetry().update();
         waitForStart();
         while (opModeIsActive()){
             /*      drivetrain      */
@@ -54,6 +55,7 @@ public class MainTeleOp extends LinearOpMode {
             /*      outtake     */
             Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
+           Base.getTelemetry().addData("cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */

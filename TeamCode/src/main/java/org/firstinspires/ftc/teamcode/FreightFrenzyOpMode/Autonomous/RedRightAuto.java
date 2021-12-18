@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="RedRight")
+@Autonomous(name="Red_WareHouse_Park")
 public class RedRightAuto extends LinearOpMode {
     FullBase base;
 
@@ -15,7 +15,8 @@ public class RedRightAuto extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
-        telemetry.addLine("done with init");
+        base.getTelemetry().addLine("Initialization Complete");
+        base.getTelemetry().update();
         waitForStart();
         base.warehouseSideAuto(1);
 //        base.duckDetector.takePicture();

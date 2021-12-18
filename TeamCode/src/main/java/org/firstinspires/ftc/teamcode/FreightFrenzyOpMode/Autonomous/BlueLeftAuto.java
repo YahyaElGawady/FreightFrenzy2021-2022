@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="BlueLeft")
+@Autonomous(name="Blue_Warehouse_Park")
 public class BlueLeftAuto extends LinearOpMode {
     FullBase base;
 
@@ -15,10 +15,11 @@ public class BlueLeftAuto extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
-        telemetry.addLine("done with init");
+        base.getTelemetry().addLine("Initialization Complete");
+        base.getTelemetry().update();
         waitForStart();
-        base.warehouseSideAuto(-1);
-//        base.duckDetector.takePicture();
+        base.warehouseSideAutoBlue();
+        //base.duckDetector.takePicture();
 //        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45);
 //        base.outtakeBucket.slide(
 //                FullBase.duckLocationToSliderPosition(base.duckDetector.mostDuckyArea()));

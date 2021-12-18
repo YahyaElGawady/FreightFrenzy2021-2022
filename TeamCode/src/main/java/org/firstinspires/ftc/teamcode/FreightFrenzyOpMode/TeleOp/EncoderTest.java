@@ -41,9 +41,11 @@ public class EncoderTest extends LinearOpMode {
         telemetry.addLine("done with init");
         waitForStart();
         while (opModeIsActive()){
-            String Telemetry = String.format("Front Right: %d\n Front Left: %d\n Back Right: %d\n Back Left: %d\n Gyro: %d", Base.drivetrain.frontRight.getCurrentPosition(),
-                    Base.drivetrain.frontLeft.getCurrentPosition(),Base.drivetrain.backRight.getCurrentPosition(),Base.drivetrain.backLeft.getCurrentPosition(), Base.drivetrain.gyroSensor.getHeading());
-            telemetry.addLine(Telemetry);
+//            String Telemetry = String.format("Front Right: %d\n Front Left: %d\n Back Right: %d\n Back Left: %d\n Gyro: %d", Base.drivetrain.frontRight.getCurrentPosition(),
+//                    Base.drivetrain.frontLeft.getCurrentPosition(),Base.drivetrain.backRight.getCurrentPosition(),Base.drivetrain.backLeft.getCurrentPosition(), Base.drivetrain.gyroSensor.getHeading());
+//            telemetry.addLine(Telemetry);
+//            telemetry.update();
+            telemetry.addData("Encoders: ", Base.outtakeBucket.slider.getCurrentPosition());
             telemetry.update();
 
         }

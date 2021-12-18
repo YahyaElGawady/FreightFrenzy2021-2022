@@ -109,13 +109,13 @@ public class OuttakeBucket extends RobotComponent {
 
     public boolean sliderButtonIsHeld = false;
     public boolean dumperButtonIsHeld = false;
-    public double dumperPosition =  NEUTRAL;
+    public double dumperPosition =  DUMPED;
     public int sliderPosition = BOTTOM;//DOWN;
 //    public int sliderTop = TOP;
 
-    public static final int BOTTOM = 0, TOP = (int)(30);  // TODO: add encoder values
-    public static final double DUMPED = 0; // TODO: add position for dumping
-    public static final double NEUTRAL = 0.65; // TODO: add position for not dumping
+    public static final int BOTTOM = 0, TOP = 500;  // TODO: add encoder values
+    public static final double DUMPED = .4; // TODO: add position for dumping
+    public static final double NEUTRAL = .9; // TODO: add position for not dumping
     public static final double POWER = 1;   // TODO: add slider Power
 
     public OuttakeBucket(RobotBase base) {
@@ -125,8 +125,13 @@ public class OuttakeBucket extends RobotComponent {
     void initServosAndMotors() {
         dumper = base.getMapper().mapServo("dumper");
         slider = base.getMapper().mapMotor("slider");
+        slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slider.setTargetPosition(0);
+        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slider.setPower(POWER);
+//        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
 //    public int nextTop(){
@@ -168,9 +173,13 @@ public class OuttakeBucket extends RobotComponent {
 //        }
 //    }
     public void slide(int encoders){
-        slider.setTargetPosition(sliderPosition = encoders);
-        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slider.setPower(POWER);
+//        int targetPosition = slider.getCurrentPosition() + encoders;
+        slider.setTargetPosition(encoders);
+        sliderPosition = encoders;
+
+//        if(!slider.isBusy())
+//            slider.setPower(0);
+//        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 //    public boolean slideInTeleop(boolean button, int spos){
 //        if(button && !sliderButtonIsHeld){

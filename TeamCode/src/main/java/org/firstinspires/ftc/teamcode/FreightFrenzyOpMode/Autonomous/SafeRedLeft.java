@@ -15,7 +15,8 @@ public class SafeRedLeft extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
-        telemetry.addLine("done with init");
+        base.getTelemetry().addLine("Initialization Complete");
+        base.getTelemetry().update();
         waitForStart();
         base.safeDuckeySpinnerSideAuto(1);
 //        base.duckDetector.takePicture();

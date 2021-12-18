@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="RedLeft")
+@Autonomous(name="Red_DuckeySpinner_Spin&Park")
 public class RedLeftAuto extends LinearOpMode {
     FullBase base;
 
@@ -15,7 +15,8 @@ public class RedLeftAuto extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
-        telemetry.addLine("done with init");
+        base.getTelemetry().addLine("Initialization Complete");
+        base.getTelemetry().update();
         waitForStart();
         base.duckeySpinnerSideAuto(1);
 //        base.duckDetector.takePicture();

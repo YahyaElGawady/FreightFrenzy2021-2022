@@ -52,9 +52,14 @@ public class Drivetrain extends RobotComponent {
                frontRight = base().getMapper().mapMotor("frontRight", DcMotorSimple.Direction.REVERSE);
                motors[2] = frontRight;
 
-         backRight = base().getMapper().mapMotor("backRight", DcMotorSimple.Direction.REVERSE);
-        motors[3] = backRight;
+               backRight = base().getMapper().mapMotor("backRight", DcMotorSimple.Direction.REVERSE);
+               motors[3] = backRight;
 
+               gyroSensor = base().getMapper().mapMRGyro("gyro");
+               gyroSensor.calibrate();
+               while(gyroSensor.isCalibrating());
+               base().getTelemetry().addLine("Gyro Calibrated");
+               base().getTelemetry().update();
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
