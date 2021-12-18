@@ -30,9 +30,9 @@ public class MainTeleOp extends LinearOpMode {
     public void runOpMode() {
         Base = new FullBase(telemetry,this, hardwareMap, true);
         telemetry.addData("Status", "Initialized");
-        Base.getTelemetry().update();
+        telemetry.update();
         Base.init();
-        Base.getTelemetry().addLine("done with init");
+        telemetry.addLine("done with init");
         waitForStart();
         while (opModeIsActive()){
             /*      drivetrain      */
@@ -41,20 +41,28 @@ public class MainTeleOp extends LinearOpMode {
             Base.drivetrain.drive(forward, turn, slowMode);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+<<<<<<< HEAD
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 Trigger: ",gamepad2.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 A: ",gamepad1.a);
             Base.getTelemetry().addData("Gamepad 1 Left Trigger: ",gamepad1.left_trigger);
             Base.getTelemetry().addData("Gamepad 2 y: ",gamepad2.y);
+=======
+>>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
+<<<<<<< HEAD
            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
            Base.getTelemetry().addLine("Update 2; ");
            Base.getTelemetry().update();
+=======
+            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
+            Base.outtakeBucket.slideInTeleop(gamepad2.a);
+>>>>>>> parent of 60abfa4 (Long Stories No Vibes Heres the code!!!)
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
 //            Base.duckeySpinner.spin(gamepad2.y);
