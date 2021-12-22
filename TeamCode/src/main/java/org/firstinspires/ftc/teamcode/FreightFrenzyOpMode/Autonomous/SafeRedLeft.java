@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="SafeRedLeft")
+@Autonomous(name="Red   Ducky __-__ Spin and Park")
 public class SafeRedLeft extends LinearOpMode {
     FullBase base;
 

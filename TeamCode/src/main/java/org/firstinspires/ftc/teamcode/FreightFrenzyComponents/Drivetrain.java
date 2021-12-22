@@ -325,7 +325,7 @@ public class Drivetrain extends RobotComponent {
         }
         if(slowMode) {
             for (int i = 0; i <= 3; i++) {
-                powers[i] /= 2;
+                powers[i] /= 4;
             }
         }
         setPowers(powers);

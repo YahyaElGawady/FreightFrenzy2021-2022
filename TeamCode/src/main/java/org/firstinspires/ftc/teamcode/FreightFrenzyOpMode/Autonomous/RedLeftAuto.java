@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
-
+@Disabled
 @Autonomous(name="Red_DuckeySpinner_Spin&Park")
 public class RedLeftAuto extends LinearOpMode {
     FullBase base;

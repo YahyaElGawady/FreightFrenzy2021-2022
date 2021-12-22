@@ -22,7 +22,7 @@ public class MainTeleOp extends LinearOpMode {
 
     boolean flickerPositon =true;
     boolean firstTime = true;
-    boolean slowMode = false;
+    boolean slowMode = false, isSlowMode = false;
     double initTime;
     int initPos;
 
@@ -39,6 +39,11 @@ public class MainTeleOp extends LinearOpMode {
             /*      drivetrain      */
             double forward = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
+            if(gamepad1.x && !isSlowMode) {
+                slowMode = !slowMode;
+            }
+            isSlowMode = gamepad1.x;
+
             Base.drivetrain.drive(forward, turn, slowMode);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
@@ -53,13 +58,13 @@ public class MainTeleOp extends LinearOpMode {
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
-            Base.outtakeBucket.dump(gamepad2.right_trigger > 0.5);
+            Base.outtakeBucket.dump(gamepad2.y);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
            Base.getTelemetry().addData("cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
-            Base.duckeySpinner.spin(gamepad2.y);
+            Base.duckeySpinner.spin(gamepad2.left_trigger, gamepad2.right_trigger);
 
         }
     }

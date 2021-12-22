@@ -17,15 +17,16 @@ public class DuckeySpinner extends RobotComponent {
         spinner = base.getMapper().mapCRServo("duckeySpinner");
     }
 
-    public void spin(boolean button){
-        if(button && !isButtonHeld){
-            isButtonHeld = true;
-            spinner.setPower(SPINPOWER);
+    public void spin(double leftPower, double rightPower){
+        if(leftPower > 0){// && !isButtonHeld){
+//            isLeftButtonHeld = true;
+            spinner.setPower(-leftPower);
         }
-        else if(!button){
-            isButtonHeld = false;
-            spinner.setPower(0);
+        else if(rightPower > 0){//!button){
+//            isButtonHeld = false;
+            spinner.setPower(rightPower);
         }
+        else spinner.setPower(0);
     }
 
     @Override

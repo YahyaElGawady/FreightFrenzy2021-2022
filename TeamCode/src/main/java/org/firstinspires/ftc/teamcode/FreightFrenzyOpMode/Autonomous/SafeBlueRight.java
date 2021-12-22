@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
-@Autonomous(name="SafeBlueRight - Not Working")
+@Autonomous(name="BlueDucky - Spin and Park")
 public class SafeBlueRight extends LinearOpMode {
     FullBase base;
 

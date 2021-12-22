@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.Drivetrain;
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.DuckDetector;
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.OuttakeBucket;
 import org.firstinspires.ftc.teamcode.FullBase;
-
+@Disabled
 @Autonomous(name="DuckSpinneyAuto")
 @Deprecated
 public class DuckSpinneySideAuto extends LinearOpMode {
