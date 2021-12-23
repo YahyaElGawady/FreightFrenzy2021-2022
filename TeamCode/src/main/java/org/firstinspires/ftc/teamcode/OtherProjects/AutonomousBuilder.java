@@ -9,10 +9,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.TemporalField;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -21,16 +17,34 @@ public class AutonomousBuilder{
     Path path_to_auto;
     DataOutputStream out;
 
-    static final String PATH_TO_AUTOS = "/../FreightFrenzyOpMode/Autonomous/";
+    public static final String PACKAGE =
+            "package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.Autonomous;\n\n";
+    public static final String IMPORTS =
+            //"import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.*;\n" +
+            "import com.qualcomm.robotcore.eventloop.opmode.Autonomous;\n"   +
+            "import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n" +
+            "import org.firstinspires.ftc.teamcode.FullBase;\n";
+    public static final String PATH_TO_AUTOS = "../FreightFrenzyOpMode/Autonomous/";
 
-    public interface Task{}
-    public class TimerTask implements Task{
+    public interface Task{
+        @SuppressLint("NewApi")
+        public void execute(FullBase base);
+    }
+    public static class TimerTask implements Task{
         Consumer<FullBase> function;
-        public TimerTask(Consumer<FullBase> consumer){
+        String[] components;
+        static DataOutputStream out;
+
+        public static void init(DataOutputStream out){
+            EncoderTask.out = out;
+        }
+        public TimerTask(Consumer<FullBase> consumer, String[] components){
             function = consumer;
+            this.components = components;
         }
         @SuppressLint("NewApi")
-        public void execute(FullBase base, String[] components){
+        @Override
+        public void execute(FullBase base){
             long begin = System.nanoTime();
             function.accept(base);
             long end = System.nanoTime();
@@ -47,18 +61,63 @@ public class AutonomousBuilder{
         }
     }
 
+    public EncoderTask.ChildComponent[] ChildComponents(String... components){
+        EncoderTask.ChildComponent[] ret = new EncoderTask.ChildComponent[components.length];
 
-    public class EncoderTask implements Task{
+        for(int i = 0; i < components.length; ++i){
+            ret[i] = new EncoderTask.ChildComponent(components[i]);
+        }
+        return ret;
+    }
+    public EncoderTask.MainComponent[] MainComponents(int[][] encoders, String... components){
+        EncoderTask.MainComponent[] ret = new EncoderTask.MainComponent[components.length];
+
+        for (int i = 0; i < components.length; ++i) {
+            ret[i] = new EncoderTask.MainComponent(components[i],encoders[i]);
+        }
+        return ret;
+    }
+
+    public int[][] encoderArray(int[]... encoders){
+        return encoders;
+    }
+    public int[] encoders(int... encoders){
+        return encoders;
+    }
+
+    public static class EncoderTask implements Task{
+        static DataOutputStream out;
+
+        public static void init(DataOutputStream out){
+            EncoderTask.out = out;
+        }
         public class RetType{
-            ChildComponent[] childComponents;
-            MainComponent[]  mainComponents;
+            public ChildComponent[]  childComponents;
+            public MainComponent[]   mainComponents;
+            public RetType(){}
+
+            public RetType(ChildComponent[] ccs, MainComponent[] mcs){
+                childComponents = ccs;
+                mainComponents  = mcs;
+            }
         }
-        public class ChildComponent {
-            String component;
+        public static class ChildComponent {
+            public String component;
+            public ChildComponent(){}
+
+            public ChildComponent(String component){
+                this.component = component;
+            }
         }
-        public class MainComponent  {
-            int[] encoders;
-            String component;
+        public static class MainComponent  {
+            public int[] encoders;
+            public String component;
+            public MainComponent(){}
+
+            public MainComponent(String component, int... encoders){
+                this.component = component;
+                this.encoders  = encoders;
+            }
         }
         Function<FullBase, RetType> function;
 
@@ -67,6 +126,7 @@ public class AutonomousBuilder{
         }
 
         @SuppressLint("NewApi")
+        @Override
         public void execute(FullBase base){
             RetType retType = function.apply(base);
             try{
@@ -100,18 +160,34 @@ public class AutonomousBuilder{
         }
     }
 
+    public Task[] tasks;
+
     @SuppressLint("NewApi")
-    public AutonomousBuilder(String name){
+    public AutonomousBuilder(String name, int numTasks){
         this.name = name;
         this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
+        this.tasks = new Task[numTasks];
         try {
             this.out = new DataOutputStream(
                     Files.newOutputStream(path_to_auto,
                             StandardOpenOption.CREATE,
                             StandardOpenOption.TRUNCATE_EXISTING));
-        } catch (Exception e){}
+        } catch (Exception e){e.printStackTrace();}
+        EncoderTask.init(out);
+        TimerTask.init(out);
     }
     public void createAuto(){
+        try {
+            out.writeChars(PACKAGE);
+            out.writeChars(IMPORTS);
+            out.writeChars(
+                    String.format(
+                            "\n@Autonomous(name=\"%1$s\")\npublic class %1$s extends LinearOpMode{\n"
+                            , name));
 
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
