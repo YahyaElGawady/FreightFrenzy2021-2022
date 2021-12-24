@@ -131,11 +131,11 @@ public class AutonomousBuilder{
             RetType retType = function.apply(base);
             try{
                 for(ChildComponent info: retType.childComponents){
-                    out.writeChars(String.format("%s.setPowerInAuto(true);\n", info.component));
+                    out.writeChars(String.format("\t\t%s.setPowerInAuto(true);\n", info.component));
                 }
                 for(MainComponent info: retType.mainComponents){
                     out.writeChars(
-                            String.format("%s.setTargetPosition(new int[]{", info.component));
+                            String.format("\t\t%s.setTargetPosition(new int[]{", info.component));
                     out.writeInt(info.encoders[0]);
                     for(int i = 1; i < info.encoders.length; ++i){
                         out.writeChars(String.format(",%d", info.encoders[i]));
@@ -144,7 +144,7 @@ public class AutonomousBuilder{
                 }
 
                 out.writeChars(
-                        String.format("while(%s.isBusy()",
+                        String.format("\t\twhile(%s.isBusy()",
                                 retType.mainComponents[0].component));
                 for(int i = 1; i < retType.mainComponents.length; ++i){
                     out.writeChars(
@@ -154,19 +154,21 @@ public class AutonomousBuilder{
                 out.writeChars("){}\n");
                 for(ChildComponent info: retType.childComponents){
                     out.writeChars(
-                            String.format("%s.setPowerInAuto(false);\n", info.component));
+                            String.format("\t\t%s.setPowerInAuto(false);\n", info.component));
                 }
             } catch(Exception e){}
         }
     }
 
-    public Task[] tasks;
-
+    public Task[]     tasks;
+    public String[]   taskDescriptions;
     @SuppressLint("NewApi")
     public AutonomousBuilder(String name, int numTasks){
-        this.name = name;
-        this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
-        this.tasks = new Task[numTasks];
+        this.name             = name;
+        this.path_to_auto     = Paths.get(PATH_TO_AUTOS + name + ".java");
+        this.tasks            = new Task[numTasks];
+        this.taskDescriptions = new String[numTasks];
+
         try {
             this.out = new DataOutputStream(
                     Files.newOutputStream(path_to_auto,
@@ -176,7 +178,7 @@ public class AutonomousBuilder{
         EncoderTask.init(out);
         TimerTask.init(out);
     }
-    public void createAuto(){
+    public void createStartOfAuto(){
         try {
             out.writeChars(PACKAGE);
             out.writeChars(IMPORTS);
@@ -184,8 +186,12 @@ public class AutonomousBuilder{
                     String.format(
                             "\n@Autonomous(name=\"%1$s\")\npublic class %1$s extends LinearOpMode{\n"
                             , name));
+            out.writeChars(
+                    "\tFullBase base;\n\n\t@Override public void runOpMode(){" +
+                    "\n\t\tbase = new FullBase(telemetry, this, hardwareMap, false);\n\t\t" +
+                    "base.init();\n\t\ttelemetry.addData(\"Status\", \"Initialized\");\n\t\t" +
+                    "telemetry.update();\n\t\twaitForStart();\n\t\t");
 
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
