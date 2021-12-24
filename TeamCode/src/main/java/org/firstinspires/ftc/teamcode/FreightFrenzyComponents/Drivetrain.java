@@ -330,55 +330,65 @@ public class Drivetrain extends RobotComponent {
         }
         setPowers(powers);
     }
-        public double[] getPowers () {
-            double[] powers = {frontLeft.getPower(), backLeft.getPower(), frontRight.getPower(), backRight.getPower()};
-            return powers;
-        }
+    public double[] getPowers () {
+        double[] powers = {frontLeft.getPower(), backLeft.getPower(), frontRight.getPower(), backRight.getPower()};
+        return powers;
+    }
 
-        public void setPowers ( double[] powers){
-            frontLeft.setPower(powers[0]);
-            backLeft.setPower(powers[1]);
-            frontRight.setPower(powers[2]);
-            backRight.setPower(powers[3]);
+    public void setPowers ( double[] powers){
+        frontLeft.setPower(powers[0]);
+        backLeft.setPower(powers[1]);
+        frontRight.setPower(powers[2]);
+        backRight.setPower(powers[3]);
+    }
+    public void setPowers ( double power){
+        for (DcMotor m : motors) {
+            m.setPower(power);
         }
-        public void setPowers ( double power){
-            for (DcMotor m : motors) {
-                m.setPower(power);
-            }
-        }
+    }
 
-        public double getAverageEncoders (ArrayList<DcMotor> dcmotors) {
-            double sum = 0;
-            for (DcMotor m : dcmotors) {
-                sum += Math.abs(m.getCurrentPosition());
-            }
-            return (sum / (double) (dcmotors.size()));
+    public double getAverageEncoders (ArrayList<DcMotor> dcmotors) {
+        double sum = 0;
+        for (DcMotor m : dcmotors) {
+            sum += Math.abs(m.getCurrentPosition());
         }
+        return (sum / (double) (dcmotors.size()));
+    }
 
-        public void setTargetPositions(int fl, int fr, int bl, int br) {
-            frontLeft.setTargetPosition(fl);
-            frontRight.setTargetPosition(fr);
-            backLeft.setTargetPosition(bl);
-            backRight.setTargetPosition(br);
-        }
-        public void stop () {
-            setPowers(0);
-        }
+    public void setTargetPositions(int fl, int fr, int bl, int br) {
+        frontLeft.setTargetPosition(fl);
+        frontRight.setTargetPosition(fr);
+        backLeft.setTargetPosition(bl);
+        backRight.setTargetPosition(br);
+    }
 
-        public void setModes (DcMotor.RunMode runMode){
-            for (DcMotor motor : motors) {
-                motor.setMode(runMode);
-            }
-        }
-        public void setZeroPowerBehaviors (DcMotor.ZeroPowerBehavior behavior){
-            for (DcMotor motor : motors) {
-                motor.setZeroPowerBehavior(behavior);
-            }
-        }
+    //For Generated Auto Support:
+    public void setTargetPositions(int[] encoders){
+        setTargetPositions(encoders[0], encoders[1], encoders[2], encoders[3]);
+    }
+    public boolean isBusy(){
+        return frontLeft.isBusy() || frontRight.isBusy() ||
+                backLeft.isBusy() || backRight.isBusy();
+    }
 
-        private double getProcessedInput ( double hardInput){
-            hardInput = Range.clip(hardInput, -1, 1);
-            hardInput = Math.pow(hardInput, 3);
-            return hardInput;
+    public void stop () {
+        setPowers(0);
+    }
+
+    public void setModes (DcMotor.RunMode runMode){
+        for (DcMotor motor : motors) {
+            motor.setMode(runMode);
         }
+    }
+    public void setZeroPowerBehaviors (DcMotor.ZeroPowerBehavior behavior){
+        for (DcMotor motor : motors) {
+            motor.setZeroPowerBehavior(behavior);
+        }
+    }
+
+    private double getProcessedInput ( double hardInput){
+        hardInput = Range.clip(hardInput, -1, 1);
+        hardInput = Math.pow(hardInput, 3);
+        return hardInput;
+    }
 }

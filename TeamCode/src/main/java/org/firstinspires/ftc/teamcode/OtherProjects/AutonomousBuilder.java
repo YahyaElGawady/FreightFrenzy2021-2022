@@ -194,8 +194,8 @@ public class AutonomousBuilder{
                     String.format(
                             "\n/************************\nGenerated Auto: %1$s\nMade by: " +
                             "Direct Current 5893\n\n\"I don't even know what street " +
-                            "Canada is on.\"\n- Al Capone\n************************/" +
-                            "@Autonomous(name=\"%1$s\")\n" +
+                            "Canada is on.\"\n- Al Capone\n\nC++ Forever!********" +
+                            "****************/\n@Autonomous(name=\"%1$s\")\n" +
                             "public class %1$s extends LinearOpMode{\n"
                             , name));
             out.writeChars(

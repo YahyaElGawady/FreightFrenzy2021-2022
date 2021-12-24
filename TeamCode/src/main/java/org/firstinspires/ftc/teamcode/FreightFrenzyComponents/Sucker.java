@@ -15,6 +15,19 @@ public class Sucker extends RobotComponent {
     boolean buttonIsHeld  = false;
     boolean positionIn = false;
 
+    // For Generated Auto Support
+    public class SUCKER_INTERFACE{
+        public void setPowerInAuto(final double power){ suck(power);}
+    }
+    public class ARM_INTERFACE {
+        public void setPowerInAuto(final double power) {
+            if (power > 0)     setArmPosition(Position.OUTTAKE_POSITION, power);
+            else               setArmPosition(Position.INTAKE_POSITION,  power);
+        }
+    }
+    public ARM_INTERFACE SLIDER = new ARM_INTERFACE();
+    public SUCKER_INTERFACE DUMPER = new SUCKER_INTERFACE();
+
     public Sucker(RobotBase BASE) {
         super(BASE);
         initMotors();

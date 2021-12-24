@@ -12,6 +12,9 @@ public class DuckeySpinner extends RobotComponent {
 //    public static final double moveCount = 0; // TODO: fill with accurate number
     public static final double SPINPOWER = 1; // TODO: fill with proper power
 
+    public void setPowerInAuto(final double power){
+        spinner.setPower(power);
+    }
     public DuckeySpinner(RobotBase base){
         super(base);
         spinner = base.getMapper().mapCRServo("duckeySpinner");

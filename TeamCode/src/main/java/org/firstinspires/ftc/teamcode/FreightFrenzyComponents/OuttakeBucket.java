@@ -111,12 +111,26 @@ public class OuttakeBucket extends RobotComponent {
     public boolean dumperButtonIsHeld = false;
     public double dumperPosition =  DUMPED;
     public int sliderPosition = BOTTOM;//DOWN;
+
 //    public int sliderTop = TOP;
 
     public static final int BOTTOM = 0, TOP = 500;  // TODO: add encoder values
     public static final double DUMPED = .6; // TODO: add position for dumping
     public static final double NEUTRAL = .9; // TODO: add position for not dumping
     public static final double POWER = 1;   // TODO: add slider Power
+
+    // For Generated Auto Support
+    public class SLIDER_INTERFACE{
+        public void setPowerInAuto(final double power){ slider.setPower(power);}
+    }
+    public class DUMPER_INTERFACE {
+        public void setPowerInAuto(final double power) {
+            if (power > 0) dumper.setPosition(DUMPED);
+            else dumper.setPosition(NEUTRAL);
+        }
+    }
+    public SLIDER_INTERFACE SLIDER = new SLIDER_INTERFACE();
+    public DUMPER_INTERFACE DUMPER = new DUMPER_INTERFACE();
 
     public OuttakeBucket(RobotBase base) {
         super(base);
