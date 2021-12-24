@@ -61,7 +61,7 @@ public class AutonomousBuilder{
         }
     }
 
-    public EncoderTask.ChildComponent[] ChildComponents(String... components){
+    public static EncoderTask.ChildComponent[] ChildComponents(String... components){
         EncoderTask.ChildComponent[] ret = new EncoderTask.ChildComponent[components.length];
 
         for(int i = 0; i < components.length; ++i){
@@ -69,7 +69,7 @@ public class AutonomousBuilder{
         }
         return ret;
     }
-    public EncoderTask.MainComponent[] MainComponents(int[][] encoders, String... components){
+    public static EncoderTask.MainComponent[] MainComponents(int[][] encoders, String... components){
         EncoderTask.MainComponent[] ret = new EncoderTask.MainComponent[components.length];
 
         for (int i = 0; i < components.length; ++i) {
@@ -78,10 +78,10 @@ public class AutonomousBuilder{
         return ret;
     }
 
-    public int[][] encoderArray(int[]... encoders){
+    public static int[][] encoderArray(int[]... encoders){
         return encoders;
     }
-    public int[] encoders(int... encoders){
+    public static int[] encoders(int... encoders){
         return encoders;
     }
 
@@ -91,7 +91,7 @@ public class AutonomousBuilder{
         public static void init(DataOutputStream out){
             EncoderTask.out = out;
         }
-        public class RetType{
+        public static class RetType{
             public ChildComponent[]  childComponents;
             public MainComponent[]   mainComponents;
             public RetType(){}
@@ -131,7 +131,7 @@ public class AutonomousBuilder{
             RetType retType = function.apply(base);
             try{
                 for(ChildComponent info: retType.childComponents){
-                    out.writeChars(String.format("\t\t%s.setPowerInAuto(true);\n", info.component));
+                    out.writeChars(String.format("\t\t%s.setPowerInAuto(1);\n", info.component));
                 }
                 for(MainComponent info: retType.mainComponents){
                     out.writeChars(
@@ -154,7 +154,7 @@ public class AutonomousBuilder{
                 out.writeChars("){}\n");
                 for(ChildComponent info: retType.childComponents){
                     out.writeChars(
-                            String.format("\t\t%s.setPowerInAuto(false);\n", info.component));
+                            String.format("\t\t%s.setPowerInAuto(0);\n", info.component));
                 }
             } catch(Exception e){}
         }
@@ -162,6 +162,14 @@ public class AutonomousBuilder{
 
     public Task[]     tasks;
     public String[]   taskDescriptions;
+
+    public boolean createTask(int index, String description, Task task){
+        if(index >= tasks.length || index < 0) return false;
+
+        taskDescriptions[index] = description;
+        tasks[index]            = task;
+        return true;
+    }
     @SuppressLint("NewApi")
     public AutonomousBuilder(String name, int numTasks){
         this.name             = name;
@@ -184,16 +192,23 @@ public class AutonomousBuilder{
             out.writeChars(IMPORTS);
             out.writeChars(
                     String.format(
-                            "\n@Autonomous(name=\"%1$s\")\npublic class %1$s extends LinearOpMode{\n"
+                            "\n/************************\nGenerated Auto: %1$s\nMade by: " +
+                            "Direct Current 5893\n\n\"I don't even know what street " +
+                            "Canada is on.\"\n- Al Capone\n************************/" +
+                            "@Autonomous(name=\"%1$s\")\n" +
+                            "public class %1$s extends LinearOpMode{\n"
                             , name));
             out.writeChars(
                     "\tFullBase base;\n\n\t@Override public void runOpMode(){" +
                     "\n\t\tbase = new FullBase(telemetry, this, hardwareMap, false);\n\t\t" +
                     "base.init();\n\t\ttelemetry.addData(\"Status\", \"Initialized\");\n\t\t" +
-                    "telemetry.update();\n\t\twaitForStart();\n\t\t");
+                    "telemetry.update();\n\t\twaitForStart();\n");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {}
+    }
+    public void createEndOfAuto(){
+        try{
+            out.writeChars("\t}\n}");
+        } catch(Exception e){}
     }
 }

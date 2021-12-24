@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.OtherProjects;
 
+import static org.firstinspires.ftc.teamcode.OtherProjects.AutonomousBuilder.encoders;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,12 +19,38 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         int i = 0;
         base = new FullBase(telemetry, this, hardwareMap, false);
         AutonomousBuilder auto = new AutonomousBuilder(name,numTasks);
+
+        // Creates a task that records the drivetrain.
+        auto.createTask(0, "Drivetrain", new AutonomousBuilder.EncoderTask(
+                (FullBase base) -> {
+                    while(! /* TODO fill with stop button*/)
+                        base.drivetrain.drive(gamepad1.left_stick_y,
+                                gamepad1.right_stick_x, false);
+
+                    return new AutonomousBuilder.EncoderTask.RetType(
+                            AutonomousBuilder.ChildComponents(),
+                            AutonomousBuilder.MainComponents(
+                                    AutonomousBuilder.encoderArray(
+                                            AutonomousBuilder.encoders(
+                                                    base.drivetrain.frontLeft.getCurrentPosition(),
+                                                    base.drivetrain.frontRight.getCurrentPosition(),
+                                                    base.drivetrain.backLeft.getCurrentPosition(),
+                                                    base.drivetrain.backRight.getCurrentPosition()
+                                            )
+                                    ),
+                                    "base.drivetrain"
+                            )
+                    );
+                }
+            )
+        );
+
         auto.createStartOfAuto();
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
-        telemetry.addData("Task", auto.taskDescriptions[0]);
+        telemetry.addData("Task", "0 - %s", auto.taskDescriptions[0]);
         telemetry.addData("Status", "Selecting task...");
         telemetry.update();
 
@@ -41,7 +69,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         --i;
                     }
 
-                    telemetry.addData("Task", auto.taskDescriptions[i]);
+                    telemetry.addData("Task", "%d - %s", i, auto.taskDescriptions[i]);
                     telemetry.update();
                     try {
                         Thread.sleep(300);
