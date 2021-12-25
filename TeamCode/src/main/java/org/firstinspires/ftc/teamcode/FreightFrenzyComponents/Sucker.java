@@ -25,8 +25,8 @@ public class Sucker extends RobotComponent {
             else               setArmPosition(Position.INTAKE_POSITION,  power);
         }
     }
-    public ARM_INTERFACE SLIDER = new ARM_INTERFACE();
-    public SUCKER_INTERFACE DUMPER = new SUCKER_INTERFACE();
+    public ARM_INTERFACE ARM = new ARM_INTERFACE();
+    public SUCKER_INTERFACE SUCKER = new SUCKER_INTERFACE();
 
     public Sucker(RobotBase BASE) {
         super(BASE);
