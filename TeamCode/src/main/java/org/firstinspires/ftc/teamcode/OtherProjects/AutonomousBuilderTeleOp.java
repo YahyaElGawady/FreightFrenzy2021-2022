@@ -44,6 +44,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                 0, true);
 
                     STOP_BUTTON_SET = true;
+                    // For thread safety:
+                    try { stop_button.sleep(25); } catch (InterruptedException e){}
                     STOP_BUTTON = false;
 
                     return new AutonomousBuilder.EncoderTask.RetType(
@@ -72,6 +74,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                         gamepad1.right_stick_x, true);
 
                             STOP_BUTTON_SET = true;
+                            // For thread safety:
+                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
@@ -102,6 +106,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
                             }
                             STOP_BUTTON_SET = true;
+                            // For thread safety:
+                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON     = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
@@ -130,6 +136,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                 base.sucker.moveArmInTeleop(gamepad1.right_bumper);
                             }
                             STOP_BUTTON_SET = true;
+                            // For thread safety:
+                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                         },
                         "base.sucker.ARM"
@@ -144,6 +152,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                 base.outtakeBucket.slideInTeleop(gamepad2.a);
                             }
                             STOP_BUTTON_SET = true;
+                            // For thread safety:
+                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                             return new AutonomousBuilder.EncoderTask.RetType(
                                     AutonomousBuilder.ChildComponents(),
@@ -168,6 +178,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                 base.outtakeBucket.dump(gamepad2.y);
                             }
                             STOP_BUTTON_SET = true;
+                            // For thread safety:
+                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                         },
                         "base.outtakeBucket.DUMPER"
