@@ -159,13 +159,13 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         }
                 )
         );
-        // Creates a task that moves the slider
+        // Creates a task that dumps
         auto.createTask(5, "Outtake: Dumper",
                 new AutonomousBuilder.TimerTask(
                         (FullBase base) ->{
                             STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
-                                base.outtakeBucket.slideInTeleop(gamepad2.a);
+                                base.outtakeBucket.dump(gamepad2.y);
                             }
                             STOP_BUTTON_SET = true;
                             STOP_BUTTON = false;
@@ -209,7 +209,6 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
             auto.tasks[i].execute(base);
             telemetry.addData("Status", "Done executing task. Selecing...");
             telemetry.update();
-            i = 0;
         }
         auto.createEndOfAuto();
     }
