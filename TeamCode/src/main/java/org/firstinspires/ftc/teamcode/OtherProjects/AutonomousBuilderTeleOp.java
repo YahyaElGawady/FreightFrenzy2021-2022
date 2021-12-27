@@ -24,7 +24,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 
         // Create daemon thread that constantly updates the stop button. Not necessary, but
         // possibly convenient.
-        new Thread(new Runnable() {
+        Thread stop_button = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(true){
@@ -32,6 +32,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 }
             }
         });
+        stop_button.setDaemon(true);
+        stop_button.run();
 
         // Creates a task that records the drivetrain forward-backward motion.
         auto.createTask(0, "Drivetrain: Forward, Backward", new AutonomousBuilder.EncoderTask(
