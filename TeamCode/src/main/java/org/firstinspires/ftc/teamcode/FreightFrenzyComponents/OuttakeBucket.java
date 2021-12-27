@@ -121,12 +121,17 @@ public class OuttakeBucket extends RobotComponent {
 
     // For Generated Auto Support
     public class SLIDER_INTERFACE{
-        public void setPowerInAuto(final double power){ slider.setPower(power);}
+        public void setTargetPosition(final double power){
+            switch((int)(power*4)){
+                case 0: slide(BOTTOM);   break;
+                case 4: slide(TOP);      break;
+            }
+        }
     }
     public class DUMPER_INTERFACE {
         public void setPowerInAuto(final double power) {
             if (power > 0) dumper.setPosition(DUMPED);
-            else dumper.setPosition(NEUTRAL);
+            else           dumper.setPosition(NEUTRAL);
         }
     }
     public SLIDER_INTERFACE SLIDER = new SLIDER_INTERFACE();

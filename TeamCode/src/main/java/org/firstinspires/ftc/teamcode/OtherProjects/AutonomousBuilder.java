@@ -38,7 +38,7 @@ public class AutonomousBuilder{
         public static void init(DataOutputStream out){
             EncoderTask.out = out;
         }
-        public TimerTask(Consumer<FullBase> consumer, String[] components){
+        public TimerTask(Consumer<FullBase> consumer, String... components){
             function = consumer;
             this.components = components;
         }

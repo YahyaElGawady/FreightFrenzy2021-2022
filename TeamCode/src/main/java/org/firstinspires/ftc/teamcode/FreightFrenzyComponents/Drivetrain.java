@@ -40,7 +40,6 @@ public class Drivetrain extends RobotComponent {
         super(BASE);
         initMotors();
     }
-
      void initMotors() {
 
                frontLeft = base().getMapper().mapMotor("frontLeft", DcMotorSimple.Direction.REVERSE);
@@ -65,9 +64,9 @@ public class Drivetrain extends RobotComponent {
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
      }
-    public void moveInches(double speed,
-        double frontLeftInches, double frontRightInches, double backLeftInches,
-        double backRightInches)
+    public void moveEncoders(double speed,
+                           int frontLeftEncoders, int frontRightEncoders, int backLeftEncoders,
+                           int backRightEncoders)
     {
         int newFrontLeftTarget;
         int newFrontRightTarget;
@@ -79,10 +78,10 @@ public class Drivetrain extends RobotComponent {
         if (base.getOpMode().opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFrontLeftTarget = frontLeft.getCurrentPosition() + (int) (frontLeftInches * COUNTS_PER_INCH);
-            newFrontRightTarget = frontRight.getCurrentPosition() + (int) (frontRightInches * COUNTS_PER_INCH);
-            newBackLeftTarget = backLeft.getCurrentPosition() + (int) (backLeftInches * COUNTS_PER_INCH);
-            newBackRightTarget = backRight.getCurrentPosition() + (int) (backRightInches * COUNTS_PER_INCH);
+            newFrontLeftTarget = frontLeft.getCurrentPosition() + frontLeftEncoders;
+            newFrontRightTarget = frontRight.getCurrentPosition() + frontRightEncoders;
+            newBackLeftTarget = backLeft.getCurrentPosition() + backLeftEncoders;
+            newBackRightTarget = backRight.getCurrentPosition() + backRightEncoders;
 
             setTargetPositions(newFrontLeftTarget, newFrontRightTarget,
                     newBackLeftTarget, newBackRightTarget);
@@ -103,19 +102,19 @@ public class Drivetrain extends RobotComponent {
                     backLeft.isBusy() && backRight.isBusy() && !goodEnough) {
 
                 // Display it for the driver.
-                base().getTelemetry().addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newBackLeftTarget, newFrontRightTarget, newBackRightTarget);
-                base().getTelemetry().addData("Path2", "Running at %7d :%7d",
+//                base().getTelemetry().addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newBackLeftTarget, newFrontRightTarget, newBackRightTarget);
+//                base().getTelemetry().addData("Path2", "Running at %7d :%7d",
+//
+//                        frontLeft.getCurrentPosition(),
+//                        frontRight.getCurrentPosition(),
+//                        backLeft.getCurrentPosition(),
+//                        backRight.getCurrentPosition());
+//                base().getTelemetry().addData("frontLeft", frontLeft.getCurrentPosition());
+//                base().getTelemetry().addData("backLeft", backLeft.getCurrentPosition());
+//                base().getTelemetry().addData("frontRight", frontRight.getCurrentPosition());
+//                base().getTelemetry().addData("backright", backRight.getCurrentPosition());
 
-                        frontLeft.getCurrentPosition(),
-                        frontRight.getCurrentPosition(),
-                        backLeft.getCurrentPosition(),
-                        backRight.getCurrentPosition());
-                base().getTelemetry().addData("frontLeft", frontLeft.getCurrentPosition());
-                base().getTelemetry().addData("backLeft", backLeft.getCurrentPosition());
-                base().getTelemetry().addData("frontRight", frontRight.getCurrentPosition());
-                base().getTelemetry().addData("backright", backRight.getCurrentPosition());
-
-                base().getTelemetry().update();
+//                base().getTelemetry().update();
 
                 ErrorAmount = ((Math.abs(((newBackLeftTarget) - (backLeft.getCurrentPosition())))
                         + (Math.abs(((newFrontLeftTarget) - (frontLeft.getCurrentPosition()))))
@@ -133,6 +132,80 @@ public class Drivetrain extends RobotComponent {
             // Turn off RUN_TO_POSITION
             setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    }
+    public void moveInches(double speed,
+        double frontLeftInches, double frontRightInches, double backLeftInches,
+        double backRightInches)
+    {
+        moveEncoders(speed,
+                (int)(frontLeftInches * COUNTS_PER_INCH),
+                (int)(frontRightInches * COUNTS_PER_INCH),
+                (int)(backLeftInches * COUNTS_PER_INCH),
+                (int)(backRightInches * COUNTS_PER_INCH));
+//        int newFrontLeftTarget;
+//        int newFrontRightTarget;
+//        int newBackLeftTarget;
+//        int newBackRightTarget;
+//        boolean goodEnough = false;
+//        double ErrorAmount;
+//        // Ensure that the opmode is still active
+//        if (base.getOpMode().opModeIsActive()) {
+//
+//            // Determine new target position, and pass to motor controller
+//            newFrontLeftTarget = frontLeft.getCurrentPosition() + (int) (frontLeftInches * COUNTS_PER_INCH);
+//            newFrontRightTarget = frontRight.getCurrentPosition() + (int) (frontRightInches * COUNTS_PER_INCH);
+//            newBackLeftTarget = backLeft.getCurrentPosition() + (int) (backLeftInches * COUNTS_PER_INCH);
+//            newBackRightTarget = backRight.getCurrentPosition() + (int) (backRightInches * COUNTS_PER_INCH);
+//
+//            setTargetPositions(newFrontLeftTarget, newFrontRightTarget,
+//                    newBackLeftTarget, newBackRightTarget);
+//
+//            // Turn On RUN_TO_POSITION
+//            setModes(DcMotor.RunMode.RUN_TO_POSITION);
+//
+//            setPowers(Math.abs(speed));
+//
+//            // keep looping while we are still active, and there is time left, and both motors are running.
+//            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+//            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+//            // always end the motion as soon as possible.
+//            // However, if you require that BOTH motors have finished their moves before the robot continues
+//            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+//            while (base().getOpMode().opModeIsActive() &&
+//                    frontLeft.isBusy() && frontRight.isBusy() &&
+//                    backLeft.isBusy() && backRight.isBusy() && !goodEnough) {
+//
+//                // Display it for the driver.
+//                base().getTelemetry().addData("Path1", "Running to %7d :%7d", newFrontLeftTarget, newBackLeftTarget, newFrontRightTarget, newBackRightTarget);
+//                base().getTelemetry().addData("Path2", "Running at %7d :%7d",
+//
+//                        frontLeft.getCurrentPosition(),
+//                        frontRight.getCurrentPosition(),
+//                        backLeft.getCurrentPosition(),
+//                        backRight.getCurrentPosition());
+//                base().getTelemetry().addData("frontLeft", frontLeft.getCurrentPosition());
+//                base().getTelemetry().addData("backLeft", backLeft.getCurrentPosition());
+//                base().getTelemetry().addData("frontRight", frontRight.getCurrentPosition());
+//                base().getTelemetry().addData("backright", backRight.getCurrentPosition());
+//
+//                base().getTelemetry().update();
+//
+//                ErrorAmount = ((Math.abs(((newBackLeftTarget) - (backLeft.getCurrentPosition())))
+//                        + (Math.abs(((newFrontLeftTarget) - (frontLeft.getCurrentPosition()))))
+//                        + (Math.abs((newBackRightTarget) - (backRight.getCurrentPosition())))
+//                        + (Math.abs(((newFrontRightTarget) - (frontRight.getCurrentPosition()))))) / COUNTS_PER_INCH);
+//                if (ErrorAmount < amountError) {
+//                    goodEnough = true;
+//                }
+//            }
+//
+//            // Stop all motion;
+//
+//            setPowers(0);
+//
+//            // Turn off RUN_TO_POSITION
+//            setModes(DcMotor.RunMode.RUN_USING_ENCODER);
+//        }
     }
     public double getError ( double targetAngle){
 
@@ -363,8 +436,8 @@ public class Drivetrain extends RobotComponent {
     }
 
     //For Generated Auto Support:
-    public void setTargetPositions(int[] encoders){
-        setTargetPositions(encoders[0], encoders[1], encoders[2], encoders[3]);
+    public void setTargetPosition(int[] encoders){
+        moveEncoders(DRIVE_SPEED, encoders[0], encoders[1], encoders[2], encoders[3]);
     }
     public boolean isBusy(){
         return frontLeft.isBusy() || frontRight.isBusy() ||
