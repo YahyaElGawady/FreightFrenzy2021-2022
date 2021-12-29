@@ -24,28 +24,29 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 
         // Create daemon thread that constantly updates the stop button. Not necessary, but
         // possibly convenient.
-        Thread stop_button = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    if(true /* TODO: fill with stop button */ && !STOP_BUTTON_SET) STOP_BUTTON = true;
-                }
-            }
-        });
-        stop_button.setDaemon(true);
-        stop_button.run();
+//        Thread stop_button = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while(true){
+//                    if(true /* noTODO: fill with stop button */ && !STOP_BUTTON_SET) STOP_BUTTON = true;
+//                }
+//            }
+//        });
+//        stop_button.setDaemon(true);
+//        stop_button.run();
 
         // Creates a task that records the drivetrain forward-backward motion.
         auto.createTask(0, "Drivetrain: Forward, Backward", new AutonomousBuilder.EncoderTask(
                 (FullBase base) -> {
-                    STOP_BUTTON     = false;
-                    while(!STOP_BUTTON)
+                    while(!STOP_BUTTON) {
                         base.drivetrain.drive(-gamepad1.left_stick_y,
                                 0, true);
+                        STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                    }
 
-                    STOP_BUTTON_SET = true;
+//                    STOP_BUTTON_SET = true;
                     // For thread safety:
-                    try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                    try { stop_button.sleep(25); } catch (InterruptedException e){}
                     STOP_BUTTON = false;
 
                     return new AutonomousBuilder.EncoderTask.RetType(
@@ -68,14 +69,16 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         // Creates a task that records the drivetrain turn motion.
         auto.createTask(1, "Drivetrain: Turn", new AutonomousBuilder.EncoderTask(
                         (FullBase base) -> {
-                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON)
+//                            STOP_BUTTON_SET = false;
+                            while(!STOP_BUTTON) {
                                 base.drivetrain.drive(0,
                                         gamepad1.right_stick_x, true);
+                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                            }
 
-                            STOP_BUTTON_SET = true;
+//                            STOP_BUTTON_SET = true;
                             // For thread safety:
-                            try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
@@ -99,15 +102,17 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(2, "Drivetrain: Forward, Backward; Intake: Sucker",
                 new AutonomousBuilder.EncoderTask(
                         (FullBase base) -> {
-                            STOP_BUTTON_SET = false;
+//                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.drivetrain.drive(-gamepad1.left_stick_y,
                                         0, true);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
+
+                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
                             }
-                            STOP_BUTTON_SET = true;
+//                            STOP_BUTTON_SET = true;
                             // For thread safety:
-                            try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON     = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
@@ -131,13 +136,14 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(3, "Intake: Arm",
                 new AutonomousBuilder.TimerTask(
                         (FullBase base) ->{
-                            STOP_BUTTON_SET = false;
+//                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
                             }
-                            STOP_BUTTON_SET = true;
+//                            STOP_BUTTON_SET = true;
                             // For thread safety:
-                            try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                         },
                         "base.sucker.ARM"
@@ -147,13 +153,15 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(4, "Outtake: Slider",
                 new AutonomousBuilder.EncoderTask(
                         (FullBase base) ->{
-                            STOP_BUTTON_SET = false;
+//                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.outtakeBucket.slideInTeleop(gamepad2.a);
+
+                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
                             }
-                            STOP_BUTTON_SET = true;
+//                            STOP_BUTTON_SET = true;
                             // For thread safety:
-                            try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                             return new AutonomousBuilder.EncoderTask.RetType(
                                     AutonomousBuilder.ChildComponents(),
@@ -173,13 +181,14 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(5, "Outtake: Dumper",
                 new AutonomousBuilder.TimerTask(
                         (FullBase base) ->{
-                            STOP_BUTTON_SET = false;
+//                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.outtakeBucket.dump(gamepad2.y);
+                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
                             }
-                            STOP_BUTTON_SET = true;
+//                            STOP_BUTTON_SET = true;
                             // For thread safety:
-                            try { stop_button.sleep(25); } catch (InterruptedException e){}
+//                            try { stop_button.sleep(25); } catch (InterruptedException e){}
                             STOP_BUTTON = false;
                         },
                         "base.outtakeBucket.DUMPER"
@@ -198,7 +207,6 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 
             // While start button is not pressed, adjust
             // current task with dpad up and down buttons
-
             while(! /*TODO: fill with start button*/) {
                 if(/*TODO: fill with dpad up button   */ ||
                    /*TODO: fill with dpad down button */)
