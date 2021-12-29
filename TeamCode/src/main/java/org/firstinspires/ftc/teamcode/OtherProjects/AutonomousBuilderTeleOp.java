@@ -13,7 +13,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
     public static final int numTasks  = 6;
 
     public static boolean STOP_BUTTON     = false;
-    public static boolean STOP_BUTTON_SET = true;
+//    public static boolean STOP_BUTTON_SET = true;
     FullBase base;
 
     @Override
@@ -41,7 +41,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                     while(!STOP_BUTTON) {
                         base.drivetrain.drive(-gamepad1.left_stick_y,
                                 0, true);
-                        STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                        STOP_BUTTON = gamepad1.b;
                     }
 
 //                    STOP_BUTTON_SET = true;
@@ -73,7 +73,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                             while(!STOP_BUTTON) {
                                 base.drivetrain.drive(0,
                                         gamepad1.right_stick_x, true);
-                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                                STOP_BUTTON = gamepad1.b;
                             }
 
 //                            STOP_BUTTON_SET = true;
@@ -108,7 +108,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                                         0, true);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
 
-                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
@@ -139,7 +139,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.sucker.moveArmInTeleop(gamepad1.right_bumper);
-                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
@@ -157,7 +157,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                             while(!STOP_BUTTON) {
                                 base.outtakeBucket.slideInTeleop(gamepad2.a);
 
-                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
@@ -184,7 +184,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
                                 base.outtakeBucket.dump(gamepad2.y);
-                                STOP_BUTTON = /*TODO: fill with stop button*/ true;
+                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
@@ -207,13 +207,13 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 
             // While start button is not pressed, adjust
             // current task with dpad up and down buttons
-            while(! /*TODO: fill with start button*/) {
-                if(/*TODO: fill with dpad up button   */ ||
-                   /*TODO: fill with dpad down button */)
+            while(! gamepad1.y) {
+                if(gamepad1.dpad_up ||
+                   gamepad1.dpad_down)
                 {
-                    if (        /*TODO: fill with dpad up button   */) {
+                    if (        gamepad1.dpad_up) {
                         ++i;
-                    } else if ( /*TODO: fill with dpad down button */) {
+                    } else if ( gamepad1.dpad_down) {
                         --i;
                     }
 

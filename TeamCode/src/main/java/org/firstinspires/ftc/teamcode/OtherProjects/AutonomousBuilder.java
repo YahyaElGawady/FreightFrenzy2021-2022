@@ -50,12 +50,12 @@ public class AutonomousBuilder{
             long end = System.nanoTime();
             try {
                 for (String s : components) {
-                    out.writeChars(String.format("%s.setPowerInAuto(1);\n", s));
+                    out.writeChars(String.format("\t\t%s.setPowerInAuto(1);\n", s));
                 }
-                out.writeChars(String.format("try{Thread.sleep(%d);}catch(Exception e){}\n",
+                out.writeChars(String.format("\t\ttry{Thread.sleep(%d);}catch(Exception e){}\n",
                         end - begin));
                 for(String s : components){
-                    out.writeChars(String.format("%s.setPowerInAuto(0);\n", s));
+                    out.writeChars(String.format("\t\t%s.setPowerInAuto(0);\n", s));
                 }
             } catch(Exception e){}
         }
@@ -193,7 +193,7 @@ public class AutonomousBuilder{
             out.writeChars(
                     String.format(
                             "\n/************************\nGenerated Auto: %1$s\nMade by: " +
-                            "Direct Current 5893\n\n\"I don't even know what street " +
+                            "FTC Team Direct Current 5893\n\n\"I don't even know what street " +
                             "Canada is on.\"\n- Al Capone\n\nC++ Forever!********" +
                             "****************/\n@Autonomous(name=\"%1$s\")\n" +
                             "public class %1$s extends LinearOpMode{\n"

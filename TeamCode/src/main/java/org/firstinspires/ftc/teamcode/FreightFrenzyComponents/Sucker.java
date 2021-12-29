@@ -41,7 +41,7 @@ public class Sucker extends RobotComponent {
                 arm.setTargetPosition(775);
                 break;
             case OUTTAKE_POSITION:
-                arm.setTargetPosition(0);
+                arm.setTargetPosition(45);
         }
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);
