@@ -58,7 +58,8 @@ public class MainTeleOp extends LinearOpMode {
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
-            Base.outtakeBucket.dump(gamepad2.y);
+           Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
+           Base.outtakeBucket.dump(gamepad2.y);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
            Base.getTelemetry().addData("cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
            Base.getTelemetry().update();

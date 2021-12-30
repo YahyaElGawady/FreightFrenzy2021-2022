@@ -155,8 +155,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
                             while(!STOP_BUTTON) {
+                                base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
                                 base.outtakeBucket.slideInTeleop(gamepad2.a);
-
                                 STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
