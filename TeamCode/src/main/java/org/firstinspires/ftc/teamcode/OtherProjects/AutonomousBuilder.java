@@ -28,7 +28,7 @@ public class AutonomousBuilder{
 
     public interface Task{
         @SuppressLint("NewApi")
-        public void execute(FullBase base);
+        void execute(FullBase base);
     }
     public static class TimerTask implements Task{
         Consumer<FullBase> function;

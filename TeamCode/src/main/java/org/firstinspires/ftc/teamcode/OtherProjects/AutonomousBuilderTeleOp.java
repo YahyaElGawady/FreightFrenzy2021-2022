@@ -12,7 +12,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
     public static final String name   = "TestAuto";
     public static final int numTasks  = 6;
 
-    public static boolean STOP_BUTTON     = false;
+//    public static boolean STOP_BUTTON     = false;
 //    public static boolean STOP_BUTTON_SET = true;
     FullBase base;
 
@@ -38,16 +38,16 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         // Creates a task that records the drivetrain forward-backward motion.
         auto.createTask(0, "Drivetrain: Forward, Backward", new AutonomousBuilder.EncoderTask(
                 (FullBase base) -> {
-                    while(!STOP_BUTTON) {
+                    while(!gamepad1.b) {
                         base.drivetrain.drive(-gamepad1.left_stick_y,
                                 0, true);
-                        STOP_BUTTON = gamepad1.b;
+//                        STOP_BUTTON = gamepad1.b;
                     }
 
 //                    STOP_BUTTON_SET = true;
                     // For thread safety:
 //                    try { stop_button.sleep(25); } catch (InterruptedException e){}
-                    STOP_BUTTON = false;
+//                    STOP_BUTTON = false;
 
                     return new AutonomousBuilder.EncoderTask.RetType(
                             AutonomousBuilder.ChildComponents(),
@@ -70,16 +70,16 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(1, "Drivetrain: Turn", new AutonomousBuilder.EncoderTask(
                         (FullBase base) -> {
 //                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON) {
+                            while(!gamepad1.b) {
                                 base.drivetrain.drive(0,
                                         gamepad1.right_stick_x, true);
-                                STOP_BUTTON = gamepad1.b;
+//                                STOP_BUTTON = gamepad1.b;
                             }
 
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
 //                            try { stop_button.sleep(25); } catch (InterruptedException e){}
-                            STOP_BUTTON = false;
+//                            STOP_BUTTON = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
                                     AutonomousBuilder.ChildComponents(),
@@ -103,17 +103,17 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 new AutonomousBuilder.EncoderTask(
                         (FullBase base) -> {
 //                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON) {
+                            while(!gamepad1.b) {
                                 base.drivetrain.drive(-gamepad1.left_stick_y,
                                         0, true);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
 
-                                STOP_BUTTON = gamepad1.b;
+//                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
 //                            try { stop_button.sleep(25); } catch (InterruptedException e){}
-                            STOP_BUTTON     = false;
+//                            STOP_BUTTON     = false;
 
                             return new AutonomousBuilder.EncoderTask.RetType(
                                     AutonomousBuilder.ChildComponents("base.sucker.SUCKER"),
@@ -137,14 +137,14 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 new AutonomousBuilder.TimerTask(
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON) {
+                            while(!gamepad1.b) {
                                 base.sucker.moveArmInTeleop(gamepad1.right_bumper);
-                                STOP_BUTTON = gamepad1.b;
+//                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
 //                            try { stop_button.sleep(25); } catch (InterruptedException e){}
-                            STOP_BUTTON = false;
+//                            STOP_BUTTON = false;
                         },
                         "base.sucker.ARM"
                 )
@@ -154,15 +154,15 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 new AutonomousBuilder.EncoderTask(
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON) {
+                            while(!gamepad1.b) {
                                 base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
                                 base.outtakeBucket.slideInTeleop(gamepad2.a);
-                                STOP_BUTTON = gamepad1.b;
+//                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
 //                            try { stop_button.sleep(25); } catch (InterruptedException e){}
-                            STOP_BUTTON = false;
+//                            STOP_BUTTON = false;
                             return new AutonomousBuilder.EncoderTask.RetType(
                                     AutonomousBuilder.ChildComponents(),
                                     AutonomousBuilder.MainComponents(
@@ -182,14 +182,14 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 new AutonomousBuilder.TimerTask(
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
-                            while(!STOP_BUTTON) {
+                            while(!gamepad1.b) {
                                 base.outtakeBucket.dump(gamepad2.y);
-                                STOP_BUTTON = gamepad1.b;
+//                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
                             // For thread safety:
 //                            try { stop_button.sleep(25); } catch (InterruptedException e){}
-                            STOP_BUTTON = false;
+//                            STOP_BUTTON = false;
                         },
                         "base.outtakeBucket.DUMPER"
                 )
