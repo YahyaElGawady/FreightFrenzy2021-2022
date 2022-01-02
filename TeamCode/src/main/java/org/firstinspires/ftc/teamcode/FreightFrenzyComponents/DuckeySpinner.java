@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode.FreightFrenzyComponents;
 
-import com.qualcomm.robotcore.hardware.CRServo;
+//import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcontroller.internal.RobotBase;
 import org.firstinspires.ftc.robotcontroller.internal.RobotComponent;
 
 public class DuckeySpinner extends RobotComponent {
-    public CRServo spinner;
-    public boolean isButtonHeld = false;
+    public DcMotor spinner;
+//    public boolean isButtonHeld = false;
 
 //    public static final double moveCount = 0; // TODO: fill with accurate number
     public static final double SPINPOWER = 1; // TODO: fill with proper power
@@ -17,7 +18,7 @@ public class DuckeySpinner extends RobotComponent {
     }
     public DuckeySpinner(RobotBase base){
         super(base);
-        spinner = base.getMapper().mapCRServo("duckeySpinner");
+        spinner = base.getMapper().mapMotor("duckeySpinner");
     }
 
     public void spin(double leftPower, double rightPower){
