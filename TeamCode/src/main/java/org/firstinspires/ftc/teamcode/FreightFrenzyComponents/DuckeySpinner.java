@@ -14,7 +14,7 @@ public class DuckeySpinner extends RobotComponent {
     public static final double SPINPOWER = 1; // TODO: fill with proper power
 
     public void setPowerInAuto(final double power){
-        spinner.setPower(power);
+        spinner.setPower(power/2);
     }
     public DuckeySpinner(RobotBase base){
         super(base);
