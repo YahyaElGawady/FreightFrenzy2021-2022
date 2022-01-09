@@ -38,13 +38,14 @@ public class MainTeleOp extends LinearOpMode {
         while (opModeIsActive()){
             /*      drivetrain      */
             double forward = -gamepad1.left_stick_y;
+            double right = gamepad1.left_stick_x;
             double turn = gamepad1.right_stick_x;
             if(gamepad1.x && !isSlowMode) {
                 slowMode = !slowMode;
             }
             isSlowMode = gamepad1.x;
 
-            Base.drivetrain.drive(forward, turn, slowMode);
+            Base.drivetrain.drive(forward, right, turn, slowMode);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
 

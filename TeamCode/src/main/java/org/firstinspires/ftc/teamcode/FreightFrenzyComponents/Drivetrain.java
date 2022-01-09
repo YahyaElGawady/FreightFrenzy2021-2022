@@ -365,15 +365,16 @@ public class Drivetrain extends RobotComponent {
             setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
-    public void drive(double forward, double turn, boolean slowMode) {
+    public void drive(double forward, double right, double turn, boolean slowMode) {
 
         forward = getProcessedInput(forward);
+        right = getProcessedInput(right);
         turn = getProcessedInput(turn);
 
-        double leftFrontPower = forward + turn;
-        double leftBackPower = forward + turn;
-        double rightFrontPower = forward - turn;
-        double rightBackPower = forward - turn;
+        double leftFrontPower = forward + right + turn;
+        double leftBackPower = forward - right + turn;
+        double rightFrontPower = forward - right - turn;
+        double rightBackPower = forward + right - turn;
         double[] powers = {leftFrontPower, leftBackPower, rightFrontPower, rightBackPower};
 
         boolean needToScale = false;
@@ -398,7 +399,7 @@ public class Drivetrain extends RobotComponent {
         }
         if(slowMode) {
             for (int i = 0; i <= 3; i++) {
-                powers[i] /= 4;
+                powers[i] /= 2;
             }
         }
         setPowers(powers);
