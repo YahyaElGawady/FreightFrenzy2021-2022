@@ -1,5 +1,5 @@
     INIT:
-STOP_BUTTON =
-
+STOP_BUTTON    =
+AUTO_FILE_NAME =
     TASKS:
 
