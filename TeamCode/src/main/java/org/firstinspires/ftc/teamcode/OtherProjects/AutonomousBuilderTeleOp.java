@@ -39,7 +39,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         auto.createTask(0, "Drivetrain: Forward, Backward", new AutonomousBuilder.EncoderTask(
                 (FullBase base) -> {
                     while(!gamepad1.b) {
-                        base.drivetrain.drive(-gamepad1.left_stick_y,
+                        base.drivetrain.drive(-gamepad1.left_stick_y, 0,
                                 0, true);
 //                        STOP_BUTTON = gamepad1.b;
                     }
@@ -71,7 +71,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         (FullBase base) -> {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
-                                base.drivetrain.drive(0,
+                                base.drivetrain.drive(0, 0,
                                         gamepad1.right_stick_x, true);
 //                                STOP_BUTTON = gamepad1.b;
                             }
@@ -104,7 +104,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         (FullBase base) -> {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
-                                base.drivetrain.drive(-gamepad1.left_stick_y,
+                                base.drivetrain.drive(-gamepad1.left_stick_y, 0,
                                         0, true);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
 
