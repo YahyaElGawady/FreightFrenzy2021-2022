@@ -1,5 +1,0 @@
-    INIT:
-STOP_BUTTON =
-
-    TASKS:
-
