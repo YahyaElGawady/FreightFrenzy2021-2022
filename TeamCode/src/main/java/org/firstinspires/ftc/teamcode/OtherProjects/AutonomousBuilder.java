@@ -27,7 +27,7 @@ public class AutonomousBuilder{
     public static final String PATH_TO_AUTOS = "../FreightFrenzyOpMode/Autonomous/";
 
     public interface Task{
-        @SuppressLint("NewApi")
+//        @SuppressLint("NewApi")
         void execute(FullBase base);
     }
     public static class TimerTask implements Task{
@@ -57,6 +57,7 @@ public class AutonomousBuilder{
                 for(String s : components){
                     out.writeChars(String.format("\t\t%s.setPowerInAuto(0);\n", s));
                 }
+                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
             } catch(Exception e){}
         }
     }
@@ -156,6 +157,7 @@ public class AutonomousBuilder{
                     out.writeChars(
                             String.format("\t\t%s.setPowerInAuto(0);\n", info.component));
                 }
+                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
             } catch(Exception e){}
         }
     }

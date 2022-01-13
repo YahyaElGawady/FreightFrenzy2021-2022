@@ -220,7 +220,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                     telemetry.addData("Task", "%d - %s", i, auto.taskDescriptions[i]);
                     telemetry.update();
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(500);
                     } catch(Exception e){}
                 }
             }
