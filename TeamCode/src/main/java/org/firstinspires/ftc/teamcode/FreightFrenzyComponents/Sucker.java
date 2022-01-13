@@ -38,10 +38,10 @@ public class Sucker extends RobotComponent {
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
             case INTAKE_POSITION:
-                arm.setTargetPosition(820);
+                arm.setTargetPosition(-820);
                 break;
             case OUTTAKE_POSITION:
-                arm.setTargetPosition(90);
+                arm.setTargetPosition(-30);
         }
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);

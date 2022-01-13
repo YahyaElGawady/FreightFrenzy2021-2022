@@ -115,8 +115,8 @@ public class OuttakeBucket extends RobotComponent {
     public int sliderTop = TOP;
 
     public static final int    DOWN = 0, BOTTOM = -100, MIDDLE = -300, TOP = -500;  // TODO: add encoder values
-    public static final double DUMPED = .6; // TODO: add position for dumping
-    public static final double NEUTRAL = .9; // TODO: add position for not dumping
+    public static final double DUMPED = .45; // TODO: add position for dumping
+    public static final double NEUTRAL = 1; // TODO: add position for not dumping
     public static final double POWER = 1;   // TODO: add slider Power
 
     // For Generated Auto Support
