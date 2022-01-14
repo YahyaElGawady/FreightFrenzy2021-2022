@@ -173,7 +173,7 @@ public class AutonomousBuilder{
         return true;
     }
     @SuppressLint("NewApi")
-    public AutonomousBuilder(String name, int numTasks){
+    public AutonomousBuilder(FullBase base, String name, int numTasks){
         this.name             = name;
         this.path_to_auto     = Paths.get(PATH_TO_AUTOS + name + ".java");
         this.tasks            = new Task[numTasks];
@@ -184,11 +184,11 @@ public class AutonomousBuilder{
                     Files.newOutputStream(path_to_auto,
                             StandardOpenOption.CREATE,
                             StandardOpenOption.TRUNCATE_EXISTING));
-        } catch (Exception e){e.printStackTrace();}
+        } catch (Exception e){base.getTelemetry().addLine("Error in creation of AutonomousBuilder.");base.getTelemetry().update();}
         EncoderTask.init(out);
         TimerTask.init(out);
     }
-    public void createStartOfAuto(){
+    public boolean createStartOfAuto(){
         try {
             out.writeChars(PACKAGE);
             out.writeChars(IMPORTS);
@@ -206,7 +206,8 @@ public class AutonomousBuilder{
                     "base.init();\n\t\ttelemetry.addData(\"Status\", \"Initialized\");\n\t\t" +
                     "telemetry.update();\n\t\twaitForStart();\n");
 
-        } catch (Exception e) {}
+        } catch (Exception e) { return false;}
+        return true;
     }
     public void createEndOfAuto(){
         try{

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.FullBase;
@@ -46,6 +47,7 @@ public class MainTeleOp extends LinearOpMode {
             isSlowMode = gamepad1.x;
 
             Base.drivetrain.drive(forward, right, turn, slowMode);
+            if(gamepad1.b) Base.drivetrain.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
 
@@ -62,7 +64,7 @@ public class MainTeleOp extends LinearOpMode {
            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
            Base.outtakeBucket.dump(gamepad2.y);
            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
-           Base.getTelemetry().addData("cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
+           Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
