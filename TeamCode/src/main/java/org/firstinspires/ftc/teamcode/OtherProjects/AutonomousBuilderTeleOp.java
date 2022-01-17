@@ -22,6 +22,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
         telemetry.addLine("Starting...");
         telemetry.update();
         base = new FullBase(telemetry, this, hardwareMap, false);
+        base.init();
         AutonomousBuilder auto = new AutonomousBuilder(base, name,numTasks);
         telemetry.addLine("AutoBuilder created");
         telemetry.update();
