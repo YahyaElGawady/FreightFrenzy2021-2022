@@ -61,11 +61,15 @@ public class MainTeleOp extends LinearOpMode {
             if(gamepad1.right_trigger < .1)
                 Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
             /*      outtake     */
-           Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
-           Base.outtakeBucket.dump(gamepad2.y);
-           Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
-           Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
-           Base.getTelemetry().update();
+            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
+            Base.outtakeBucket.dump(gamepad2.y);
+            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
+            Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
+            Base.getTelemetry().addData("Front Left: ", Base.drivetrain.frontLeft.getCurrentPosition());
+            Base.getTelemetry().addData("Front Right: ", Base.drivetrain.frontRight.getCurrentPosition());
+            Base.getTelemetry().addData("Back Left: ", Base.drivetrain.backLeft.getCurrentPosition());
+            Base.getTelemetry().addData("Back Right: ", Base.drivetrain.backRight.getCurrentPosition());
+            Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
             Base.duckeySpinner.spin(gamepad2.left_trigger, gamepad2.right_trigger);

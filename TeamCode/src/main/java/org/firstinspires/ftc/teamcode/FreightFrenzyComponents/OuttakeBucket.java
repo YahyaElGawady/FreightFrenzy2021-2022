@@ -192,6 +192,15 @@ public class OuttakeBucket extends RobotComponent {
             sliderTop = prevTop();
         }
     }
+    public void slideManual(double speed){
+        if(Math.abs(speed) < .1) {
+            slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            slider.setPower(speed);
+        } else{
+            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
+
     public void slide(int encoders){
 //        int targetPosition = slider.getCurrentPosition() + encoders;
         slider.setTargetPosition(encoders);
