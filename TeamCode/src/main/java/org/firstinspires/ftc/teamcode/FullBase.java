@@ -102,19 +102,20 @@ public class FullBase extends RobotBase {
                 Drivetrain.DRIVE_SPEED, safeInchesToDuckySpinner,
                 safeInchesToDuckySpinner, safeInchesToDuckySpinner,
                 safeInchesToDuckySpinner, 0, 0);
-        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,( (red == 1) ? 60 : 20));
+//        drivetrain.gyroTurn(Drivetrain.TURN_SPEED,( (red == 1) ? 60 : 20));
 //        drivetrain.moveInches(
 //                Drivetrain.DRIVE_SPEED, safeInchesToDuckySpinner,
 //                safeInchesToDuckySpinner, safeInchesToDuckySpinner,
 //                safeInchesToDuckySpinner);
-
+        drivetrain.gyroTurn(.6, 30);
         duckeySpinner.spinner.setPower(-1 * red);
         try{ Thread.sleep(3000); } catch (Exception e) {}
 //        duckeySpinner.spin(false);
         duckeySpinner.spinner.setPower(0);
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 90*red);
         drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1,
-                 inchesToDuckyParking + ((red == 1) ? 0 : 0), inchesToDuckyParking + ((red == 1) ? 0 : 0),
+                inchesToDuckyParking
+                        + ((red == 1) ? 0 : 0), inchesToDuckyParking + ((red == 1) ? 0 : 0),
                 inchesToDuckyParking + ((red == 1) ? 0 : 0), inchesToDuckyParking + ((red == 1) ? 0 : 0), 110 * red, 0);
         drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                 inchesToDuckyParking2, inchesToDuckyParking2,
@@ -147,14 +148,10 @@ public class FullBase extends RobotBase {
                 inchesToDuckyParking, inchesToDuckyParking);
     }
     public void warehouseSideAuto(int red){
-        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 11, 11, 11, 11 , 0 , 0);
-        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, -90 * red);
-        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 30, 30, 30, 30, -90 * red, 0);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 20, 20, 20, 20 , 0 , 0);
     }
     public void warehouseSideAutoBlue(){
-        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 11, 11, 11, 11, 0 , 0);
-        drivetrain.gyroTurn(Drivetrain.DRIVE_SPEED, 80 );
-        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 30, 30, 30, 30, 90, 0);
+        drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, 20, 20, 20, 20, 0 , 0);
     }
     public void wait(double timeInMs){
 
