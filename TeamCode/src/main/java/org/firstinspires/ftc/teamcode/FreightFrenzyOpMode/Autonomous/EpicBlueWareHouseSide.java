@@ -31,7 +31,7 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
         base.getTelemetry().update();
         waitForStart();
 
-        base.duckDetector.takePicture();
+        //base.duckDetector.takePicture();
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                 -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, STRAIGHT, 0);
         base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_FACE_HUB);

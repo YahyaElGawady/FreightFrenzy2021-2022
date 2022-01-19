@@ -22,7 +22,7 @@ public class EpicRedDuckySide extends LinearOpMode {
     public static final int STRAIGHT = 0;
     @Override
     public void runOpMode(){
-        base = new FullBase(telemetry, this, hardwareMap, false);
+        base = new FullBase(telemetry, this, hardwareMap, false, true);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
@@ -30,7 +30,7 @@ public class EpicRedDuckySide extends LinearOpMode {
         base.getTelemetry().update();
         waitForStart();
 
-        base.duckDetector.takePicture();
+        //base.duckDetector.takePicture();
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                 -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
         switch(base.duckDetector.mostDuckyArea()){

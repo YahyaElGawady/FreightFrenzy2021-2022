@@ -371,8 +371,8 @@ public class Drivetrain extends RobotComponent {
         right = getProcessedInput(right);
         turn = getProcessedInput(turn);
 
-        double leftFrontPower = forward - right + turn;
-        double leftBackPower = forward + right + turn;
+        double leftFrontPower = forward + right + turn;
+        double leftBackPower = forward - right + turn;
         double rightFrontPower = forward - right - turn;
         double rightBackPower = forward + right - turn;
         double[] powers = {leftFrontPower, leftBackPower, rightFrontPower, rightBackPower};

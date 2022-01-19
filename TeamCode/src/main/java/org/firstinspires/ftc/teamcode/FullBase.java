@@ -24,11 +24,17 @@ public class FullBase extends RobotBase {
     public static final double inchesToDuckyParking = 14;
     public static final double inchesToDuckyParking2 = 3;
 
+    public static boolean isRed = false;
+
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
 
     }
+    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging, boolean isRed) {
+        super(telemetry, opMode, hardwaremap,debugging);
+        this.isRed = isRed;
 
+    }
     @Override
     public void init() {
         //create drivetrain
@@ -70,7 +76,7 @@ public class FullBase extends RobotBase {
         //initialize DuckDetector
         telemetry.addLine("DuckDetector about to init");
         telemetry.update();
-        duckDetector = new DuckDetector(opMode);
+        duckDetector = new DuckDetector(opMode, isRed);
         telemetry.addLine("DuckDetector inited");
         telemetry.update();
 
@@ -82,7 +88,6 @@ public class FullBase extends RobotBase {
      * @param
      * */
     public void dumpFromDuckPos(int redDucky){
-        duckDetector.takePicture();
         int spos = FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea());
         if(spos == -1){
             outtakeBucket.slide(OuttakeBucket.TOP);

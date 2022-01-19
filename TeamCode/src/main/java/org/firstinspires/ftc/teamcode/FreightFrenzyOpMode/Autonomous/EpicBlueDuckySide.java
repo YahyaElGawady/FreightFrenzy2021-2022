@@ -29,7 +29,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
         base.getTelemetry().update();
         waitForStart();
 
-        base.duckDetector.takePicture();
+       // base.duckDetector.s();
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                 -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
         switch(base.duckDetector.mostDuckyArea()){
