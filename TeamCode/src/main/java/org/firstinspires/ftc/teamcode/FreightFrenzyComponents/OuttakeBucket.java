@@ -232,6 +232,8 @@ public class OuttakeBucket extends RobotComponent {
         }
         dumperButtonIsHeld = button;
     }
+
+
     @Override
     public void stop() {
         slider.setPower(0);
