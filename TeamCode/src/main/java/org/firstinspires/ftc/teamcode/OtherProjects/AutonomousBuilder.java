@@ -57,7 +57,7 @@ public class AutonomousBuilder{
                 for(String s : components){
                     out.writeChars(String.format("\t\t%s.setPowerInAuto(0);\n", s));
                 }
-                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
+//                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
             } catch(Exception e){}
         }
     }
@@ -157,7 +157,7 @@ public class AutonomousBuilder{
                     out.writeChars(
                             String.format("\t\t%s.setPowerInAuto(0);\n", info.component));
                 }
-                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
+//                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
             } catch(Exception e){}
         }
     }
