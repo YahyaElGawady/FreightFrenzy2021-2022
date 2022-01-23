@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.Drivetrain;
+import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.DuckDetector;
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.OuttakeBucket;
 import org.firstinspires.ftc.teamcode.FullBase;
 @Autonomous(name="CameraBlueDuckie")
@@ -32,7 +33,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
        // base.duckDetector.s();
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                 -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
-        switch(base.duckDetector.mostDuckyArea()){
+        switch(/*base.duckDetector.mostDuckyArea()*/DuckDetector.DuckLocation.LEFT){
             case LEFT: {
                 // bottom
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,

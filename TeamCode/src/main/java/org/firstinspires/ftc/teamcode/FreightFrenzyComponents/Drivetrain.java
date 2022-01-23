@@ -287,6 +287,11 @@ public class Drivetrain extends RobotComponent {
         double ErrorAmount;
         boolean goodEnough = false;
 
+        double fler = 0;
+        double bler = 0;
+        double frer = 0;
+        double brer = .1;
+
         // Ensure that the opmode is still active
         if (base().getOpMode().opModeIsActive()) {
 
@@ -318,13 +323,15 @@ public class Drivetrain extends RobotComponent {
                 steer = getSteer(error, P_DRIVE_COEFF);
 
                 // if driving in reverse, the motor correction also needs to be reversed
-                if (frontLeftInches < 0 && frontRightInches < 0 && backLeftInches < 0 && backRightInches < 0)
+                if (frontLeftInches < 0 && frontRightInches < 0 && backLeftInches < 0 && backRightInches < 0){
                     steer *= -1.0;
 
-                frontLeftSpeed = speed - steer;
-                backLeftSpeed = speed - steer;
-                backRightSpeed = speed + steer;
-                frontRightSpeed = speed + steer;
+                }
+
+                frontLeftSpeed = speed - steer + fler;
+                backLeftSpeed = speed - steer + bler;
+                backRightSpeed = speed + steer + brer;
+                frontRightSpeed = speed + steer + frer;
 
                 // Normalize speeds if either one exceeds +/- 1.0;
                 HalfMaxOne = Math.max(Math.abs(frontLeftSpeed), Math.abs(backLeftSpeed));
@@ -344,9 +351,9 @@ public class Drivetrain extends RobotComponent {
 
                 // Display drive status for the driver.
                 base().getTelemetry().addData("Err/St", "%5.1f/%5.1f", error, steer);
-                base().getTelemetry().addData("Target", "%7d:%7d", newBackLeftTarget, newBackRightTarget, newFrontLeftTarget, newFrontRightTarget);
-                base().getTelemetry().addData("Actual", "%7d:%7d", backLeft.getCurrentPosition(), backRight.getCurrentPosition(), frontLeft.getCurrentPosition(), frontRight.getCurrentPosition());
-                base().getTelemetry().addData("Speed", "%5.2f:%5.2f", backLeftSpeed, backRightSpeed, frontLeftSpeed, frontRightSpeed);
+                base().getTelemetry().addData("Target", "%7d:%7d:%7d:%7d", newBackLeftTarget, newBackRightTarget, newFrontLeftTarget, newFrontRightTarget);
+                base().getTelemetry().addData("Actual", "%7d:%7d:%7d:%7d", backLeft.getCurrentPosition(), backRight.getCurrentPosition(), frontLeft.getCurrentPosition(), frontRight.getCurrentPosition());
+                base().getTelemetry().addData("Speed", "%5.2f:%5.2f:%5.2f:%5.2f", backLeftSpeed, backRightSpeed, frontLeftSpeed, frontRightSpeed);
                 base().getTelemetry().update();
 
                 ErrorAmount = ((Math.abs(((newBackLeftTarget) - (backLeft.getCurrentPosition())))
