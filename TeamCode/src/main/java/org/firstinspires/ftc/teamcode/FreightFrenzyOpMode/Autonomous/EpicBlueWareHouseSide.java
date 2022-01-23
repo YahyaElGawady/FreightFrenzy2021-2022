@@ -32,8 +32,8 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
         waitForStart();
 
         //base.duckDetector.takePicture();
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN);
         base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_FACE_HUB);
         switch(base.duckDetector.mostDuckyArea()){
             case LEFT: {
@@ -74,8 +74,8 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
             };
         }
         base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, STRAIGHT);
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN);
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, INCHES_TO_PARK, INCHES_TO_PARK, INCHES_TO_PARK, INCHES_TO_PARK, STRAIGHT,0);
 
     }

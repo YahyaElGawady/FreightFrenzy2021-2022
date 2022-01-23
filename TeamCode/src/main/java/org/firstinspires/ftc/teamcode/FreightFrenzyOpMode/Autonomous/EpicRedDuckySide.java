@@ -31,8 +31,8 @@ public class EpicRedDuckySide extends LinearOpMode {
         waitForStart();
 
         //base.duckDetector.takePicture();
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB);
         switch(base.duckDetector.mostDuckyArea()){
             case LEFT: {
                 // bottom

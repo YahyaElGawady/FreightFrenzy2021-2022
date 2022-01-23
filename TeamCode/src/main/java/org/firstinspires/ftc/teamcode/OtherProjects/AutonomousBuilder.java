@@ -174,6 +174,8 @@ public class AutonomousBuilder{
     }
     @SuppressLint("NewApi")
     public AutonomousBuilder(FullBase base, String name, int numTasks){
+        base.getTelemetry().addLine("In AutoBuilder Ctor");
+        base.getTelemetry().update();
         this.name             = name;
         this.path_to_auto     = Paths.get(PATH_TO_AUTOS + name + ".java");
         this.tasks            = new Task[numTasks];

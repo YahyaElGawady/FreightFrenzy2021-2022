@@ -35,8 +35,7 @@ public class FullBase extends RobotBase {
         this.isRed = isRed;
 
     }
-    @Override
-    public void init() {
+    public void initWithoutDuckyDetector(){
         //create drivetrain
         telemetry.addLine("Drivetrain about to init");
         telemetry.update();
@@ -58,12 +57,10 @@ public class FullBase extends RobotBase {
         telemetry.update();
         components[2] = outtakeBucket;
 
-        telemetry.addLine("DuckeySpinner about to init");
-        telemetry.update();
-        duckeySpinner = new DuckeySpinner(this);
-        telemetry.addLine("DuckeySpinner inited");
-        telemetry.update();
-        components[3] = duckeySpinner;
+    }
+    @Override
+    public void init() {
+
 //        telemetry.addLine("Sucker about to init");
 //        sucker = new Sucker(this);
 //        telemetry.addLine("sucker inited");
@@ -74,6 +71,7 @@ public class FullBase extends RobotBase {
 //        telemetry.addLine("outtake inited");
 //        components[2] = outtakeBucket;
         //initialize DuckDetector
+        this.initWithoutDuckyDetector();
         telemetry.addLine("DuckDetector about to init");
         telemetry.update();
         duckDetector = new DuckDetector(opMode, isRed);

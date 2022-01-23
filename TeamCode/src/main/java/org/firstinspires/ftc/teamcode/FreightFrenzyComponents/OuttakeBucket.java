@@ -151,6 +151,7 @@ public class OuttakeBucket extends RobotComponent {
         slider.setTargetPosition(BOTTOM);
         slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slider.setPower(POWER);
+        dumper.setPosition(NEUTRAL);
 //        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
