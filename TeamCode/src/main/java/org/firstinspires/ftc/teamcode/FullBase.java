@@ -15,7 +15,7 @@ public class FullBase extends RobotBase {
     public DuckeySpinner duckeySpinner;
     public DuckDetector duckDetector;
 
-    private RobotComponent[] components = new RobotComponent[4];
+    private RobotComponent[] components = new RobotComponent[5];
 
     public double rpm = 0;
     public static final double inchesToWobble = 18.5;
@@ -43,6 +43,7 @@ public class FullBase extends RobotBase {
         telemetry.addLine("drive inited");
         telemetry.update();
         components[0] = drivetrain;
+
         telemetry.addLine("Sucker about to init");
         telemetry.update();
         sucker = new Sucker(this);
@@ -57,6 +58,12 @@ public class FullBase extends RobotBase {
         telemetry.update();
         components[2] = outtakeBucket;
 
+        telemetry.addLine("DuckeySpinner about to init");
+        telemetry.update();
+        duckeySpinner = new DuckeySpinner(this);
+        telemetry.addLine("duckeyspinner inited");
+        telemetry.update();
+        components[3] = duckeySpinner;
     }
     @Override
     public void init() {
@@ -72,11 +79,12 @@ public class FullBase extends RobotBase {
 //        components[2] = outtakeBucket;
         //initialize DuckDetector
         this.initWithoutDuckyDetector();
-        telemetry.addLine("DuckDetector about to init");
-        telemetry.update();
-        duckDetector = new DuckDetector(opMode, isRed);
-        telemetry.addLine("DuckDetector inited");
-        telemetry.update();
+//        telemetry.addLine("DuckDetector about to init");
+//        telemetry.update();
+//        duckDetector = new DuckDetector(opMode, isRed);
+//        telemetry.addLine("DuckDetector inited");
+//        telemetry.update();
+        duckDetector = null;
 
         outtakeBucket.dump(true);
 

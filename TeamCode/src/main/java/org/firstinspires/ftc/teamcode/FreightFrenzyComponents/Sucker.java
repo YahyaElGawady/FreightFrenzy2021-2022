@@ -22,7 +22,7 @@ public class Sucker extends RobotComponent {
     public class ARM_INTERFACE {
         public void setPowerInAuto(final double power) {
             if (power > 0)     setArmPosition(Position.OUTTAKE_POSITION, .2);
-            else               setArmPosition(Position.INTAKE_POSITION,  .6);
+            else               setArmPosition(Position.INTAKE_POSITION,  .8);
         }
     }
     public ARM_INTERFACE ARM = new ARM_INTERFACE();
@@ -38,10 +38,10 @@ public class Sucker extends RobotComponent {
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
             case INTAKE_POSITION:
-                arm.setTargetPosition(-820);
+                arm.setTargetPosition(-570);
                 break;
             case OUTTAKE_POSITION:
-                arm.setTargetPosition(110);
+                arm.setTargetPosition(800);
         }
         arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         arm.setPower(speed);
@@ -62,7 +62,7 @@ public class Sucker extends RobotComponent {
                 setArmPosition(Position.INTAKE_POSITION,.2);
             }
             else {
-                setArmPosition(Position.OUTTAKE_POSITION,1);
+                setArmPosition(Position.OUTTAKE_POSITION,.8);
             }
             positionIn = !positionIn;
         }
