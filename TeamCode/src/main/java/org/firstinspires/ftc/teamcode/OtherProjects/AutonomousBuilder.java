@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.OtherProjects;
 
 import android.annotation.SuppressLint;
+import android.text.style.TabStopSpan;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -177,16 +179,26 @@ public class AutonomousBuilder{
         base.getTelemetry().addLine("In AutoBuilder Ctor");
         base.getTelemetry().update();
         this.name             = name;
-        this.path_to_auto     = Paths.get(PATH_TO_AUTOS + name + ".java");
+        try {
+            this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
+        } catch(Exception e){
+            base.getTelemetry().addLine(e.getMessage());
+            base.getTelemetry().update();
+            try{Thread.sleep(1000);} catch(Exception e2){}
+            System.exit(1);
+        }
         this.tasks            = new Task[numTasks];
         this.taskDescriptions = new String[numTasks];
 
         try {
             this.out = new DataOutputStream(
-                    Files.newOutputStream(path_to_auto,
-                            StandardOpenOption.CREATE,
-                            StandardOpenOption.TRUNCATE_EXISTING));
-        } catch (Exception e){base.getTelemetry().addLine("Error in creation of AutonomousBuilder.");base.getTelemetry().update();}
+                    Files.newOutputStream(path_to_auto));
+        } catch (Exception e){
+            base.getTelemetry().addLine("Error in creation of AutonomousBuilder.");
+            base.getTelemetry().update();
+            try{Thread.sleep(1000);} catch(Exception e2){}
+            System.exit(1);
+        }
         EncoderTask.init(out);
         TimerTask.init(out);
     }
@@ -215,5 +227,12 @@ public class AutonomousBuilder{
         try{
             out.writeChars("\t}\n}");
         } catch(Exception e){}
+        finally{
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
