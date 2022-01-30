@@ -117,7 +117,8 @@ public class OuttakeBucket extends RobotComponent {
     public static final int    /*DOWN = 0, */BOTTOM = 0, MIDDLE = -380, TOP = -739;  // TODO: add encoder values
     public static final double DUMPED = .3; // TODO: add position for dumping
     public static final double NEUTRAL = 1; // TODO: add position for not dumping
-    public static final double POWER = 1;   // TODO: add slider Power
+    public static final double DOWN_POWER = .3;   // TODO: add slider Power
+    public static final double UP_POWER = 1;   // TODO: add slider Power
 
     // For Generated Auto Support
     public class SLIDER_INTERFACE{
@@ -150,7 +151,7 @@ public class OuttakeBucket extends RobotComponent {
         slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slider.setTargetPosition(BOTTOM);
         slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        slider.setPower(POWER);
+        dumper.setPosition(NEUTRAL);
 //        slider.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
@@ -177,8 +178,8 @@ public class OuttakeBucket extends RobotComponent {
 //        }
         if(button && !sliderButtonIsHeld){
             switch(sliderPosition){
-                case BOTTOM: slide(sliderTop); break;
-                default: slide(BOTTOM); break;
+                case BOTTOM: slider.setPower(UP_POWER); slide(sliderTop); break;
+                default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
             }
         }
         sliderButtonIsHeld = button;

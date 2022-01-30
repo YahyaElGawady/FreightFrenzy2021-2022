@@ -15,7 +15,7 @@ public class FullBase extends RobotBase {
     public DuckeySpinner duckeySpinner;
     public DuckDetector duckDetector;
 
-    private RobotComponent[] components = new RobotComponent[4];
+    private RobotComponent[] components = new RobotComponent[5];
 
     public double rpm = 0;
     public static final double inchesToWobble = 18.5;
@@ -35,8 +35,7 @@ public class FullBase extends RobotBase {
         this.isRed = isRed;
 
     }
-    @Override
-    public void init() {
+    public void initWithoutDuckyDetector(){
         //create drivetrain
         telemetry.addLine("Drivetrain about to init");
         telemetry.update();
@@ -44,6 +43,7 @@ public class FullBase extends RobotBase {
         telemetry.addLine("drive inited");
         telemetry.update();
         components[0] = drivetrain;
+
         telemetry.addLine("Sucker about to init");
         telemetry.update();
         sucker = new Sucker(this);
@@ -61,9 +61,13 @@ public class FullBase extends RobotBase {
         telemetry.addLine("DuckeySpinner about to init");
         telemetry.update();
         duckeySpinner = new DuckeySpinner(this);
-        telemetry.addLine("DuckeySpinner inited");
+        telemetry.addLine("duckeyspinner inited");
         telemetry.update();
         components[3] = duckeySpinner;
+    }
+    @Override
+    public void init() {
+
 //        telemetry.addLine("Sucker about to init");
 //        sucker = new Sucker(this);
 //        telemetry.addLine("sucker inited");
@@ -74,11 +78,13 @@ public class FullBase extends RobotBase {
 //        telemetry.addLine("outtake inited");
 //        components[2] = outtakeBucket;
         //initialize DuckDetector
-        telemetry.addLine("DuckDetector about to init");
-        telemetry.update();
-        duckDetector = new DuckDetector(opMode, isRed);
-        telemetry.addLine("DuckDetector inited");
-        telemetry.update();
+        this.initWithoutDuckyDetector();
+//        telemetry.addLine("DuckDetector about to init");
+//        telemetry.update();
+//        duckDetector = new DuckDetector(opMode, isRed);
+//        telemetry.addLine("DuckDetector inited");
+//        telemetry.update();
+        duckDetector = null;
 
         outtakeBucket.dump(true);
 

@@ -290,7 +290,7 @@ public class Drivetrain extends RobotComponent {
         double fler = 0;
         double bler = 0;
         double frer = 0;
-        double brer = .1;
+        double brer = 0;
 
         // Ensure that the opmode is still active
         if (base().getOpMode().opModeIsActive()) {

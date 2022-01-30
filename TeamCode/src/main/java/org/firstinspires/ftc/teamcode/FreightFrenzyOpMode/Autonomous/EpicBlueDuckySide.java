@@ -31,8 +31,8 @@ public class EpicBlueDuckySide extends LinearOpMode{
         waitForStart();
 
        // base.duckDetector.s();
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB);
         switch(/*base.duckDetector.mostDuckyArea()*/DuckDetector.DuckLocation.LEFT){
             case LEFT: {
                 // bottom
@@ -77,11 +77,11 @@ public class EpicBlueDuckySide extends LinearOpMode{
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP), STRAIGHT, 0);
             };
         }
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_CAROUSEL, INCHES_TO_CAROUSEL, INCHES_TO_CAROUSEL, -INCHES_TO_CAROUSEL, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
+                -INCHES_TO_CAROUSEL, INCHES_TO_CAROUSEL, INCHES_TO_CAROUSEL, -INCHES_TO_CAROUSEL);
         base.duckeySpinner.spinner.setPower(-.8);
         sleep(500);
-        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, -INCHES_TO_PARK, INCHES_TO_PARK, INCHES_TO_PARK, -INCHES_TO_PARK, STRAIGHT, 0);
+        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED, -INCHES_TO_PARK, INCHES_TO_PARK, INCHES_TO_PARK, -INCHES_TO_PARK);
         base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, INCHES_TO_FIX_PARK, INCHES_TO_FIX_PARK, INCHES_TO_FIX_PARK, INCHES_TO_FIX_PARK, STRAIGHT, 0);
     }
 }

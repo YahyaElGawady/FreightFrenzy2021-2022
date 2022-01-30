@@ -19,13 +19,12 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
     @Override
     public void runOpMode(){
         int i = 0;
-        telemetry.addLine("Starting...");
+        telemetry.addData("Status", "Starting");
         telemetry.update();
         base = new FullBase(telemetry, this, hardwareMap, false);
-        base.init();
+        base.initWithoutDuckyDetector();
         AutonomousBuilder auto = new AutonomousBuilder(base, name,numTasks);
         telemetry.addLine("AutoBuilder created");
-        telemetry.update();
 
         // Create daemon thread that constantly updates the stop button. Not necessary, but
         // possibly convenient.
@@ -42,6 +41,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 
         telemetry.addLine("Creating Tasks...");
         telemetry.update();
+        try{Thread.sleep(2000);}catch(Exception e){}
 
         // Creates a task that records the drivetrain forward-backward motion.
         auto.createTask(0, "Drivetrain: Forward, Backward", new AutonomousBuilder.EncoderTask(
@@ -74,8 +74,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 }
             )
         );
-        telemetry.addLine("Task 0");
-        telemetry.update();
+//        telemetry.addLine("Task 0");
+//        telemetry.update();
         // Creates a task that records the drivetrain turn motion.
         auto.createTask(1, "Drivetrain: Turn", new AutonomousBuilder.EncoderTask(
                         (FullBase base) -> {
@@ -108,8 +108,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         }
                 )
         );
-        telemetry.addLine("Task 1");
-        telemetry.update();
+//        telemetry.addLine("Task 1");
+//        telemetry.update();
         // Creates a task that runs the sucker and drivetrain forward-backward.
         auto.createTask(2, "Drivetrain: Forward, Backward; Intake: Sucker",
                 new AutonomousBuilder.EncoderTask(
@@ -144,8 +144,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         }
                 )
         );
-        telemetry.addLine("Task 2");
-        telemetry.update();
+//        telemetry.addLine("Task 2");
+//        telemetry.update();
         // Creates a task that moves the intake arm
         auto.createTask(3, "Intake: Arm",
                 new AutonomousBuilder.TimerTask(
@@ -163,8 +163,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         "base.sucker.ARM"
                 )
         );
-        telemetry.addLine("Task 3");
-        telemetry.update();
+//        telemetry.addLine("Task 3");
+//        telemetry.update();
         // Creates a task that moves the slider
         auto.createTask(4, "Outtake: Slider",
                 new AutonomousBuilder.EncoderTask(
@@ -193,8 +193,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         }
                 )
         );
-        telemetry.addLine("Task 4");
-        telemetry.update();
+//        telemetry.addLine("Task 4");
+//        telemetry.update();
         // Creates a task that dumps
         auto.createTask(5, "Outtake: Dumper",
                 new AutonomousBuilder.TimerTask(
@@ -212,11 +212,11 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         "base.outtakeBucket.DUMPER"
                 )
         );
-        telemetry.addLine("Task 5");
-        telemetry.update();
+//        telemetry.addLine("Task 5");
+//        telemetry.update();
 
         telemetry.addLine("All Tasks completed");
-        telemetry.update();
+//        telemetry.update();
 
 
         telemetry.addLine("Creating start of auto...");
