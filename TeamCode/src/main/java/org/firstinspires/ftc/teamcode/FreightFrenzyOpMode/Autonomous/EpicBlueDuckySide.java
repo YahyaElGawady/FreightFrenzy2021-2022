@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.FullBase;
 public class EpicBlueDuckySide extends LinearOpMode{
     FullBase base;
 
-    public static final double INCHES_TO_HUB = 43.5;
+    public static final double INCHES_TO_HUB = 41;
     public static final double COMMON_POS_TO_WALL = 25;
     public static final double INCHES_TO_DEPOSIT_BOTTOM = -3;
     public static final double INCHES_TO_DEPOSIT_MIDDLE = 8;
@@ -31,8 +31,8 @@ public class EpicBlueDuckySide extends LinearOpMode{
         waitForStart();
 
        // base.duckDetector.s();
-        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB);
+        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
         switch(/*base.duckDetector.mostDuckyArea()*/DuckDetector.DuckLocation.LEFT){
             case LEFT: {
                 // bottom

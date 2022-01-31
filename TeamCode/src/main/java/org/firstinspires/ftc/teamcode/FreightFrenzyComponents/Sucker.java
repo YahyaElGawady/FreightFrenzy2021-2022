@@ -33,10 +33,13 @@ public class Sucker extends RobotComponent {
         initMotors();
 
     }
-    public enum Position {INTAKE_POSITION, OUTTAKE_POSITION };
+    public enum Position {INTAKE_POSITION, OUTTAKE_POSITION, START_POSITION };
 
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
+            case START_POSITION:
+                arm.setTargetPosition(-50);
+                break;
             case INTAKE_POSITION:
                 arm.setTargetPosition(-570);
                 break;
