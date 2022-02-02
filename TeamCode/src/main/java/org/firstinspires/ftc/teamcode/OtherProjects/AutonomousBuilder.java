@@ -176,31 +176,44 @@ public class AutonomousBuilder{
     }
     @SuppressLint("NewApi")
     public AutonomousBuilder(FullBase base, String name, int numTasks){
-        base.getTelemetry().addLine("In AutoBuilder Ctor");
-        base.getTelemetry().update();
-        this.name             = name;
         try {
-            this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
-        } catch(Exception e){
+            base.getTelemetry().addLine("In AutoBuilder Ctor");
+            base.getTelemetry().update();
+            this.name = name;
+            try {
+                this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
+            } catch (Exception e) {
+                base.getTelemetry().addLine(e.getMessage());
+                base.getTelemetry().update();
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e2) {
+                }
+                System.exit(1);
+            }
+            this.tasks = new Task[numTasks];
+            this.taskDescriptions = new String[numTasks];
+
+            try {
+                this.out = new DataOutputStream(
+                        Files.newOutputStream(path_to_auto));
+            } catch (Exception e) {
+                base.getTelemetry().addLine(e.getMessage());
+                base.getTelemetry().update();
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e2) {
+                }
+                System.exit(1);
+            }
+            EncoderTask.init(out);
+            TimerTask.init(out);
+        }
+        catch(Exception e){
             base.getTelemetry().addLine(e.getMessage());
             base.getTelemetry().update();
-            try{Thread.sleep(1000);} catch(Exception e2){}
-            System.exit(1);
+            try{Thread.sleep(1000);}catch(Exception ex){}
         }
-        this.tasks            = new Task[numTasks];
-        this.taskDescriptions = new String[numTasks];
-
-        try {
-            this.out = new DataOutputStream(
-                    Files.newOutputStream(path_to_auto));
-        } catch (Exception e){
-            base.getTelemetry().addLine("Error in creation of AutonomousBuilder.");
-            base.getTelemetry().update();
-            try{Thread.sleep(1000);} catch(Exception e2){}
-            System.exit(1);
-        }
-        EncoderTask.init(out);
-        TimerTask.init(out);
     }
     public boolean createStartOfAuto(){
         try {
