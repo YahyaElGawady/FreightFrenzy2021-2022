@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.Drivetrain;
+import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.DuckDetector;
 import org.firstinspires.ftc.teamcode.FreightFrenzyComponents.OuttakeBucket;
 import org.firstinspires.ftc.teamcode.FullBase;
 
@@ -16,6 +17,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
     public static final double INCHES_TO_MIDDLE = -8.25;
     public static final double TURN_TO_FACE_HUB = -40;
     public static final double INCHES_TO_PARK = 25;
+    public static final double LEFT_WHEEL_ERROR = 29.0/55.0;
 
     public static final int STRAIGHT = 0;
     @Override
@@ -30,14 +32,14 @@ public class EpicRedWareHouseSide extends LinearOpMode {
 
        // base.duckDetector.takePicture();
         base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
-                -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN);
+                INCHES_TO_HUB_TURN * LEFT_WHEEL_ERROR, -INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN);
         base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_FACE_HUB);
-        switch(base.duckDetector.mostDuckyArea()){
+        switch(/*base.duckDetector.mostDuckyArea()*/ DuckDetector.DuckLocation.LEFT){
             case LEFT: {
                 // bottom
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, TURN_TO_FACE_HUB, 0);
                 base.outtakeBucket.dump(true);
-                sleep(300);
+                sleep(700);
                 base.outtakeBucket.dump(true);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, TURN_TO_FACE_HUB, 0);
 
