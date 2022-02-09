@@ -31,7 +31,7 @@ public class Drivetrain extends RobotComponent {
     public static final double     WHEEL_DIAMETER_INCHES   = /*3.77953*/3.75;
     public static final double     COUNTS_PER_INCH  = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)
             / (WHEEL_DIAMETER_INCHES * 3.14159265358979323846264);
-    public static final double DRIVE_SPEED = 0.45;     // Nominal speed for better accuracy.
+    public static final double DRIVE_SPEED = 0.4;     // Nominal speed for better accuracy.
     public static final double TURN_SPEED = 0.5;     // Nominal half speed for better accuracy.
     static final double HEADING_THRESHOLD = 1;      // As tight as we can make it with an integer gyro
     static final double P_TURN_COEFF = 0.1;     // Larger is more responsive, but also less stable
