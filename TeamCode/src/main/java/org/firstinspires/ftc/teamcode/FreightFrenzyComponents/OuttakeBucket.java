@@ -140,7 +140,7 @@ public class OuttakeBucket extends RobotComponent {
     public SLIDER_INTERFACE SLIDER = new SLIDER_INTERFACE();
     public DUMPER_INTERFACE DUMPER = new DUMPER_INTERFACE();
 
-    public OuttakeBucket(RobotBase base) {
+    public  OuttakeBucket(RobotBase base) {
         super(base);
         initServosAndMotors();
     }

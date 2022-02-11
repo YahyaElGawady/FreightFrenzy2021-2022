@@ -48,10 +48,10 @@ public class Drivetrain extends RobotComponent {
                backLeft = base().getMapper().mapMotor("backLeft", DcMotorSimple.Direction.REVERSE);
                motors[1] = backLeft;
 
-               frontRight = base().getMapper().mapMotor("frontRight", DcMotorSimple.Direction.REVERSE);
+               frontRight = base().getMapper().mapMotor("frontRight", DcMotorSimple.Direction.FORWARD);
                motors[2] = frontRight;
 
-               backRight = base().getMapper().mapMotor("backRight", DcMotorSimple.Direction.REVERSE);
+               backRight = base().getMapper().mapMotor("backRight", DcMotorSimple.Direction.FORWARD);
                motors[3] = backRight;
 
                gyroSensor = base().getMapper().mapMRGyro("gyro");

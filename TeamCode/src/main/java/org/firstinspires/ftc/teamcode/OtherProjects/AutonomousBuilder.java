@@ -174,7 +174,7 @@ public class AutonomousBuilder{
         tasks[index]            = task;
         return true;
     }
-    @SuppressLint("NewApi")
+    //@SuppressLint("NewApi")
     public AutonomousBuilder(FullBase base, String name, int numTasks){
         try {
             base.getTelemetry().addLine("In AutoBuilder Ctor");
