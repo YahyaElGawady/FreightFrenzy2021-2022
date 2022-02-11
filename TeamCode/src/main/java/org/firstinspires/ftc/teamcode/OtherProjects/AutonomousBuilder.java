@@ -52,14 +52,14 @@ public class AutonomousBuilder{
             long end = System.nanoTime();
             try {
                 for (String s : components) {
-                    out.writeChars(String.format("\t\t%s.setPowerInAuto(1);\n", s));
+                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(1);\n", s));
                 }
-                out.writeChars(String.format("\t\ttry{Thread.sleep(%d);}catch(Exception e){}\n",
+                out.writeBytes(String.format("\t\ttry{Thread.sleep(%d);}catch(Exception e){}\n",
                         end - begin));
                 for(String s : components){
-                    out.writeChars(String.format("\t\t%s.setPowerInAuto(0);\n", s));
+                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(0);\n", s));
                 }
-//                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
+//                out.writeBytes();("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
             } catch(Exception e){}
         }
     }
@@ -134,32 +134,32 @@ public class AutonomousBuilder{
             RetType retType = function.apply(base);
             try{
                 for(ChildComponent info: retType.childComponents){
-                    out.writeChars(String.format("\t\t%s.setPowerInAuto(1);\n", info.component));
+                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(1);\n", info.component));
                 }
                 for(MainComponent info: retType.mainComponents){
-                    out.writeChars(
+                    out.writeBytes(
                             String.format("\t\t%s.setTargetPosition(new int[]{", info.component));
                     out.writeInt(info.encoders[0]);
                     for(int i = 1; i < info.encoders.length; ++i){
-                        out.writeChars(String.format(",%d", info.encoders[i]));
+                        out.writeBytes(String.format(",%d", info.encoders[i]));
                     }
-                    out.writeChars("});\n");
+                    out.writeBytes("});\n");
                 }
 
-                out.writeChars(
+                out.writeBytes(
                         String.format("\t\twhile(%s.isBusy()",
                                 retType.mainComponents[0].component));
                 for(int i = 1; i < retType.mainComponents.length; ++i){
-                    out.writeChars(
+                    out.writeBytes(
                             String.format(" || %s.isBusy()",
                                     retType.mainComponents[i].component));
                 }
-                out.writeChars("){}\n");
+                out.writeBytes("){}\n");
                 for(ChildComponent info: retType.childComponents){
-                    out.writeChars(
+                    out.writeBytes(
                             String.format("\t\t%s.setPowerInAuto(0);\n", info.component));
                 }
-//                out.writeChars("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
+//                out.writeBytes();("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
             } catch(Exception e){}
         }
     }
@@ -217,9 +217,9 @@ public class AutonomousBuilder{
     }
     public boolean createStartOfAuto(){
         try {
-            out.writeChars(PACKAGE);
-            out.writeChars(IMPORTS);
-            out.writeChars(
+            out.writeBytes(PACKAGE);
+            out.writeBytes(IMPORTS);
+            out.writeBytes(
                     String.format(
                             "\n/************************\nGenerated Auto: %1$s\nMade by: " +
                             "FTC Team Direct Current 5893\n\n\"I don't even know what street " +
@@ -227,7 +227,7 @@ public class AutonomousBuilder{
                             "****************/\n@Autonomous(name=\"%1$s\")\n" +
                             "public class %1$s extends LinearOpMode{\n"
                             , name));
-            out.writeChars(
+            out.writeBytes(
                     "\tFullBase base;\n\n\t@Override public void runOpMode(){" +
                     "\n\t\tbase = new FullBase(telemetry, this, hardwareMap, false);\n\t\t" +
                     "base.init();\n\t\ttelemetry.addData(\"Status\", \"Initialized\");\n\t\t" +
@@ -238,7 +238,7 @@ public class AutonomousBuilder{
     }
     public void createEndOfAuto(){
         try{
-            out.writeChars("\t}\n}");
+            out.writeBytes("\t}\n}");
         } catch(Exception e){}
         finally{
             try {
