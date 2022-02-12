@@ -25,7 +25,7 @@ public class FullBase extends RobotBase {
     public static final double inchesToDuckyParking2 = 3;
 
     public static boolean isRed = false;
-
+    public static boolean isLeft = false;
     public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging) {
         super(telemetry, opMode, hardwaremap,debugging);
 
@@ -34,6 +34,11 @@ public class FullBase extends RobotBase {
         super(telemetry, opMode, hardwaremap,debugging);
         this.isRed = isRed;
 
+    }
+    public FullBase(Telemetry telemetry, LinearOpMode opMode, HardwareMap hardwaremap, boolean debugging, boolean isRed, boolean isLeft) {
+        super(telemetry, opMode, hardwaremap,debugging);
+        this.isRed = isRed;
+        this.isLeft = isLeft;
     }
     public void initWithoutDuckyDetector(){
         //create drivetrain
@@ -79,12 +84,11 @@ public class FullBase extends RobotBase {
 //        components[2] = outtakeBucket;
         //initialize DuckDetector
         this.initWithoutDuckyDetector();
-//        telemetry.addLine("DuckDetector about to init");
-//        telemetry.update();
-//        duckDetector = new DuckDetector(opMode, isRed);
-//        telemetry.addLine("DuckDetector inited");
-//        telemetry.update();
-        duckDetector = null;
+        telemetry.addLine("DuckDetector about to init");
+        telemetry.update();
+        duckDetector = new DuckDetector(opMode, isRed, isLeft);
+        telemetry.addLine("DuckDetector inited");
+        telemetry.update();
 
         outtakeBucket.dump(true);
 

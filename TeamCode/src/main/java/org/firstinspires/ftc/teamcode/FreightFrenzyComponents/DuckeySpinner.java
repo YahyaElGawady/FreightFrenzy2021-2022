@@ -24,11 +24,11 @@ public class DuckeySpinner extends RobotComponent {
     public void spin(double leftPower, double rightPower){
         if(leftPower > 0){// && !isButtonHeld){
 //            isLeftButtonHeld = true;
-            spinner.setPower(-leftPower);
+            spinner.setPower(-.52);
         }
         else if(rightPower > 0){//!button){
 //            isButtonHeld = false;
-            spinner.setPower(rightPower);
+            spinner.setPower(.52 );
         }
         else spinner.setPower(0);
     }

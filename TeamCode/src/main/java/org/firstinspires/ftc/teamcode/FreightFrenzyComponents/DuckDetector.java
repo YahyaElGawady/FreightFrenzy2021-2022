@@ -106,40 +106,46 @@ OpMode opMode;
 
     CustomPipeline pipeline;
 
-    private final Point BLUE_LEFT_TL    = new Point(130,180);
-    private final Point BLUE_LEFT_BR    = new Point(185, 220);
-    private final Point BLUE_MIDDLE_TL    = new Point(130,180);
-    private final Point BLUE_MIDDLE_BR    = new Point(185, 220);
-    private final Point BLUE_RIGHT_TL    = new Point(130,180);
-    private final Point BLUE_RIGHT_BR    = new Point(185, 220);
+    private final Point BLUE_LEFT_LEFT_TL    = new Point(0,60);
+    private final Point BLUE_LEFT_LEFT_BR    = new Point(55, 100);
+    private final Point BLUE_LEFT_MIDDLE_TL    = new Point(130,60);
+    private final Point BLUE_LEFT_MIDDLE_BR    = new Point(185, 100);
+
+    private final Point BLUE_RIGHT_LEFT_TL    = new Point(0,70);
+    private final Point BLUE_RIGHT_LEFT_BR   = new Point(55, 110);
+    private final Point BLUE_RIGHT_MIDDLE_TL    = new Point(130,70);
+    private final Point BLUE_RIGHT_MIDDLE_BR  = new Point(185, 110);
 
 
 
-    private final Point RED_LEFT_TL    = new Point(40,40);
-    private final Point RED_LEFT_BR    = new Point(100, 85);
-    private final Point RED_MIDDLE_TL    = new Point(140,40);
-    private final Point RED_MIDDLE_BR    = new Point(200, 85);
-    private final Point RED_RIGHT_TL    = new Point(240,40);
-    private final Point RED_RIGHT_BR    = new Point(300, 85);
 
-    private Point leftTL;
-    private Point leftBR;
+    private final Point RED_RIGHT_MIDDLE_TL    = new Point(80, 80);
+    private final Point RED_RIGHT_MIDDLE_BR    = new Point(135,130);
+    private final Point RED_RIGHT_RIGHT_TL    = new Point(230,70);
+    private final Point RED_RIGHT_RIGHT_BR    = new Point(250, 110);
+
+    private final Point RED_LEFT_MIDDLE_TL    = new Point(80, 80);
+    private final Point RED_LEFT_MIDDLE_BR    = new Point(135,130);
+    private final Point RED_LEFT_RIGHT_TL    = new Point(230,65);
+    private final Point RED_LEFT_RIGHT_BR    = new Point(275, 115);
+
     private Point middleTL;
     private Point middleBR;
     private Point rightTL;
     private Point rightBR;
 
-    private RGB leftBox;
     private RGB middleBox;
     private RGB rightBox;
     private boolean show_value = true;
+    boolean isRed, isLeft;
     public enum DuckLocation{
         LEFT, RIGHT, MIDDLE
     }
-    public DuckDetector(OpMode op, boolean isRed){
+    public DuckDetector(OpMode op, boolean isRed, boolean isLeft){
 
         opMode = op;
-
+        this.isLeft = isLeft;
+        this.isRed = isRed;
         int cameraMonitorViewId = opMode.hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", opMode.hardwareMap.appContext.getPackageName());
 
@@ -150,12 +156,17 @@ OpMode opMode;
         camera.setPipeline(pipeline);
         camera.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT);
 
-        leftTL = (isRed) ? RED_LEFT_TL : BLUE_LEFT_TL;
-        leftBR = (isRed) ? RED_LEFT_BR : BLUE_LEFT_BR;
-        middleTL = (isRed) ? RED_MIDDLE_TL : BLUE_MIDDLE_TL;
-        middleBR = (isRed) ? RED_MIDDLE_BR : BLUE_MIDDLE_BR;
-        rightTL = (isRed) ? RED_RIGHT_TL : BLUE_RIGHT_TL;
-        rightBR = (isRed) ? RED_RIGHT_BR : BLUE_RIGHT_BR;
+        if(isRed) {
+            middleTL = (isLeft) ? RED_LEFT_MIDDLE_TL : RED_RIGHT_MIDDLE_TL;
+            middleBR = (isLeft) ? RED_LEFT_MIDDLE_BR : RED_RIGHT_MIDDLE_BR;
+            rightTL = (isLeft) ? RED_LEFT_RIGHT_TL : RED_RIGHT_RIGHT_TL;
+            rightBR = (isLeft) ? RED_LEFT_RIGHT_BR : RED_RIGHT_RIGHT_BR;
+        } else{
+            middleTL = (isLeft) ? BLUE_LEFT_MIDDLE_TL : BLUE_RIGHT_MIDDLE_TL;
+            middleBR = (isLeft) ? BLUE_LEFT_MIDDLE_BR : BLUE_RIGHT_MIDDLE_BR;
+            rightTL = (isLeft) ? BLUE_LEFT_LEFT_TL : BLUE_RIGHT_LEFT_TL;
+            rightBR = (isLeft) ? BLUE_LEFT_LEFT_BR : BLUE_RIGHT_LEFT_BR;
+        }
     }
 
     public void stopStreaming(){
@@ -164,24 +175,60 @@ OpMode opMode;
 
     public DuckLocation mostDuckyArea(){
 
-        int leftBoxValue = leftBox.getYellow();
-        int middleBoxValue = middleBox.getYellow();
-        int rightBoxValue = rightBox.getYellow();
+        int middleBoxValue = middleBox.blue;
+        int rightBoxValue = rightBox.blue;
 
         if (show_value){
-            opMode.telemetry.addData("Left Box Value: ", leftBoxValue);
             opMode.telemetry.addData("Middle Box Value: ", middleBoxValue);
             opMode.telemetry.addData("Right Box Value: ", rightBoxValue);
-            opMode.telemetry.update();
         }
-
-        if (middleBoxValue < leftBoxValue && middleBoxValue < rightBoxValue) {
-            return DuckLocation.MIDDLE;
+        int dif = middleBoxValue - rightBoxValue;
+        if(isRed && !isLeft) {
+            if (Math.abs(dif) <= 16) {
+                opMode.telemetry.addLine("MIDDLE");
+                return DuckLocation.MIDDLE;
+            } else if (Math.abs(dif) < 35) {
+                opMode.telemetry.addLine("LEFT");
+                return DuckLocation.LEFT;
+            } else{
+                opMode.telemetry.addLine("RIGHT");
+                return DuckLocation.RIGHT;
+            }
+        } else if(isRed && isLeft) {
+            if (dif < -10) {
+                opMode.telemetry.addLine("MIDDLE");
+                return DuckLocation.MIDDLE;
+            } else if (dif < 10) {
+                opMode.telemetry.addLine("LEFT");
+                return DuckLocation.LEFT;
+            } else
+            {
+                opMode.telemetry.addLine("RIGHT");
+                return DuckLocation.RIGHT;
+            }
+        } else if(!isRed && !isLeft) {
+            if (dif > 10) {
+                opMode.telemetry.addLine("MIDDLE");
+                return DuckLocation.MIDDLE;
+            } else if (dif < -10) {
+                opMode.telemetry.addLine("RIGHT");
+                return DuckLocation.RIGHT;
+            } else{
+                opMode.telemetry.addLine("LEFT");
+                return DuckLocation.LEFT;
+            }
+        } else {
+            if (dif > 10) {
+                opMode.telemetry.addLine("MIDDLE");
+                return DuckLocation.MIDDLE;
+            } else if (dif < -10) {
+                opMode.telemetry.addLine("RIGHT");
+                return DuckLocation.RIGHT;
+            } else{
+                opMode.telemetry.addLine("LEFT");
+                return DuckLocation.LEFT;
+            }
         }
-        else if (rightBoxValue < leftBoxValue && rightBoxValue < rightBoxValue) {
-            return DuckLocation.RIGHT;
-        }
-        else return DuckLocation.LEFT;
     }
 
     class CustomPipeline extends OpenCvPipeline {
@@ -189,7 +236,6 @@ OpMode opMode;
         @Override
         public Mat processFrame(Mat input){
 
-            leftBox = getAverageColor(input, leftTL, leftBR);
             middleBox = getAverageColor(input, middleTL, middleBR);
             rightBox = getAverageColor(input, rightTL, rightBR);
 
@@ -208,11 +254,10 @@ OpMode opMode;
                 middleColor = new Scalar(0,255,0);
             }
 
-            Imgproc.rectangle(input, leftTL, leftBR, leftColor, thickness);
             Imgproc.rectangle(input, middleTL, middleBR, middleColor, thickness);
             Imgproc.rectangle(input, rightTL, rightBR, rightColor, thickness);
 
-            //sendTelemetry();
+            sendTelemetry();
 
             return input;
         }
@@ -240,9 +285,8 @@ OpMode opMode;
         }
 
         private void sendTelemetry(){
-            opMode.telemetry.addLine("LEFT :" + " R " + leftBox.red + " G " + leftBox.green+ " B " + leftBox.red);
-            opMode.telemetry.addLine("MIDDLE :" + " R " + middleBox.red + " G " + middleBox.green+ " B " + middleBox.red);
-            opMode.telemetry.addLine("RIGHT :" + " R " + rightBox.red + " G " + rightBox.green+ " B " + rightBox.red);
+            opMode.telemetry.addLine("MIDDLE :" + " R " + middleBox.red + " G " + middleBox.green+ " B " + middleBox.blue);
+            opMode.telemetry.addLine("RIGHT :" + " R " + rightBox.red + " G " + rightBox.green+ " B " + rightBox.blue);
             opMode.telemetry.update();
         }
 

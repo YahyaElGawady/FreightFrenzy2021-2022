@@ -13,6 +13,7 @@ public class Sucker extends RobotComponent {
     public DcMotor arm;
 
     boolean buttonIsHeld  = false;
+    boolean neutralButtonIsHeld = false;
     boolean positionIn = false;
 
     // For Generated Auto Support
@@ -41,7 +42,7 @@ public class Sucker extends RobotComponent {
                 arm.setTargetPosition(-200);
                 break;
             case INTAKE_POSITION:
-                arm.setTargetPosition(-570);
+                arm.setTargetPosition(-850);
                 break;
             case OUTTAKE_POSITION:
                 arm.setTargetPosition(100);
@@ -74,6 +75,14 @@ public class Sucker extends RobotComponent {
             buttonIsHeld = false;
         }
     }
+    public void moveArmToNeutral(boolean button){
+
+        if(button && !neutralButtonIsHeld){
+            setArmPosition(Position.START_POSITION,.7);
+        }
+        neutralButtonIsHeld = button;
+    }
+
     public void stopSucker(){ sucker.setPower(0); }
     public void suck (double speed){
         sucker.setPower(speed);

@@ -51,6 +51,7 @@ public class MainTeleOp extends LinearOpMode {
             if(gamepad1.b) Base.drivetrain.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+            Base.sucker.moveArmToNeutral(gamepad1.left_bumper);
 
             Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);

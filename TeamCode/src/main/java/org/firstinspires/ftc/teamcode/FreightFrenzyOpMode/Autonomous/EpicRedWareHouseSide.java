@@ -17,7 +17,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
     public static final double COMMON_POS_TO_WALL = 0;
     public static final double INCHES_TO_DEPOSIT_BOTTOM = 4;
     public static final double INCHES_TO_DEPOSIT_MIDDLE = 0;
-    public static final double INCHES_TO_DEPOSIT_TOP = -6;
+    public static final double INCHES_TO_DEPOSIT_TOP = -7;
     public static final double INCHES_TO_PARK = 36;
     //    public static final double STRAFE_TO_PARK = 5;
     public static final int STRAIGHT = 0;
@@ -26,7 +26,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
     public static final double LEFT_WHEEL_ERROR = 1 /** 29.0/55.0*/;
     @Override
     public void runOpMode() {
-        base = new FullBase(telemetry, this, hardwareMap, false, true);
+        base = new FullBase(telemetry, this, hardwareMap, false, true, false);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
@@ -36,7 +36,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
         base.sucker.setArmPosition(Sucker.Position.START_POSITION, .3);
         sleep(300);
         //base.duckDetector.takePicture();
-        switch (/*base.duckDetector.mostDuckyArea()*/ DuckDetector.DuckLocation.RIGHT){
+        switch (base.duckDetector.mostDuckyArea()){
             case LEFT: {
                 // bottom
                 // bottom
@@ -93,7 +93,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
                         -INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
+                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, BACKWARDS, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -(INCHES_TO_DEPOSIT_MIDDLE + 1) * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_MIDDLE - 1, -INCHES_TO_DEPOSIT_MIDDLE - 1, -INCHES_TO_DEPOSIT_MIDDLE - 1, BACKWARDS, 0);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
@@ -121,13 +121,14 @@ public class EpicRedWareHouseSide extends LinearOpMode {
             case RIGHT: {
 //                top
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -(INCHES_TO_HUB - 4)* LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 4), (INCHES_TO_HUB - 4), -(INCHES_TO_HUB - 4 ),STRAIGHT,0);
+                        -(INCHES_TO_HUB - 3)* LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 3), (INCHES_TO_HUB - 3), -(INCHES_TO_HUB - 3 ),STRAIGHT,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         INCHES_TO_DEPOSIT_TOP* LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
                 base.outtakeBucket.slide(-550);
-                while(base.outtakeBucket.slider.isBusy());
+               // while(base.outtakeBucket.slider.isBusy());
+                sleep(1000);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 //base.sucker.setArmPosition(Sucker.Position.INTAKE_POSITION, .3);
                 sleep(1000);
@@ -140,7 +141,7 @@ public class EpicRedWareHouseSide extends LinearOpMode {
 //                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, BACKWARDS, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, -4,-4,-4 , -4, BACKWARDS, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -(INCHES_TO_HUB - 10) * LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 10), (INCHES_TO_HUB - 10), -(INCHES_TO_HUB - 10),BACKWARDS,0);
+                        -(INCHES_TO_HUB - 8) * LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 8), (INCHES_TO_HUB - 8), -(INCHES_TO_HUB - 8),BACKWARDS,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         INCHES_TO_PARK * LEFT_WHEEL_ERROR, INCHES_TO_PARK, INCHES_TO_PARK, INCHES_TO_PARK, BACKWARDS, 0);
 

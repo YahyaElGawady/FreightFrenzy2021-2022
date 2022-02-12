@@ -26,7 +26,7 @@ public class EpicRedDuckySide extends LinearOpMode {
     public static final double LEFT_WHEEL_ERROR = 1 /**29.0/55.0*/;
     @Override
     public void runOpMode(){
-        base = new FullBase(telemetry, this, hardwareMap, false, true);
+        base = new FullBase(telemetry, this, hardwareMap, false, true,true);
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         base.init();
