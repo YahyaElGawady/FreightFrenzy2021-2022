@@ -36,7 +36,7 @@ public class EpicRedDuckySide extends LinearOpMode {
         base.sucker.setArmPosition(Sucker.Position.START_POSITION, .3);
         sleep(300);
         //base.duckDetector.takePicture();
-        switch(/*base.duckDetector.mostDuckyArea()*/ DuckDetector.DuckLocation.LEFT){
+        switch(base.duckDetector.mostDuckyArea()){
             case LEFT: {
                 // bottom
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
@@ -54,7 +54,7 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6,
                         INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, TURN_TO_CAROUSEL, 0);
-                base.duckeySpinner.spin(.4,  0);
+                base.duckeySpinner.spin(.3,  0);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, (-INCHES_TO_PARK)*LEFT_WHEEL_ERROR, -INCHES_TO_PARK,

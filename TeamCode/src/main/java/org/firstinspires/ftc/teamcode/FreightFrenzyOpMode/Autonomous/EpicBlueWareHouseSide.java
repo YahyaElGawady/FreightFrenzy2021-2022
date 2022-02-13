@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.FullBase;
 public class EpicBlueWareHouseSide extends LinearOpMode{
     FullBase base;
 
-    public static final double INCHES_TO_HUB = -36;
+    public static final double INCHES_TO_HUB = -33;
     public static final double COMMON_POS_TO_WALL = 0;
     public static final double INCHES_TO_DEPOSIT_BOTTOM = 4;
     public static final double INCHES_TO_DEPOSIT_MIDDLE = 3;
@@ -43,7 +43,7 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
 //        base.drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
 //                -INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, INCHES_TO_HUB_TURN, -INCHES_TO_HUB_TURN);
 //        base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_FACE_HUB);
-        switch(/**base.duckDetector.mostDuckyArea()*/DuckDetector.DuckLocation.RIGHT){
+        switch(base.duckDetector.mostDuckyArea()){
             case LEFT: {
                 // bottom
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, INCHES_TO_BOTTOM, TURN_TO_FACE_HUB, 0);
