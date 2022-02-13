@@ -44,7 +44,7 @@ public class AutonomousBuilder{
             function = consumer;
             this.components = components;
         }
-//        @SuppressLint("NewApi")
+        @SuppressLint("NewApi")
         @Override
         public void execute(FullBase base){
             long begin = System.nanoTime();
@@ -128,7 +128,7 @@ public class AutonomousBuilder{
             this.function = function;
         }
 
-//        @SuppressLint("NewApi")
+        @SuppressLint("NewApi")
         @Override
         public void execute(FullBase base){
             RetType retType = function.apply(base);
