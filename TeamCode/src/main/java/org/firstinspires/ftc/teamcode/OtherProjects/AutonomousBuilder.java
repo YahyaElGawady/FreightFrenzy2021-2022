@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.OtherProjects;
 
 import android.annotation.SuppressLint;
-import android.text.style.TabStopSpan;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
@@ -10,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
