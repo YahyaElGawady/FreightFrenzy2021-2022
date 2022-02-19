@@ -106,28 +106,28 @@ OpMode opMode;
 
     CustomPipeline pipeline;
 
-    private final Point BLUE_LEFT_LEFT_TL    = new Point(0,60);
-    private final Point BLUE_LEFT_LEFT_BR    = new Point(55, 100);
-    private final Point BLUE_LEFT_MIDDLE_TL    = new Point(130,60);
-    private final Point BLUE_LEFT_MIDDLE_BR    = new Point(185, 100);
+    private final Point BLUE_LEFT_LEFT_TL    = new Point(0,130);
+    private final Point BLUE_LEFT_LEFT_BR    = new Point(55, 170);
+    private final Point BLUE_LEFT_MIDDLE_TL    = new Point(130,130);
+    private final Point BLUE_LEFT_MIDDLE_BR    = new Point(185, 170);
 
-    private final Point BLUE_RIGHT_LEFT_TL    = new Point(0,70);
-    private final Point BLUE_RIGHT_LEFT_BR   = new Point(55, 110);
-    private final Point BLUE_RIGHT_MIDDLE_TL    = new Point(130,70);
-    private final Point BLUE_RIGHT_MIDDLE_BR  = new Point(185, 110);
-
-
+    private final Point BLUE_RIGHT_LEFT_TL    = new Point(0,130);
+    private final Point BLUE_RIGHT_LEFT_BR   = new Point(55, 170);
+    private final Point BLUE_RIGHT_MIDDLE_TL    = new Point(130,130);
+    private final Point BLUE_RIGHT_MIDDLE_BR  = new Point(185, 170);
 
 
-    private final Point RED_RIGHT_MIDDLE_TL    = new Point(80, 80);
-    private final Point RED_RIGHT_MIDDLE_BR    = new Point(135,130);
-    private final Point RED_RIGHT_RIGHT_TL    = new Point(230,70);
-    private final Point RED_RIGHT_RIGHT_BR    = new Point(250, 110);
 
-    private final Point RED_LEFT_MIDDLE_TL    = new Point(80, 80);
-    private final Point RED_LEFT_MIDDLE_BR    = new Point(135,130);
-    private final Point RED_LEFT_RIGHT_TL    = new Point(230,65);
-    private final Point RED_LEFT_RIGHT_BR    = new Point(275, 115);
+
+    private final Point RED_RIGHT_MIDDLE_TL    = new Point(80, 130);
+    private final Point RED_RIGHT_MIDDLE_BR    = new Point(120,170);
+    private final Point RED_RIGHT_RIGHT_TL    = new Point(210,130);
+    private final Point RED_RIGHT_RIGHT_BR    = new Point(250, 170);
+
+    private final Point RED_LEFT_MIDDLE_TL    = new Point(80, 140);
+    private final Point RED_LEFT_MIDDLE_BR    = new Point(135,180);
+    private final Point RED_LEFT_RIGHT_TL    = new Point(230,140);
+    private final Point RED_LEFT_RIGHT_BR    = new Point(275, 180);
 
     private Point middleTL;
     private Point middleBR;
@@ -175,8 +175,8 @@ OpMode opMode;
 
     public DuckLocation mostDuckyArea(){
 
-        int middleBoxValue = middleBox.blue;
-        int rightBoxValue = rightBox.blue;
+        int middleBoxValue = middleBox.getBlack();
+        int rightBoxValue = rightBox.getBlack();
 
         if (show_value){
             opMode.telemetry.addData("Middle Box Value: ", middleBoxValue);
@@ -184,10 +184,10 @@ OpMode opMode;
         }
         int dif = middleBoxValue - rightBoxValue;
         if(isRed && !isLeft) {
-            if (Math.abs(dif) <= 16) {
+            if (dif <= 0) {
                 opMode.telemetry.addLine("MIDDLE");
                 return DuckLocation.MIDDLE;
-            } else if (Math.abs(dif) < 35) {
+            } else if (Math.abs(dif) < 240) {
                 opMode.telemetry.addLine("LEFT");
                 return DuckLocation.LEFT;
             } else{
@@ -195,10 +195,10 @@ OpMode opMode;
                 return DuckLocation.RIGHT;
             }
         } else if(isRed && isLeft) {
-            if (dif < -10) {
+            if (dif < -50) {
                 opMode.telemetry.addLine("MIDDLE");
                 return DuckLocation.MIDDLE;
-            } else if (dif < 10) {
+            } else if (dif < 50) {
                 opMode.telemetry.addLine("LEFT");
                 return DuckLocation.LEFT;
             } else
@@ -207,10 +207,10 @@ OpMode opMode;
                 return DuckLocation.RIGHT;
             }
         } else if(!isRed && !isLeft) {
-            if (dif > 10) {
+            if (dif > 50) {
                 opMode.telemetry.addLine("MIDDLE");
                 return DuckLocation.MIDDLE;
-            } else if (dif < -10) {
+            } else if (dif < -50) {
                 opMode.telemetry.addLine("RIGHT");
                 return DuckLocation.RIGHT;
             } else{
@@ -218,10 +218,10 @@ OpMode opMode;
                 return DuckLocation.LEFT;
             }
         } else {
-            if (dif > 20) {
+            if (dif > 50) {
                 opMode.telemetry.addLine("MIDDLE");
                 return DuckLocation.MIDDLE;
-            } else if (dif < -20) {
+            } else if (dif < -50) {
                 opMode.telemetry.addLine("RIGHT");
                 return DuckLocation.RIGHT;
             } else{
@@ -322,7 +322,7 @@ class RGB {
     {
         blue = b;
     }
-    public int getYellow(){
-        return green + blue;
+    public int getBlack(){
+        return green + blue + red;
     }
 }

@@ -47,13 +47,14 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 sleep(1000);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.NEUTRAL);
+                sleep(500);
                 base.sucker.setArmPosition(Sucker.Position.OUTTAKE_POSITION, .3);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM), STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, TURN_TO_CAROUSEL, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, TURN_TO_CAROUSEL, 0);
                 base.duckeySpinner.spin(.3,  0);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
@@ -105,7 +106,7 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.getTelemetry().update();
                 //base.sucker.setArmPosition(Sucker.Position.INTAKE_POSITION, .3);
                 sleep(1000);
-                base.outtakeBucket.slide(10);
+                base.outtakeBucket.slide(-10);
                 base.getTelemetry().addLine("SLide");
                 base.getTelemetry().update();
                 while(base.outtakeBucket.slider.isBusy());

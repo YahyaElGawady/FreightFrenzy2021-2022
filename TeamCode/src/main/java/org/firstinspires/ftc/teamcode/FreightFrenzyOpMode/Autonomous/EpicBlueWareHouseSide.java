@@ -18,10 +18,10 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
 
     public static final double INCHES_TO_HUB = -33;
     public static final double COMMON_POS_TO_WALL = 0;
-    public static final double INCHES_TO_DEPOSIT_BOTTOM = 4;
-    public static final double INCHES_TO_DEPOSIT_MIDDLE = 3;
-    public static final double INCHES_TO_DEPOSIT_TOP = -7;
-    public static final double INCHES_TO_PARK = 36;
+    public static final double INCHES_TO_DEPOSIT_BOTTOM = 2;
+    public static final double INCHES_TO_DEPOSIT_MIDDLE = 1;
+    public static final double INCHES_TO_DEPOSIT_TOP = 3;
+    public static final double INCHES_TO_PARK = 32;
     //    public static final double STRAFE_TO_PARK = 5;
     public static final int STRAIGHT = 0;
     public static final int FORWARDS_ALT = -360;
@@ -51,10 +51,10 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
 //                sleep(300);
 //                base.outtakeBucket.dump(true);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, -INCHES_TO_BOTTOM, TURN_TO_FACE_HUB, 0);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.4,
                         -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
-//                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-//                        -INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                        -INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
@@ -69,7 +69,7 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, BACKWARDS, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -(INCHES_TO_HUB - 8) * LEFT_WHEEL_ERROR, INCHES_TO_HUB - 8, INCHES_TO_HUB - 8, -(INCHES_TO_HUB - 8),BACKWARDS,0);
+                        -(INCHES_TO_HUB - 6) * LEFT_WHEEL_ERROR, INCHES_TO_HUB - 7, INCHES_TO_HUB - 7, -(INCHES_TO_HUB - 7),BACKWARDS,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -INCHES_TO_PARK * LEFT_WHEEL_ERROR, -INCHES_TO_PARK, -INCHES_TO_PARK, -INCHES_TO_PARK, BACKWARDS, 0);
 
@@ -118,12 +118,14 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
                 sleep(400);
                 base.sucker.setArmPosition(Sucker.Position.OUTTAKE_POSITION, .3);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                        -5 * LEFT_WHEEL_ERROR, 5, 5, -5,STRAIGHT,0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         1 * LEFT_WHEEL_ERROR, 1, 1, 1, STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, BACKWARDS, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -(INCHES_TO_HUB - 6) * LEFT_WHEEL_ERROR, INCHES_TO_HUB - 6, INCHES_TO_HUB - 6, -(INCHES_TO_HUB - 6),BACKWARDS,0);
+                        -(INCHES_TO_HUB - 8) * LEFT_WHEEL_ERROR, INCHES_TO_HUB - 8, INCHES_TO_HUB - 8, -(INCHES_TO_HUB - 8),BACKWARDS,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -INCHES_TO_PARK * LEFT_WHEEL_ERROR, -INCHES_TO_PARK, -INCHES_TO_PARK, -INCHES_TO_PARK, BACKWARDS, 0);
 
@@ -141,8 +143,8 @@ public class EpicBlueWareHouseSide extends LinearOpMode{
 //                base.outtakeBucket.dump(true);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -INCHES_TO_HUB - 4 * LEFT_WHEEL_ERROR, INCHES_TO_HUB + 4, INCHES_TO_HUB + 4, -INCHES_TO_HUB - 4,STRAIGHT,0);
-//                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-//                        -INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                        INCHES_TO_DEPOSIT_TOP * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, STRAIGHT, 0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,

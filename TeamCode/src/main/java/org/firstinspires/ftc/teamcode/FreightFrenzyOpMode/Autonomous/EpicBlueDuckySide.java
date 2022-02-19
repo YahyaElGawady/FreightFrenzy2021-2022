@@ -14,7 +14,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
 
     public static final double INCHES_TO_HUB = -36;
     public static final double COMMON_POS_TO_WALL = 25;
-    public static final double INCHES_TO_DEPOSIT_BOTTOM = -3.5 ;
+    public static final double INCHES_TO_DEPOSIT_BOTTOM = -5 ;
     public static final double INCHES_TO_DEPOSIT_MIDDLE = -5
             ;
     public static final double INCHES_TO_DEPOSIT_TOP = -2;
@@ -51,14 +51,15 @@ public class EpicBlueDuckySide extends LinearOpMode{
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 sleep(1000);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.NEUTRAL);
+                sleep(400);
                 base.sucker.setArmPosition(Sucker.Position.OUTTAKE_POSITION, .3);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, TURN_TO_CAROUSEL, 0);
-                base.duckeySpinner.spin(0,  .3);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1, TURN_TO_CAROUSEL, 0);
+                base.duckeySpinner.spin(0,  .15);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 140);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
@@ -93,9 +94,9 @@ public class EpicBlueDuckySide extends LinearOpMode{
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 15);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 2)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 2,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -2, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 2, TURN_TO_CAROUSEL + 7, 0);
-                base.duckeySpinner.spin(0,  .3);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 4,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -4, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4, TURN_TO_CAROUSEL + 7, 0);
+                base.duckeySpinner.spin(0,  .2);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 110);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
@@ -130,7 +131,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 8);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 4,
                         INCHES_TO_CAROUSEL + INCHES_TO_PARK -4, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4, TURN_TO_CAROUSEL + 7, 0);
-                base.duckeySpinner.spin(0,  .3);
+                base.duckeySpinner.spin(0,  .2);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 110);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
