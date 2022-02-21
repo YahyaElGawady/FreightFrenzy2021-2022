@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import org.firstinspires.ftc.teamcode.FullBase;
 
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,8 +15,10 @@ import java.util.function.Function;
 
 public class AutonomousBuilder{
     String name;
-    Path path_to_auto;
-    DataOutputStream out;
+//    Path path_to_auto;
+    String path_to_auto;
+//    DataOutputStream out;
+    FileOutputStream out;
 
     public static final String PACKAGE =
             "package org.firstinspires.ftc.teamcode.FreightFrenzyOpMode.Autonomous;\n\n";
@@ -31,18 +34,24 @@ public class AutonomousBuilder{
         void execute(FullBase base);
     }
     public static class TimerTask implements Task{
-        Consumer<FullBase> function;
-        String[] components;
-        static DataOutputStream out;
+        @FunctionalInterface
+        public interface FunctionType{
+            void accept(FullBase base);
+        }
 
-        public static void init(DataOutputStream out){
+//        Consumer<FullBase> function;
+        FunctionType function;
+        String[] components;
+//        static DataOutputStream out;
+        static FileOutputStream out;
+        public static void init(/*DataOutputStream*/FileOutputStream out){
             EncoderTask.out = out;
         }
-        public TimerTask(Consumer<FullBase> consumer, String... components){
+        public TimerTask(/*Consumer<FullBase>*/ FunctionType consumer, String... components){
             function = consumer;
             this.components = components;
         }
-        @SuppressLint("NewApi")
+//        @SuppressLint("NewApi")
         @Override
         public void execute(FullBase base){
             long begin = System.nanoTime();
@@ -50,14 +59,14 @@ public class AutonomousBuilder{
             long end = System.nanoTime();
             try {
                 for (String s : components) {
-                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(1);\n", s));
+                    write(out, String.format("\t\t%s.setPowerInAuto(1);\n", s));
                 }
-                out.writeBytes(String.format("\t\ttry{Thread.sleep(%d);}catch(Exception e){}\n",
+                write(out, String.format("\t\ttry{Thread.sleep(%d);}catch(Exception e){}\n",
                         end - begin));
                 for(String s : components){
-                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(0);\n", s));
+                    write(out, String.format("\t\t%s.setPowerInAuto(0);\n", s));
                 }
-//                out.writeBytes();("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
+//                write(out, );("\t\ttry{Thread.sleep(500);}catch(Exception e){}");
             } catch(Exception e){}
         }
     }
@@ -85,13 +94,17 @@ public class AutonomousBuilder{
     public static int[] encoders(int... encoders){
         return encoders;
     }
-
+    private static void write(FileOutputStream out, String s) throws IOException{
+        out.write(s.getBytes());
+    }
     public static class EncoderTask implements Task{
-        static DataOutputStream out;
+//        static DataOutputStream out;
+        static FileOutputStream out;
 
-        public static void init(DataOutputStream out){
+        public static void init(/*DataOutputStream*/FileOutputStream out){
             EncoderTask.out = out;
         }
+
         public static class RetType{
             public ChildComponent[]  childComponents;
             public MainComponent[]   mainComponents;
@@ -120,44 +133,48 @@ public class AutonomousBuilder{
                 this.encoders  = encoders;
             }
         }
-        Function<FullBase, RetType> function;
-
-        public EncoderTask(Function<FullBase, RetType> function){
+        @FunctionalInterface
+        public interface FunctionType{
+            RetType apply(FullBase base);
+        }
+//        Function<FullBase, RetType> function;
+        FunctionType function;
+        public EncoderTask(/*Function<FullBase, RetType>*/FunctionType function){
             this.function = function;
         }
 
-        @SuppressLint("NewApi")
+//        @SuppressLint("NewApi")
         @Override
         public void execute(FullBase base){
             RetType retType = function.apply(base);
             try{
                 for(ChildComponent info: retType.childComponents){
-                    out.writeBytes(String.format("\t\t%s.setPowerInAuto(1);\n", info.component));
+                    write(out, String.format("\t\t%s.setPowerInAuto(1);\n", info.component));
                 }
                 for(MainComponent info: retType.mainComponents){
-                    out.writeBytes(
-                            String.format("\t\t%s.setTargetPosition(new int[]{", info.component));
-                    out.writeInt(info.encoders[0]);
+                    write(out,
+                            String.format("\t\t%s.setTargetPosition(new int[]{%d", info.component, info.encoders[0]));
+//                    out.writeInt(info.encoders[0]);
                     for(int i = 1; i < info.encoders.length; ++i){
-                        out.writeBytes(String.format(",%d", info.encoders[i]));
+                        write(out, String.format(",%d", info.encoders[i]));
                     }
-                    out.writeBytes("});\n");
+                    write(out, "});\n");
                 }
 
-                out.writeBytes(
+                write(out,
                         String.format("\t\twhile(%s.isBusy()",
                                 retType.mainComponents[0].component));
                 for(int i = 1; i < retType.mainComponents.length; ++i){
-                    out.writeBytes(
+                    write(out,
                             String.format(" || %s.isBusy()",
                                     retType.mainComponents[i].component));
                 }
-                out.writeBytes("){}\n");
+                write(out, "){}\n");
                 for(ChildComponent info: retType.childComponents){
-                    out.writeBytes(
+                    write(out,
                             String.format("\t\t%s.setPowerInAuto(0);\n", info.component));
                 }
-//                out.writeBytes();("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
+//                write(out, );("\t\ttry{Thread.sleep(500);}catch(Exception e){}\n");
             } catch(Exception e){}
         }
     }
@@ -179,7 +196,8 @@ public class AutonomousBuilder{
             base.getTelemetry().update();
             this.name = name;
             try {
-                this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
+//                this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
+                this.path_to_auto = PATH_TO_AUTOS + name + ".java";
             } catch (Exception e) {
                 base.getTelemetry().addLine(e.getMessage());
                 base.getTelemetry().update();
@@ -193,8 +211,9 @@ public class AutonomousBuilder{
             this.taskDescriptions = new String[numTasks];
 
             try {
-                this.out = new DataOutputStream(
-                        Files.newOutputStream(path_to_auto));
+//                this.out = new DataOutputStream(
+//                        Files.newOutputStream(path_to_auto));
+                this.out = new FileOutputStream(path_to_auto);
             } catch (Exception e) {
                 base.getTelemetry().addLine(e.getMessage());
                 base.getTelemetry().update();
@@ -215,9 +234,9 @@ public class AutonomousBuilder{
     }
     public boolean createStartOfAuto(){
         try {
-            out.writeBytes(PACKAGE);
-            out.writeBytes(IMPORTS);
-            out.writeBytes(
+            write(out, PACKAGE);
+            write(out, IMPORTS);
+            write(out,
                     String.format(
                             "\n/************************\nGenerated Auto: %1$s\nMade by: " +
                             "FTC Team Direct Current 5893\n\n\"I don't even know what street " +
@@ -225,7 +244,7 @@ public class AutonomousBuilder{
                             "****************/\n@Autonomous(name=\"%1$s\")\n" +
                             "public class %1$s extends LinearOpMode{\n"
                             , name));
-            out.writeBytes(
+            write(out,
                     "\tFullBase base;\n\n\t@Override public void runOpMode(){" +
                     "\n\t\tbase = new FullBase(telemetry, this, hardwareMap, false);\n\t\t" +
                     "base.init();\n\t\ttelemetry.addData(\"Status\", \"Initialized\");\n\t\t" +
@@ -236,7 +255,7 @@ public class AutonomousBuilder{
     }
     public void createEndOfAuto(){
         try{
-            out.writeBytes("\t}\n}");
+            write(out, "\t}\n}");
         } catch(Exception e){}
         finally{
             try {

@@ -15,7 +15,7 @@ public class FullBase extends RobotBase {
     public DuckeySpinner duckeySpinner;
     public DuckDetector duckDetector;
 
-    private RobotComponent[] components = new RobotComponent[5];
+    private RobotComponent[] components = new RobotComponent[4];
 
     public double rpm = 0;
     public static final double inchesToWobble = 18.5;
@@ -89,7 +89,7 @@ public class FullBase extends RobotBase {
         duckDetector = new DuckDetector(opMode, isRed, isLeft);
         telemetry.addLine("DuckDetector inited");
         telemetry.update();
-        components[4] = duckDetector;
+//        components[4] = duckDetector;
         outtakeBucket.dump(true);
 
     }

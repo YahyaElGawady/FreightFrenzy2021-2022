@@ -124,10 +124,10 @@ OpMode opMode;
     private final Point RED_RIGHT_RIGHT_TL    = new Point(210,130);
     private final Point RED_RIGHT_RIGHT_BR    = new Point(250, 170);
 
-    private final Point RED_LEFT_MIDDLE_TL    = new Point(80, 140);
-    private final Point RED_LEFT_MIDDLE_BR    = new Point(135,180);
-    private final Point RED_LEFT_RIGHT_TL    = new Point(230,140);
-    private final Point RED_LEFT_RIGHT_BR    = new Point(275, 180);
+    private final Point RED_LEFT_MIDDLE_TL    = new Point(50, 140);
+    private final Point RED_LEFT_MIDDLE_BR    = new Point(105,180);
+    private final Point RED_LEFT_RIGHT_TL    = new Point(200,140);
+    private final Point RED_LEFT_RIGHT_BR    = new Point(245, 180);
 
     private Point middleTL;
     private Point middleBR;
