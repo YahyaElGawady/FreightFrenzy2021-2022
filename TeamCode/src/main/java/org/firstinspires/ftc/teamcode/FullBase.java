@@ -89,7 +89,7 @@ public class FullBase extends RobotBase {
         duckDetector = new DuckDetector(opMode, isRed, isLeft);
         telemetry.addLine("DuckDetector inited");
         telemetry.update();
-        components[4] = duckDetector;
+      //  components[4] = duckDetector;
         outtakeBucket.dump(true);
 
     }

@@ -93,9 +93,9 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -(INCHES_TO_HUB + 2)* LEFT_WHEEL_ERROR, INCHES_TO_HUB + 2, INCHES_TO_HUB + 2, -INCHES_TO_HUB -2,STRAIGHT,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED + .2,
-                        INCHES_TO_DEPOSIT_TOP * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_TOP * .95, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, STRAIGHT, 0);
+                        (INCHES_TO_DEPOSIT_TOP - 2)* LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_TOP - 2 , INCHES_TO_DEPOSIT_TOP - 2, INCHES_TO_DEPOSIT_TOP - 2, STRAIGHT, 0);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
-                base.outtakeBucket.slide(-510);
+                base.outtakeBucket.slide(-150);
                 base.getTelemetry().addLine("SLide");
                 base.getTelemetry().update();
                 while(base.outtakeBucket.slider.isBusy());
@@ -121,8 +121,8 @@ public class EpicRedDuckySide extends LinearOpMode {
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12 ), STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 8);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 7,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, TURN_TO_CAROUSEL + 7, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 6,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6, TURN_TO_CAROUSEL + 6, 0);
                 base.duckeySpinner.spin(.3,  0);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);

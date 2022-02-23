@@ -44,10 +44,10 @@ public class EpicBlueDuckySide extends LinearOpMode{
             case LEFT: {
                 // bottom
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, -INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
+                        -INCHES_TO_HUB - 2* LEFT_WHEEL_ERROR, INCHES_TO_HUB + 2, INCHES_TO_HUB  + 2, -INCHES_TO_HUB - 2,STRAIGHT,0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                        INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, BACKWARDS, 0);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 sleep(1000);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.NEUTRAL);
@@ -57,8 +57,8 @@ public class EpicBlueDuckySide extends LinearOpMode{
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7.1, TURN_TO_CAROUSEL, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8, TURN_TO_CAROUSEL, 0);
                 base.duckeySpinner.spin(0,  .15);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 140);
                 sleep(4000);
@@ -78,9 +78,9 @@ public class EpicBlueDuckySide extends LinearOpMode{
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        (INCHES_TO_DEPOSIT_MIDDLE) * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE , INCHES_TO_DEPOSIT_MIDDLE , INCHES_TO_DEPOSIT_MIDDLE , BACKWARDS, 0);
+                        (INCHES_TO_DEPOSIT_MIDDLE + 3) * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE + 3 , INCHES_TO_DEPOSIT_MIDDLE + 3 , INCHES_TO_DEPOSIT_MIDDLE + 3 , BACKWARDS, 0);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
-                base.outtakeBucket.slide(OuttakeBucket.MIDDLE);
+                base.outtakeBucket.slide(-150);
                 while(base.outtakeBucket.slider.isBusy());
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 sleep(1000);
@@ -94,8 +94,8 @@ public class EpicBlueDuckySide extends LinearOpMode{
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 15);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 4,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -4, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4, TURN_TO_CAROUSEL + 7, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 3.5)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 3.5,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -3.5, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 3.5, TURN_TO_CAROUSEL + 7, 0);
                 base.duckeySpinner.spin(0,  .2);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 110);
                 sleep(4000);
@@ -109,14 +109,14 @@ public class EpicBlueDuckySide extends LinearOpMode{
             case RIGHT:  {
                 //top
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -(INCHES_TO_HUB - 1)* LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 1), (INCHES_TO_HUB - 1), -(INCHES_TO_HUB - 1),STRAIGHT,0);
+                        -(INCHES_TO_HUB - 3)* LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 3), (INCHES_TO_HUB - 3), -(INCHES_TO_HUB - 3),STRAIGHT,0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
                 base.outtakeBucket.slide(-700);
                 // while(base.outtakeBucket.slider.isBusy());
-                sleep(1000);
+                sleep(2000);
                 base.outtakeBucket.dumper.setPosition(OuttakeBucket.DUMPED);
                 //base.sucker.setArmPosition(Sucker.Position.INTAKE_POSITION, .3);
                 sleep(1000);
