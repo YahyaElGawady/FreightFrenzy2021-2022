@@ -108,16 +108,17 @@ public class OuttakeBucket extends RobotComponent {
     public DcMotor slider;
 
     public boolean sliderButtonIsHeld = false;
+    public boolean halfwayButtonIsHeld = false;
     public boolean dumperButtonIsHeld = false;
     public double dumperPosition =  DUMPED;
     public int sliderPosition = BOTTOM;
 
     public int sliderTop = TOP;
 
-    public static final int    /*DOWN = 0, */BOTTOM = 0, MIDDLE = -200, TOP = -739;  // TODO: add encoder values
+    public static final int    /*DOWN = 0, */BOTTOM = 0, MIDDLE = -185, TOP = -739;  // TODO: add encoder values
     public static final double DUMPED = .3; // TODO: add position for dumping
     public static final double NEUTRAL = 1; // TODO: add position for not dumping
-    public static final double DOWN_POWER = .4;   // TODO: add slider Power
+    public static final double DOWN_POWER = .6;   // TODO: add slider Power
     public static final double UP_POWER = 1;   //  add slider Power
 
     // For Generated Auto Support
@@ -156,20 +157,20 @@ public class OuttakeBucket extends RobotComponent {
 
     }
 
-    public int nextTop(){
-        switch(sliderTop){
-            case BOTTOM: return MIDDLE;
-        }
-        return TOP;
-    }
-    public int prevTop(){
-        switch(sliderTop){
-            case TOP: return MIDDLE;
-        }
-        return BOTTOM;
-    }
+//    public int nextTop(){
+//        switch(sliderTop){
+//            case BOTTOM: return MIDDLE;
+//        }
+//        return TOP;
+//    }
+//    public int prevTop(){
+//        switch(sliderTop){
+//            case TOP: return MIDDLE;
+//        }
+//        return BOTTOM;
+//    }
     // Slides to DOWN, BOTTOM, MIDDLE, or TOP based on up or down
-    public int slideInTeleop(boolean button){
+    public int slideInTeleop(boolean button, boolean halfway){
 //        if(button) {
 //            switch(sliderPosition){
 //                case DOWN: slide(sliderTop); break;
@@ -178,21 +179,28 @@ public class OuttakeBucket extends RobotComponent {
 //        }
         if(button && !sliderButtonIsHeld){
             switch(sliderPosition){
-                case BOTTOM: slider.setPower(UP_POWER); slide(sliderTop); break;
+                case BOTTOM: slider.setPower(UP_POWER); slide(TOP); break;
+                default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
+            }
+        }
+        else if(halfway && !halfwayButtonIsHeld){
+            switch(sliderPosition){
+                case BOTTOM: slider.setPower(UP_POWER); slide(MIDDLE); break;
                 default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
             }
         }
         sliderButtonIsHeld = button;
+        halfwayButtonIsHeld = halfway;
         return sliderPosition;
     }
-    public void changeTopInTeleOp(boolean up, boolean down){
-        if(up){
-            sliderTop = nextTop();
-        }
-        else if(down){
-            sliderTop = prevTop();
-        }
-    }
+//    public void changeTopInTeleOp(boolean up, boolean down){
+//        if(up){
+//            sliderTop = nextTop();
+//        }
+//        else if(down){
+//            sliderTop = prevTop();
+//        }
+//    }
     public void slideManual(double speed){
         if(Math.abs(speed) < .1) {
             slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

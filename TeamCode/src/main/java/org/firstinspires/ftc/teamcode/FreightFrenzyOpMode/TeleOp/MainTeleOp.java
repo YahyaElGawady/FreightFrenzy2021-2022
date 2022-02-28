@@ -26,7 +26,7 @@ public class MainTeleOp extends LinearOpMode {
 
     boolean flickerPositon =true;
     boolean firstTime = true;
-    boolean slowMode = false, isSlowMode = false;
+    boolean slowMode = false, isSlowMode = false, superSlowMode = false, isSuperSlowMode = false;
     double initTime;
     int initPos;
 
@@ -49,27 +49,26 @@ public class MainTeleOp extends LinearOpMode {
             }
             isSlowMode = gamepad1.x;
 
-            Base.drivetrain.drive(forward, right, turn, slowMode);
+            Base.drivetrain.drive(forward, right, turn, slowMode, superSlowMode);
             if(gamepad1.b) Base.drivetrain.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             /*      intake      */
             Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
             if(!gamepad1.right_bumper && !gamepad1.left_bumper)
-                Base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * -.5);
+                Base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
             Base.sucker.moveArmToNeutral(gamepad1.left_bumper);
 
-            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
+//            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 Trigger: ",gamepad2.right_trigger);
             Base.getTelemetry().addData("Gamepad 2 A: ",gamepad1.a);
             Base.getTelemetry().addData("Gamepad 1 Left Trigger: ",gamepad1.left_trigger);
             Base.getTelemetry().addData("Gamepad 2 y: ",gamepad2.y);
-            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
-            if(gamepad1.right_trigger < .1)
-                Base.sucker.moveSuckerInTeleop(-gamepad1.left_trigger);
+            Base.sucker.moveSuckerInTeleop(gamepad2.right_trigger);
+            if(gamepad2.right_trigger < .1)
+                Base.sucker.moveSuckerInTeleop(-gamepad2.left_trigger);
             /*      outtake     */
-            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             Base.outtakeBucket.dump(gamepad2.y);
-            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a));
+            Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a, gamepad2.x));
             Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
             Base.getTelemetry().addData("Front Left: ", Base.drivetrain.frontLeft.getCurrentPosition());
             Base.getTelemetry().addData("Front Right: ", Base.drivetrain.frontRight.getCurrentPosition());
@@ -79,7 +78,8 @@ public class MainTeleOp extends LinearOpMode {
             Base.getTelemetry().update();
 //            Base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
             /*   ducky spinner  */
-            Base.duckeySpinner.spin(gamepad2.left_trigger, gamepad2.right_trigger);
+//            Base.duckeySpinner.spin(gamepad2.left_trigger, gamepad2.right_trigger);
+            Base.duckeySpinner.spin((gamepad2.left_bumper ? 1.0 : 0.0), (gamepad2.right_bumper ? 1.0 : 0.0));
 
         }
     }

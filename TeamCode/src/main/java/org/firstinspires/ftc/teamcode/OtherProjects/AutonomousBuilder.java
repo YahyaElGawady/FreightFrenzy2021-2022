@@ -27,7 +27,7 @@ public class AutonomousBuilder{
             "import com.qualcomm.robotcore.eventloop.opmode.Autonomous;\n"   +
             "import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n" +
             "import org.firstinspires.ftc.teamcode.FullBase;\n";
-    public static final String PATH_TO_AUTOS = "../FreightFrenzyOpMode/Autonomous/";
+    public static final String PATH_TO_AUTOS = "/";//"../FreightFrenzyOpMode/Autonomous/";
 
     public interface Task{
 //        @SuppressLint("NewApi")
@@ -192,6 +192,7 @@ public class AutonomousBuilder{
     //@SuppressLint("NewApi")
     public AutonomousBuilder(FullBase base, String name, int numTasks){
         try {
+//            Runtime.getRuntime().exec("sudo echo \"\" > " + name + ".java");
             base.getTelemetry().addLine("In AutoBuilder Ctor");
             base.getTelemetry().update();
             this.name = name;

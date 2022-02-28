@@ -48,7 +48,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 (FullBase base) -> {
                     while(!gamepad1.b) {
                         base.drivetrain.drive(-gamepad1.left_stick_y, 0,
-                                0, true);
+                                0, true, false);
 //                        STOP_BUTTON = gamepad1.b;
                     }
 
@@ -82,7 +82,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
                                 base.drivetrain.drive(0, 0,
-                                        gamepad1.right_stick_x, true);
+                                        gamepad1.right_stick_x, true, false);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 
@@ -117,7 +117,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
                                 base.drivetrain.drive(-gamepad1.left_stick_y, 0,
-                                        0, true);
+                                        0, true, false);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
 
 //                                STOP_BUTTON = gamepad1.b;
@@ -171,8 +171,8 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
-                                base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
-                                base.outtakeBucket.slideInTeleop(gamepad2.a);
+//                                base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
+                                base.outtakeBucket.slideInTeleop(gamepad2.a, gamepad2.x);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
