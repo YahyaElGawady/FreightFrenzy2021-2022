@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OtherProjects;
 
 import android.annotation.SuppressLint;
+import android.os.Environment;
 
 import org.firstinspires.ftc.teamcode.FullBase;
 
@@ -27,7 +28,19 @@ public class AutonomousBuilder{
             "import com.qualcomm.robotcore.eventloop.opmode.Autonomous;\n"   +
             "import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n" +
             "import org.firstinspires.ftc.teamcode.FullBase;\n";
-    public static final String PATH_TO_AUTOS = "/";//"../FreightFrenzyOpMode/Autonomous/";
+    public static final String PATH_TO_AUTOS = "/sdcard/";//Environment.getExternalStorageDirectory().getPath() ;//"../FreightFrenzyOpMode/Autonomous/";
+
+    private boolean canWriteToFlash() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            // Read only isn't good enough
+            return false;
+        } else {
+            return false;
+        }
+    }
 
     public interface Task{
 //        @SuppressLint("NewApi")
@@ -194,6 +207,12 @@ public class AutonomousBuilder{
         try {
 //            Runtime.getRuntime().exec("sudo echo \"\" > " + name + ".java");
             base.getTelemetry().addLine("In AutoBuilder Ctor");
+            if(!canWriteToFlash()){
+                base.getTelemetry().addLine("Error, can't write to flash drive. Make sure it is plugged in and has write permissions.");
+                base.getTelemetry().update();
+                try{Thread.sleep(1000);}catch(Exception e){}
+                System.exit(-1);
+            }
             base.getTelemetry().update();
             this.name = name;
             try {

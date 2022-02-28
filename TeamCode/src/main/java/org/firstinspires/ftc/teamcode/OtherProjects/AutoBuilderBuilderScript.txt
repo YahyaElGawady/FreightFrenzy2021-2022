@@ -1,5 +1,9 @@
-    INIT:
+<INIT>
 STOP_BUTTON    =
 AUTO_FILE_NAME =
-    TASKS:
+</INIT>
+
+<TASKS>
+
+</TASKS>
 
