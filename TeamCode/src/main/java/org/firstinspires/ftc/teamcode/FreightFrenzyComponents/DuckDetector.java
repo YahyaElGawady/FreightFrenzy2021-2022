@@ -218,10 +218,10 @@ OpMode opMode;
                 return DuckLocation.LEFT;
             }
         } else {
-            if (dif > 50) {
+            if (dif > 100) {
                 opMode.telemetry.addLine("MIDDLE");
                 return DuckLocation.MIDDLE;
-            } else if (dif < -50) {
+            } else if (dif < -100) {
                 opMode.telemetry.addLine("RIGHT");
                 return DuckLocation.RIGHT;
             } else{

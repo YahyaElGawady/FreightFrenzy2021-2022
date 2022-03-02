@@ -14,7 +14,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
 
     public static final double INCHES_TO_HUB = -36;
     public static final double COMMON_POS_TO_WALL = 25;
-    public static final double INCHES_TO_DEPOSIT_BOTTOM = -5 ;
+    public static final double INCHES_TO_DEPOSIT_BOTTOM = -6 ;
     public static final double INCHES_TO_DEPOSIT_MIDDLE = -5
             ;
     public static final double INCHES_TO_DEPOSIT_TOP = -2;
@@ -36,7 +36,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
         base.getTelemetry().update();
         waitForStart();
         base.sucker.setArmPosition(Sucker.Position.START_POSITION, 1);
-        sleep(300);
+        sleep(400);
        // base.duckDetector.s();
 //        base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                -INCHES_TO_HUB, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB, STRAIGHT, 0);
@@ -44,7 +44,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
             case LEFT: {
                 // bottom
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        -INCHES_TO_HUB - 2* LEFT_WHEEL_ERROR, INCHES_TO_HUB + 2, INCHES_TO_HUB  + 2, -INCHES_TO_HUB - 2,STRAIGHT,0);
+                        -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         INCHES_TO_DEPOSIT_BOTTOM * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, INCHES_TO_DEPOSIT_BOTTOM, BACKWARDS, 0);
@@ -54,13 +54,14 @@ public class EpicBlueDuckySide extends LinearOpMode{
                 sleep(400);
                 base.sucker.setArmPosition(Sucker.Position.OUTTAKE_POSITION, .3);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3),
-                        (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 3), BACKWARDS, 0);
+                        (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 4) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 4),
+                        (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 4 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_BOTTOM - 4 ), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 8, TURN_TO_CAROUSEL, 0);
-                base.duckeySpinner.spin(0,  .15);
-                base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 140);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6.6)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6.6,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6.6, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 6.6, TURN_TO_CAROUSEL, 0);
+                base.duckeySpinner.spin(0,  .075);
+                base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 130);
+                base.drivetrain.gyroDrive(.1, .5,.5,.5,.5, 130, 0);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
@@ -70,6 +71,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
             }; break;
 
             case MIDDLE: {
+                base.sucker.setArmPosition(Sucker.Position.START_POSITION, 1);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
                         -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
@@ -78,7 +80,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
-                        (INCHES_TO_DEPOSIT_MIDDLE + 3) * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE + 3 , INCHES_TO_DEPOSIT_MIDDLE + 3 , INCHES_TO_DEPOSIT_MIDDLE + 3 , BACKWARDS, 0);
+                        (INCHES_TO_DEPOSIT_MIDDLE + 1) * LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE + 1 , INCHES_TO_DEPOSIT_MIDDLE + 1 , INCHES_TO_DEPOSIT_MIDDLE + 1 , BACKWARDS, 0);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
                 base.outtakeBucket.slide(-150);
                 while(base.outtakeBucket.slider.isBusy());
@@ -94,8 +96,8 @@ public class EpicBlueDuckySide extends LinearOpMode{
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 3 ), BACKWARDS, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 15);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 3.5)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 3.5,
-                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -3.5, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 3.5, TURN_TO_CAROUSEL + 7, 0);
+                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 4 ,
+                        INCHES_TO_CAROUSEL + INCHES_TO_PARK -4, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4, TURN_TO_CAROUSEL + 7, 0);
                 base.duckeySpinner.spin(0,  .2);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 110);
                 sleep(4000);

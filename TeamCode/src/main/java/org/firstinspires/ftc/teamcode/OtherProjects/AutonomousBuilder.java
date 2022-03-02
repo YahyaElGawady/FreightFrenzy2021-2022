@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import org.firstinspires.ftc.teamcode.FullBase;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,7 @@ public class AutonomousBuilder{
 //    Path path_to_auto;
     String path_to_auto;
 //    DataOutputStream out;
+    File auto_file;
     FileOutputStream out;
 
     public static final String PACKAGE =
@@ -27,7 +29,7 @@ public class AutonomousBuilder{
             "import com.qualcomm.robotcore.eventloop.opmode.Autonomous;\n"   +
             "import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;\n" +
             "import org.firstinspires.ftc.teamcode.FullBase;\n";
-    public static final String PATH_TO_AUTOS = "../FreightFrenzyOpMode/Autonomous/";
+    public static final String PATH_TO_AUTOS = "/";
 
     public interface Task{
 //        @SuppressLint("NewApi")
@@ -198,6 +200,8 @@ public class AutonomousBuilder{
             try {
 //                this.path_to_auto = Paths.get(PATH_TO_AUTOS + name + ".java");
                 this.path_to_auto = PATH_TO_AUTOS + name + ".java";
+                this.auto_file = new File(path_to_auto);
+                this.auto_file.createNewFile();
             } catch (Exception e) {
                 base.getTelemetry().addLine(e.getMessage());
                 base.getTelemetry().update();
@@ -213,7 +217,7 @@ public class AutonomousBuilder{
             try {
 //                this.out = new DataOutputStream(
 //                        Files.newOutputStream(path_to_auto));
-                this.out = new FileOutputStream(path_to_auto);
+                this.out = new FileOutputStream(auto_file);
             } catch (Exception e) {
                 base.getTelemetry().addLine(e.getMessage());
                 base.getTelemetry().update();
