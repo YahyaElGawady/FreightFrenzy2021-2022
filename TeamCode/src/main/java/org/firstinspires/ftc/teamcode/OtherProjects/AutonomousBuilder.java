@@ -277,16 +277,17 @@ public class AutonomousBuilder{
         } catch (Exception e) { return false;}
         return true;
     }
-    public void createEndOfAuto(){
+    public boolean createEndOfAuto(){
         try{
             write(out, "\t}\n}");
         } catch(Exception e){}
-        finally{
+        finally {
             try {
                 out.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                return false;
             }
         }
+        return true;
     }
 }
