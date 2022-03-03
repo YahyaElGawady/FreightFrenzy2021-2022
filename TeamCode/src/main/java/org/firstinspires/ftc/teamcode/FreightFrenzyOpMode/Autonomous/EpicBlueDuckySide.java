@@ -134,7 +134,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 4,
                         INCHES_TO_CAROUSEL + INCHES_TO_PARK -4, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 4, TURN_TO_CAROUSEL + 7, 0);
                 base.duckeySpinner.spin(0,  .2);
-                base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 110);
+                base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 120);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL);
