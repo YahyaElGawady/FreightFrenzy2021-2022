@@ -58,6 +58,17 @@ public class Sucker extends RobotComponent {
         arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
+    public void armMovementsInTeleop(boolean fullRange, boolean neutralPosition, double manualPower){
+        if(fullRange){
+            moveArmInTeleop(fullRange);
+        } else if(neutralPosition){
+            moveArmToNeutral(neutralPosition);
+        }
+        else{
+            moveArmManual(manualPower);
+        }
+
+    }
     public void moveArmInTeleop(boolean button){
 
         if(button && !buttonIsHeld){
@@ -76,8 +87,11 @@ public class Sucker extends RobotComponent {
         }
     }
     public void moveArmManual(double power){
-        if(!sucker.isBusy()) {
-            arm.setPower(power);
+        if(!arm.isBusy() || arm.getMode() == DcMotor.RunMode.RUN_USING_ENCODER) {
+            if(Math.abs(power) > .1)
+                arm.setPower(power);
+            else
+                arm.setPower(0);
             arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }

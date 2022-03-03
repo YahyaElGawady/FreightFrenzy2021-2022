@@ -49,18 +49,24 @@ public class MainTeleOp extends LinearOpMode {
                 superSlowMode = false;
             }
             else if(gamepad1.a && !isSuperSlowMode){
+                isSuperSlowMode = true;
                 superSlowMode = !superSlowMode;
                 slowMode = false;
             }
-            isSlowMode = gamepad1.x;
-            isSuperSlowMode = gamepad1.a;
+            if(!gamepad1.a)
+                isSuperSlowMode = false;
+            if(!gamepad1.x)
+                isSlowMode = false;
+//            isSlowMode = gamepad1.x;
+//            isSuperSlowMode = gamepad1.a;
 
             Base.drivetrain.drive(forward, right, turn, slowMode, superSlowMode);
             /*      intake      */
-            Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
-            if(!gamepad1.right_bumper && !gamepad2.b)
-                Base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
-            Base.sucker.moveArmToNeutral(gamepad2.b);
+//            Base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+//            if(!gamepad1.right_bumper && !gamepad2.b)
+//                Base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
+//            Base.sucker.moveArmToNeutral(gamepad2.b);
+            Base.sucker.armMovementsInTeleop(gamepad1.right_bumper, gamepad2.b,Math.pow(gamepad2.left_stick_y, 3) * .5);
 
 //            Base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
             Base.getTelemetry().addData("Gamepad 1 Trigger: ",gamepad1.right_trigger);
@@ -74,7 +80,7 @@ public class MainTeleOp extends LinearOpMode {
             /*      outtake     */
             Base.outtakeBucket.dump(gamepad2.y);
             Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a, gamepad2.x));
-            Base.outtakeBucket.slideManual(gamepad2.right_stick_y);
+            Base.outtakeBucket.slideManual(Math.pow(gamepad2.right_stick_y, 3) * .35);
             Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
             Base.getTelemetry().addData("Front Left: ", Base.drivetrain.frontLeft.getCurrentPosition());
             Base.getTelemetry().addData("Front Right: ", Base.drivetrain.frontRight.getCurrentPosition());

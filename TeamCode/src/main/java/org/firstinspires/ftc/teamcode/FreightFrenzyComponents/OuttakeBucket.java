@@ -177,20 +177,30 @@ public class OuttakeBucket extends RobotComponent {
 //                default: slide(DOWN);
 //            }
 //        }
+        if(slider.getMode() != DcMotor.RunMode.RUN_TO_POSITION)
+            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if(button && !sliderButtonIsHeld){
+            sliderButtonIsHeld = true;
             switch(sliderPosition){
                 case BOTTOM: slider.setPower(UP_POWER); slide(TOP); break;
                 default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
             }
         }
         else if(halfway && !halfwayButtonIsHeld){
+            halfwayButtonIsHeld = true;
             switch(sliderPosition){
                 case BOTTOM: slider.setPower(UP_POWER); slide(MIDDLE); break;
                 default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
             }
         }
-        sliderButtonIsHeld = button;
-        halfwayButtonIsHeld = halfway;
+        if(!button){
+            sliderButtonIsHeld = false;
+        }
+        if(!halfway){
+            halfwayButtonIsHeld = false;
+        }
+//        sliderButtonIsHeld = button;
+//        halfwayButtonIsHeld = halfway;
         return sliderPosition;
     }
 //    public void changeTopInTeleOp(boolean up, boolean down){
@@ -202,11 +212,13 @@ public class OuttakeBucket extends RobotComponent {
 //        }
 //    }
     public void slideManual(double speed){
-        if(Math.abs(speed) < .1) {
-            slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        if(Math.abs(speed) > .1) {
+            if(slider.getMode() != DcMotor.RunMode.RUN_USING_ENCODER)
+                slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             slider.setPower(speed);
         } else{
-            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            if(slider.getMode() == DcMotor.RunMode.RUN_USING_ENCODER)
+                slider.setPower(0);
         }
     }
 
