@@ -22,7 +22,7 @@ public class Sucker extends RobotComponent {
     }
     public class ARM_INTERFACE {
         public void setPowerInAuto(final double power) {
-            if (power > 0)     setArmPosition(Position.OUTTAKE_POSITION, .4);
+            if (power > 0)     setArmPosition(Position.OUTTA KE_POSITION, .4);
             else               setArmPosition(Position.INTAKE_POSITION,  1);
         }
     }
