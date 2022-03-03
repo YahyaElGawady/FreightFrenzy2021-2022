@@ -203,7 +203,7 @@ public class OuttakeBucket extends RobotComponent {
 //    }
     public void slideManual(double speed){
         if(Math.abs(speed) < .1) {
-            slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             slider.setPower(speed);
         } else{
             slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);

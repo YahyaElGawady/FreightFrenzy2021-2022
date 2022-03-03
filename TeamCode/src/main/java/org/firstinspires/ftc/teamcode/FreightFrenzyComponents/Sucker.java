@@ -71,13 +71,15 @@ public class Sucker extends RobotComponent {
             }
             positionIn = !positionIn;
         }
-        if(!button){
+        else if(!button){
             buttonIsHeld = false;
         }
     }
     public void moveArmManual(double power){
-        arm.setPower(power);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if(!sucker.isBusy()) {
+            arm.setPower(power);
+            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
     public void moveArmToNeutral(boolean button){
 
