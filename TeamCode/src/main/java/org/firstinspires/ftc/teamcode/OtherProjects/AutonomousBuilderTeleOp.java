@@ -48,7 +48,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                 (FullBase base) -> {
                     while(!gamepad1.b) {
                         base.drivetrain.drive(-gamepad1.left_stick_y, 0,
-                                0, true, false);
+                                0, false, true);
 //                        STOP_BUTTON = gamepad1.b;
                     }
 
@@ -82,7 +82,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
                                 base.drivetrain.drive(0, 0,
-                                        gamepad1.right_stick_x, true, false);
+                                        gamepad1.right_stick_x, false, true);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 
@@ -117,7 +117,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
                                 base.drivetrain.drive(-gamepad1.left_stick_y, 0,
-                                        0, true, false);
+                                        0, false, true);
                                 base.sucker.moveSuckerInTeleop(gamepad1.right_trigger);
 
 //                                STOP_BUTTON = gamepad1.b;
@@ -153,6 +153,9 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
                                 base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+                                if(!gamepad1.right_bumper && !gamepad2.b)
+                                    base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
+                                base.sucker.moveArmToNeutral(gamepad2.b);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
@@ -173,6 +176,7 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                             while(!gamepad1.b) {
 //                                base.outtakeBucket.changeTopInTeleOp(gamepad2.dpad_up, gamepad2.dpad_down);
                                 base.outtakeBucket.slideInTeleop(gamepad2.a, gamepad2.x);
+                                base.outtakeBucket.slideManual(gamepad2.right_stick_y);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;
@@ -264,6 +268,14 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
             telemetry.addData("Status", "Done executing task. Selecing...");
             telemetry.update();
         }
-        auto.createEndOfAuto();
+        if(!auto.createEndOfAuto()){
+            telemetry.addLine("Error in end of auto generation");
+            telemetry.update();
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e2) {
+            }
+            System.exit(1);
+        }
     }
 }
