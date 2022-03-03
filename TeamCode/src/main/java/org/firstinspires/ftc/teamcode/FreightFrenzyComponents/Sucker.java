@@ -87,13 +87,11 @@ public class Sucker extends RobotComponent {
         }
     }
     public void moveArmManual(double power){
-        if(!arm.isBusy() || arm.getMode() == DcMotor.RunMode.RUN_USING_ENCODER) {
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             if(Math.abs(power) > .1)
                 arm.setPower(power);
             else
                 arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
     }
     public void moveArmToNeutral(boolean button){
 
