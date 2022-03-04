@@ -152,10 +152,11 @@ public class AutonomousBuilderTeleOp extends LinearOpMode {
                         (FullBase base) ->{
 //                            STOP_BUTTON_SET = false;
                             while(!gamepad1.b) {
-                                base.sucker.moveArmInTeleop(gamepad1.right_bumper);
-                                if(!gamepad1.right_bumper && !gamepad2.b)
-                                    base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
-                                base.sucker.moveArmToNeutral(gamepad2.b);
+                                base.sucker.armMovementsInTeleop(gamepad1.right_bumper, gamepad2.b, Math.pow(gamepad2.left_stick_y, 3) * .5);
+//                                base.sucker.moveArmInTeleop(gamepad1.right_bumper);
+//                                if(!gamepad1.right_bumper && !gamepad2.b)
+//                                    base.sucker.moveArmManual(Math.pow(gamepad2.left_stick_y, 3) * .5);
+//                                base.sucker.moveArmToNeutral(gamepad2.b);
 //                                STOP_BUTTON = gamepad1.b;
                             }
 //                            STOP_BUTTON_SET = true;

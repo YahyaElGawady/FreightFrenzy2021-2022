@@ -80,7 +80,7 @@ public class MainTeleOp extends LinearOpMode {
             /*      outtake     */
             Base.outtakeBucket.dump(gamepad2.y);
             Base.getTelemetry().addData("Slider Position", Base.outtakeBucket.slideInTeleop(gamepad2.a, gamepad2.x));
-            Base.outtakeBucket.slideManual(Math.pow(gamepad2.right_stick_y, 3) * .35);
+            Base.outtakeBucket.slideManual(Math.pow(gamepad2.right_stick_y, 3) * .6);
             Base.getTelemetry().addData("Slider cURRENT pOSITION", Base.outtakeBucket.slider.getCurrentPosition());
             Base.getTelemetry().addData("Front Left: ", Base.drivetrain.frontLeft.getCurrentPosition());
             Base.getTelemetry().addData("Front Right: ", Base.drivetrain.frontRight.getCurrentPosition());

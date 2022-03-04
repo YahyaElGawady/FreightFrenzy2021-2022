@@ -100,9 +100,9 @@ public class FullBase extends RobotBase {
     public void dumpFromDuckPos(int redDucky){
         int spos = FullBase.duckLocationToSliderPosition(duckDetector.mostDuckyArea());
         if(spos == -1){
-            outtakeBucket.slide(OuttakeBucket.TOP);
+            outtakeBucket.slide(OuttakeBucket.UP_POWER, OuttakeBucket.TOP);
         }
-        else outtakeBucket.slide(spos);
+        else outtakeBucket.slide(OuttakeBucket.MIDDLE_POWER, spos);
         drivetrain.gyroTurn(Drivetrain.TURN_SPEED, 45*redDucky);
         drivetrain.moveInches(Drivetrain.DRIVE_SPEED,
                 inchesToWobble, inchesToWobble,

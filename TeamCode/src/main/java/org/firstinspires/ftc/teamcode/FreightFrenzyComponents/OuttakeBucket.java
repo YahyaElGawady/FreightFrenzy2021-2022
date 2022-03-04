@@ -120,15 +120,16 @@ public class OuttakeBucket extends RobotComponent {
     public static final double NEUTRAL = 1; // TODO: add position for not dumping
     public static final double DOWN_POWER = .6;   // TODO: add slider Power
     public static final double UP_POWER = 1;   //  add slider Power
+    public static final double MIDDLE_POWER = .7;
 
     // For Generated Auto Support
     public class SLIDER_INTERFACE{
         public void setTargetPosition(final double power){
             // Switches position based on a double power.
             switch((int)(power * 2)){
-                case 0: slide(BOTTOM);   break;
-                case 1: slide(MIDDLE); break;
-                case 2: slide(TOP); break;
+                case 0: slide(DOWN_POWER, BOTTOM);   break;
+                case 1: slide(MIDDLE_POWER, MIDDLE); break;
+                case 2: slide(UP_POWER, TOP); break;
             }
         }
     }
@@ -177,20 +178,20 @@ public class OuttakeBucket extends RobotComponent {
 //                default: slide(DOWN);
 //            }
 //        }
-        if(slider.getMode() != DcMotor.RunMode.RUN_TO_POSITION)
-            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        if(slider.getMode() != DcMotor.RunMode.RUN_TO_POSITION)
+//            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         if(button && !sliderButtonIsHeld){
             sliderButtonIsHeld = true;
             switch(sliderPosition){
-                case BOTTOM: slider.setPower(UP_POWER); slide(TOP); break;
-                default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
+                case BOTTOM: slide(UP_POWER, TOP); break;
+                default:     slide(DOWN_POWER, BOTTOM); break;
             }
         }
         else if(halfway && !halfwayButtonIsHeld){
             halfwayButtonIsHeld = true;
             switch(sliderPosition){
-                case BOTTOM: slider.setPower(UP_POWER); slide(MIDDLE); break;
-                default:     slider.setPower(DOWN_POWER); slide(BOTTOM); break;
+                case BOTTOM: slide(MIDDLE_POWER, MIDDLE); break;
+                default:     slide(DOWN_POWER, BOTTOM); break;
             }
         }
         if(!button){
@@ -221,12 +222,15 @@ public class OuttakeBucket extends RobotComponent {
                 slider.setPower(0);
         }
     }
-
     public void slide(int encoders){
-//        int targetPosition = slider.getCurrentPosition() + encoders;
         slider.setTargetPosition(encoders);
         sliderPosition = encoders;
-
+    }
+    public void slide(double power, int encoders){
+//        int targetPosition = slider.getCurrentPosition() + encoders;
+        slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slider.setPower(power);
+        slide(encoders);
 //        if(!slider.isBusy())
 //            slider.setPower(0);
 //        slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

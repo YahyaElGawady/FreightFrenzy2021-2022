@@ -15,6 +15,7 @@ public class Sucker extends RobotComponent {
     boolean buttonIsHeld  = false;
     boolean neutralButtonIsHeld = false;
     boolean positionIn = false;
+    boolean isDoingSomethingNotManual = false;
 
     // For Generated Auto Support
     public class SUCKER_INTERFACE{
@@ -22,7 +23,7 @@ public class Sucker extends RobotComponent {
     }
     public class ARM_INTERFACE {
         public void setPowerInAuto(final double power) {
-            if (power > 0)     setArmPosition(Position.OUTTA KE_POSITION, .4);
+            if (power > 0)     setArmPosition(Position.OUTTAKE_POSITION, .4);
             else               setArmPosition(Position.INTAKE_POSITION,  1);
         }
     }
@@ -39,7 +40,7 @@ public class Sucker extends RobotComponent {
     public void setArmPosition ( Position targetPositon, double speed) {
         switch (targetPositon){
             case START_POSITION:
-                arm.setTargetPosition(-250);
+                arm.setTargetPosition(-150);
                 break;
             case INTAKE_POSITION:
                 arm.setTargetPosition(-850);
@@ -60,19 +61,28 @@ public class Sucker extends RobotComponent {
 
     public void armMovementsInTeleop(boolean fullRange, boolean neutralPosition, double manualPower){
         if(fullRange){
-            moveArmInTeleop(fullRange);
+            moveArmInTeleop();
         } else if(neutralPosition){
-            moveArmToNeutral(neutralPosition);
+            moveArmToNeutral();
         }
-        else{
-            moveArmManual(manualPower);
+        else if(Math.abs(manualPower) > .1){
+//            moveArmManual(manualPower);
+            arm.setPower(manualPower);
+            arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            isDoingSomethingNotManual = false;
         }
-
+        else if(!isDoingSomethingNotManual){
+            arm.setPower(0);
+            arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            isDoingSomethingNotManual = true;
+        }
+        buttonIsHeld = fullRange;
+        neutralButtonIsHeld = neutralPosition;
     }
-    public void moveArmInTeleop(boolean button){
+    public void moveArmInTeleop(){
 
-        if(button && !buttonIsHeld){
-            buttonIsHeld = true;
+        if(!buttonIsHeld){
+//            buttonIsHeld = true;
             if(!positionIn){
                 setArmPosition(Position.INTAKE_POSITION,.4);
             }
@@ -82,23 +92,23 @@ public class Sucker extends RobotComponent {
             }
             positionIn = !positionIn;
         }
-        else if(!button){
-            buttonIsHeld = false;
-        }
+//        else if(!button){
+//            buttonIsHeld = false;
+//        }
     }
     public void moveArmManual(double power){
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            if(Math.abs(power) > .1)
-                arm.setPower(power);
-            else
-                arm.setPower(0);
+//        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            if(Math.abs(power) > .1)
+//                arm.setPower(power);
+//            else
+//                arm.setPower(0);
     }
-    public void moveArmToNeutral(boolean button){
+    public void moveArmToNeutral(){
 
-        if(button && !neutralButtonIsHeld){
+        if(!neutralButtonIsHeld){
             setArmPosition(Position.START_POSITION,.7);
         }
-        neutralButtonIsHeld = button;
+//        neutralButtonIsHeld = button;
     }
 
     public void stopSucker(){ sucker.setPower(0); }
