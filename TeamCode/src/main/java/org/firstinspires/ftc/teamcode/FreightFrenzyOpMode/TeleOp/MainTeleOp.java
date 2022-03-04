@@ -41,6 +41,7 @@ public class MainTeleOp extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()){
             /*      drivetrain      */
+            Base.outtakeBucket.resetEncoders(gamepad2.b);
             double forward = -gamepad1.left_stick_y;
             double right = gamepad1.left_stick_x;
             double turn = gamepad1.right_stick_x;

@@ -43,7 +43,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
         switch(base.duckDetector.mostDuckyArea()){
             case LEFT: {
                 // bottom
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.5,
                         -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, BACKWARDS);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
@@ -72,7 +72,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
 
             case MIDDLE: {
                 base.sucker.setArmPosition(Sucker.Position.START_POSITION, 1);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.5,
                         -INCHES_TO_HUB * LEFT_WHEEL_ERROR, INCHES_TO_HUB, INCHES_TO_HUB, -INCHES_TO_HUB,STRAIGHT,0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        -INCHES_TO_DEPOSIT_MIDDLE * LEFT_WHEEL_ERROR, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, -INCHES_TO_DEPOSIT_MIDDLE, STRAIGHT, 0);
@@ -110,7 +110,7 @@ public class EpicBlueDuckySide extends LinearOpMode{
 
             case RIGHT:  {
                 //top
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.5,
                         -(INCHES_TO_HUB - 3)* LEFT_WHEEL_ERROR, (INCHES_TO_HUB - 3), (INCHES_TO_HUB - 3), -(INCHES_TO_HUB - 3),STRAIGHT,0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
 //                        INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_TOP, INCHES_TO_DEPOSIT_BOTTOM, STRAIGHT, 0);

@@ -62,9 +62,9 @@ public class Sucker extends RobotComponent {
     public void armMovementsInTeleop(boolean fullRange, boolean neutralPosition, double manualPower){
         if(fullRange){
             moveArmInTeleop();
-        } else if(neutralPosition){
-            moveArmToNeutral();
-        }
+        } //else if(neutralPosition){
+//            moveArmToNeutral();
+//        }
         else if(Math.abs(manualPower) > .1){
 //            moveArmManual(manualPower);
             arm.setPower(manualPower);

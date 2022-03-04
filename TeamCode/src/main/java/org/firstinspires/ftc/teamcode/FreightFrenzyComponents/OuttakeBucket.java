@@ -204,6 +204,14 @@ public class OuttakeBucket extends RobotComponent {
 //        halfwayButtonIsHeld = halfway;
         return sliderPosition;
     }
+    public void resetEncoders(boolean reset){
+        if(reset){
+           slider.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            slider.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            slider.setTargetPosition(0);
+            slider.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+    }
 //    public void changeTopInTeleOp(boolean up, boolean down){
 //        if(up){
 //            sliderTop = nextTop();
