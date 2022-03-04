@@ -13,10 +13,10 @@ import org.firstinspires.ftc.teamcode.FullBase;
 public class EpicRedDuckySide extends LinearOpMode {
     FullBase base;
 
-    public static final double INCHES_TO_HUB = -36;
+    public static final double INCHES_TO_HUB = - 42;
     public static final double COMMON_POS_TO_WALL = 30;
     public static final double INCHES_TO_DEPOSIT_BOTTOM = 7;
-    public static final double INCHES_TO_DEPOSIT_MIDDLE = -9;
+    public static final double INCHES_TO_DEPOSIT_MIDDLE = -5;
     public static final double INCHES_TO_DEPOSIT_TOP = -2;
     public static final int TURN_TO_CAROUSEL = 85;
     public static final double INCHES_TO_CAROUSEL = 17.4;
@@ -90,10 +90,10 @@ public class EpicRedDuckySide extends LinearOpMode {
 //                base.duckeySpinner.spin(0,0);
 //                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, (-INCHES_TO_PARK)*LEFT_WHEEL_ERROR, -INCHES_TO_PARK,
 //                        -INCHES_TO_PARK, -INCHES_TO_PARK, TURN_TO_CAROUSEL, 0);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.5,
                         -(INCHES_TO_HUB + 2)* LEFT_WHEEL_ERROR, INCHES_TO_HUB + 2, INCHES_TO_HUB + 2, -INCHES_TO_HUB -2,STRAIGHT,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED + .2,
-                        (INCHES_TO_DEPOSIT_TOP - 2)* LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_TOP - 2 , INCHES_TO_DEPOSIT_TOP - 2, INCHES_TO_DEPOSIT_TOP - 2, STRAIGHT, 0);
+                        (INCHES_TO_DEPOSIT_MIDDLE - 2)* LEFT_WHEEL_ERROR, INCHES_TO_DEPOSIT_MIDDLE - 2 , INCHES_TO_DEPOSIT_MIDDLE - 2, INCHES_TO_DEPOSIT_MIDDLE - 2, STRAIGHT, 0);
                 base.outtakeBucket.slider.setPower(base.outtakeBucket.UP_POWER);
                 base.outtakeBucket.slide(-150);
                 base.getTelemetry().addLine("SLide");
@@ -117,7 +117,7 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.getTelemetry().update();
                 sleep(400);
                 base.sucker.setArmPosition(Sucker.Position.OUTTAKE_POSITION, .3);
-                base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED,
+                base.drivetrain.gyroDrive(.5,
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12) * LEFT_WHEEL_ERROR, (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12),
                         (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12 ), (COMMON_POS_TO_WALL - INCHES_TO_DEPOSIT_TOP - 12 ), STRAIGHT, 0);
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 8);
@@ -165,7 +165,7 @@ public class EpicRedDuckySide extends LinearOpMode {
                 base.drivetrain.gyroTurn(Drivetrain.TURN_SPEED, TURN_TO_CAROUSEL + 8);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED-.1, (INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7)*LEFT_WHEEL_ERROR, INCHES_TO_CAROUSEL + INCHES_TO_PARK  - 7,
                         INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, INCHES_TO_CAROUSEL + INCHES_TO_PARK - 7, TURN_TO_CAROUSEL + 7, 0);
-                base.duckeySpinner.spin(.3,  0);
+                base.duckeySpinner.spin(.15,  0);
                 sleep(4000);
                 base.duckeySpinner.spin(0,0);
                 base.drivetrain.gyroDrive(Drivetrain.DRIVE_SPEED, (-INCHES_TO_PARK )*LEFT_WHEEL_ERROR, -INCHES_TO_PARK,
